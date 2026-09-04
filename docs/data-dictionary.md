@@ -41,3 +41,11 @@ A finished session checkpoint must include `completed`, `incomplete`, `discoveri
 `practice_attempts` is now enforced as immutable. Item-level Cheko attempts contain only an attempt ID, visible item/set ID, topic IDs, correctness, user confidence, duration, K/C/M/A/Q/T/E/G classification, visible submitted-result reference and timestamp. They never contain a question body, options, answer, correct answer or explanation.
 
 Aggregate-only historical reports are retained as import metadata until item-level facts are available; an aggregate score display is not silently converted into per-item correctness. Every item-level attempt produces a separate mastery-evidence fact. Wrong and G items additionally produce a pending review record.
+
+## Phase 4 session contract
+
+`study_sessions.phase` follows `OBSERVE`, `DIAGNOSE`, `PLAN`, `EXECUTE`, `TEST`, `UPDATE`, `SCHEDULE`, `CHECKPOINT`. `status` is `ACTIVE`, `AWAITING_HUMAN` or `FINISHED`. The observation retains the read timestamp and required state categories; the plan retains budget, energy/load mode, exact candidate factor values, base priority, balance/energy adjustments and checkpoint reserve. Every transition carries a unique write context at the adapter boundary.
+
+`case_attempts` uses the original production fields: `case_id`, `question_source`, `user_answer`, `rubric`, `covered_points`, `missing_points`, `irrelevant_content`, `time_used`, `score_estimate`, and `review_due`. Every rubric point is source-referenced and the user answer is accepted only after submission.
+
+`essay_attempts` uses `essay_id`, `topic`, `outline_or_full`, `project_fact_ids`, `word_count`, `time_used`, `rubric_results`, `factual_risks`, and `revision_history`. Project fact content is loaded from a private, user-confirmed and redacted fact base; attempts keep IDs so factual support can be audited without inventing details.

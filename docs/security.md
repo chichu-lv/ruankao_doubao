@@ -43,3 +43,16 @@ Local model binaries, course PDFs/videos, extracted audio, transcripts and priva
 | Lost weak-signal evidence | wrong items and G-classified low-confidence correct items both schedule review |
 
 The real Phase 3 fixture stores only an already-visible submitted result ID and aggregate display metadata. It contains no question, option, answer, explanation, cookie, account credential or private endpoint.
+
+## Phase 4 decision and coaching boundary
+
+| Threat | Control |
+|---|---|
+| Plan produced from stale/absent state | complete timestamped observation required before diagnosis or plan |
+| Plan overruns the user's time | positive item durations, bounded selection and reserved checkpoint time |
+| Subject neglect | explicit 14-day ratio and days-since-subject balance signal |
+| Case answer leakage | grading requires `submitted_by_user`; controller has no answer/submit action |
+| Standard answer overwrites user reasoning | feedback preserves covered/missing/redundant/expression dimensions and gives guidance rather than replacement |
+| Fabricated company facts | confirmed and redacted fact IDs only; missing/unknown facts fail closed |
+| Fixed or hidden sprint behavior | threshold derived from exam date and remaining syllabus fraction and emitted with its rule |
+| Untraceable review priority | normalized factors, adjustments, schedule signals and reasons are returned in every derived result |

@@ -89,3 +89,21 @@ AWAITING_HUMAN  -- user answers and submits --> post-submit result
 - Unknown fields, raw HTML, question text, options, answers and explanations are rejected recursively.
 - Wrong answers require K/C/M/A/Q/T/E; low-confidence correct answers are normalized to G.
 - The Cheko adapter returns state-layer write intents; authoritative persistence continues through the Phase 1 Feishu contract.
+
+## Phase 4 learning controller
+
+```text
+complete state snapshot
+        |
+        v
+OBSERVE -> DIAGNOSE -> PLAN -> EXECUTE -> TEST -> UPDATE -> SCHEDULE -> CHECKPOINT
+                              |           ^
+                              +-- AWAITING_HUMAN (user answers/submits)
+```
+
+- Planning is impossible without a timestamped read containing profile, exam date, due reviews, 7/14/30-day score windows, progress, three-subject ratios and prior incomplete work.
+- Candidate ranking retains the exact six-factor base formula and logs distinct balance/energy multipliers. Plans reserve checkpoint time and cannot exceed the available budget.
+- The controller holds no browser answer or submit operation. It accepts only a post-action user-output reference before assessment.
+- Review dates start from 1/3/7/14/30 days and move according to evidence strength, confidence, importance, error severity and exam date.
+- Case grading is post-submission and source-bound. Essay organization is limited to confirmed, redacted fact IDs; missing or unknown facts cannot be fabricated.
+- Weekly reports are derived read models. Sprint activation is a function of exam date and syllabus progress, not a hard-coded calendar threshold.

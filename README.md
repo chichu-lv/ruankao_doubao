@@ -4,9 +4,9 @@
 
 ## 当前阶段
 
-`Phase 3 — 芝士架构安全适配：已完成（含已记录限制）`
+`Phase 4 — 学习决策引擎：已完成（含已记录限制）`
 
-真实账号审计、Phase 1 状态层、Phase 2 本地资料管线和 Phase 3 芝士架构安全适配已经完成。豆包仍是唯一对话主控；用户本人完成并提交练习，系统只在提交后导入严格限字段的结果元数据，并将错题和低置信度正确题加入复习。
+真实账号审计、状态层、本地资料管线、芝士架构安全适配和学习决策引擎已经完成。豆包仍是唯一对话主控；新增控制器强制先读状态，生成不超时且三科平衡的计划，并只从可追溯证据更新掌握度。
 
 ## 权威基线
 
@@ -65,3 +65,14 @@ Use the bundled project Python to run `scripts/phase2_healthcheck.py`. Raw cours
 - `docs/test-results/phase-3.md`
 
 Run `python3 scripts/phase3_healthcheck.py` to verify the post-submission gate, forbidden actions/content, UI contract, fallbacks and Cheko tests. The adapter has no private network client and no answer/submit operation.
+
+## Phase 4 输出
+
+- `backend/architectpass_controller/`
+- `schemas/learning-controller-v1.json`
+- `scripts/phase4_healthcheck.py`
+- `tests/unit/test_controller.py`
+- `docs/phase-4-closeout.md`
+- `docs/test-results/phase-4.md`
+
+Run `python3 scripts/phase4_healthcheck.py` to verify the fixed lifecycle, state-read gate, dynamic review baseline, anti-answer/submit boundary, essay anti-fabrication guard and Phase 4 tests.

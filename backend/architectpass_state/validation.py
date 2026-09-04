@@ -135,3 +135,48 @@ def validate_review(record: dict[str, Any]) -> None:
     require_iso_datetime(record["due_at"], "due_at")
     if not isinstance(record["priority"], (int, float)) or record["priority"] < 0:
         raise StateError("VALIDATION_ERROR", "priority must be non-negative")
+
+
+def validate_case_attempt(record: dict[str, Any]) -> None:
+    allowed = {
+        "case_id", "question_source", "user_answer", "rubric", "covered_points", "missing_points",
+        "irrelevant_content", "time_used", "score_estimate", "review_due",
+    }
+    unknown = sorted(set(record) - allowed)
+    if unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"case attempt fields are not allowlisted: {', '.join(unknown)}")
+    required = tuple(sorted(allowed))
+    require_fields(record, required)
+    require_iso_datetime(record["review_due"], "review_due")
+    if not isinstance(record["question_source"], dict) or not record["question_source"]:
+        raise StateError("UNTRACEABLE_SOURCE", "case grading requires a structured question source")
+    if not isinstance(record["rubric"], list) or not record["rubric"] or any(
+        not isinstance(point, dict) or not point.get("source_ref") for point in record["rubric"]
+    ):
+        raise StateError("UNTRACEABLE_SOURCE", "every case rubric point requires a source reference")
+    if not isinstance(record["score_estimate"], (int, float)) or not 0 <= record["score_estimate"] <= 1:
+        raise StateError("VALIDATION_ERROR", "score_estimate must be between 0 and 1")
+    if not isinstance(record["time_used"], (int, float)) or record["time_used"] < 0:
+        raise StateError("VALIDATION_ERROR", "time_used must be non-negative")
+
+
+def validate_essay_attempt(record: dict[str, Any]) -> None:
+    allowed = {
+        "essay_id", "topic", "outline_or_full", "project_fact_ids", "word_count", "time_used",
+        "rubric_results", "factual_risks", "revision_history",
+    }
+    unknown = sorted(set(record) - allowed)
+    if unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"essay attempt fields are not allowlisted: {', '.join(unknown)}")
+    required = tuple(sorted(allowed))
+    require_fields(record, required)
+    if not isinstance(record["project_fact_ids"], list) or not record["project_fact_ids"]:
+        raise StateError("UNSUPPORTED_PROJECT_FACT", "essay requires at least one confirmed project fact ID")
+    if not isinstance(record["revision_history"], list) or not record["revision_history"]:
+        raise StateError("VALIDATION_ERROR", "essay revision_history must record at least one version")
+    if not isinstance(record["word_count"], int) or record["word_count"] < 0:
+        raise StateError("VALIDATION_ERROR", "word_count must be a non-negative integer")
+    if not isinstance(record["time_used"], (int, float)) or record["time_used"] < 0:
+        raise StateError("VALIDATION_ERROR", "time_used must be non-negative")
+    if not isinstance(record["rubric_results"], dict) or not record["rubric_results"]:
+        raise StateError("VALIDATION_ERROR", "rubric_results must contain scoring dimensions")

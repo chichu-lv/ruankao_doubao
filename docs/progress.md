@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 through Phase 3 closed; prepare Phase 4 learning decision engine.
+- Current activity: Phase 0 through Phase 4 closed; prepare Phase 5 private Doubao skill/partner installation.
 
 ### Repository initialization
 
@@ -96,6 +96,19 @@ Real logged-in navigation passed in 豆包浏览器 for practice logs and the er
 
 The Phase 3 suite passes 10/10 and the complete repository suite passes 43/43. See `docs/phase-3-closeout.md` and `docs/test-results/phase-3.md`.
 
+Phase 4 completion is recorded below.
+
+## Phase 4 — 学习决策引擎
+
+- Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
+- Started: 2026-09-04 (Asia/Shanghai)
+- Completed: 2026-09-04 (Asia/Shanghai)
+- Version: 0.6.0
+
+Delivered the audited fixed lifecycle, mandatory state-read gate, explainable time-bounded planning, low-energy load reduction, three-subject anti-neglect, evidence/error diagnosis, dynamic 1/3/7/14/30 review scheduling, post-submission case rubric, confirmed/redacted essay fact constraints, full essay workflow, weekly adjustment report and exam-date/progress-derived sprint mode.
+
+The Phase 4-specific suite passes 14/14 and the complete repository suite passes 57/57. See `docs/phase-4-closeout.md` and `docs/test-results/phase-4.md`.
+
 ### Next activity
 
-Phase 4 should compose state reading, diagnosis, time-budgeted plans, three-subject balancing, evidence-derived mastery and review scheduling into the fixed `OBSERVE → DIAGNOSE → PLAN → EXECUTE → TEST → UPDATE → SCHEDULE → CHECKPOINT` controller.
+Phase 5 should package these responsibilities using the real Phase 0 Doubao skill format, bind only allowlisted private state/material operations, install the private controller partner and create read-only daily/weekly schedules before any scheduled write is enabled.

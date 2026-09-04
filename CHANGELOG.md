@@ -2,6 +2,15 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.6.0] - 2026-09-04
+
+- Added the audited fixed learning lifecycle with mandatory state observation and `AWAITING_HUMAN` recovery.
+- Added bounded explainable planning, checkpoint reserve, three-subject balancing and low-energy load reduction.
+- Added dynamic 1/3/7/14/30 review scheduling with evidence, risk, importance and exam-date adjustments.
+- Added post-submission sourced case grading and confirmed/redacted essay fact constraints with an eight-step workflow.
+- Added weekly adjustment reporting and exam-date/progress-derived sprint mode.
+- Added 14 Phase 4 tests, versioned contracts and a Phase 4 health check; full regression now covers 57 tests.
+
 ## [0.5.0] - 2026-09-04
 
 - Added the audited Cheko practice lifecycle with verified navigation and `AWAITING_HUMAN`.

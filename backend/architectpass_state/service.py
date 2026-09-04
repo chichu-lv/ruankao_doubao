@@ -8,6 +8,8 @@ from .mastery import derive_mastery
 from .models import WriteContext, response, utc_now
 from .store import InMemoryStore
 from .validation import (
+    validate_case_attempt,
+    validate_essay_attempt,
     validate_mastery_evidence,
     validate_practice_attempt,
     validate_review,
@@ -26,7 +28,7 @@ class StateService:
         allowed = {
             "get_system_health", "get_profile", "update_profile", "record_study_event",
             "record_practice_attempt", "record_mastery_evidence", "recompute_topic_state", "get_topic_state",
-            "schedule_review", "get_due_reviews", "finish_session",
+            "schedule_review", "get_due_reviews", "record_case_attempt", "record_essay_attempt", "finish_session",
         }
         if operation not in allowed:
             error = StateError("OPERATION_NOT_ALLOWED", f"operation is not allowlisted: {operation}")
@@ -125,6 +127,22 @@ class StateService:
         ]
         due.sort(key=lambda item: (-float(item["priority"]), item["due_at"], item["review_id"]))
         return response(data=due)
+
+    def record_case_attempt(self, attempt: dict[str, Any], context: WriteContext) -> dict[str, Any]:
+        result, duplicate = self.store.write(
+            table="case_attempts", record_id=attempt.get("case_id", ""), record=attempt,
+            operation="record_case_attempt", context=context, validate=validate_case_attempt,
+        )
+        result["deduplicated"] = duplicate
+        return response(data=result, audit_id=result["audit_id"])
+
+    def record_essay_attempt(self, attempt: dict[str, Any], context: WriteContext) -> dict[str, Any]:
+        result, duplicate = self.store.write(
+            table="essay_attempts", record_id=attempt.get("essay_id", ""), record=attempt,
+            operation="record_essay_attempt", context=context, validate=validate_essay_attempt,
+        )
+        result["deduplicated"] = duplicate
+        return response(data=result, audit_id=result["audit_id"])
 
     def finish_session(self, session_id: str, checkpoint: dict[str, Any], context: WriteContext) -> dict[str, Any]:
         required = {"completed", "incomplete", "discoveries", "mastery_changes", "next_due", "resume_context", "write_status"}
