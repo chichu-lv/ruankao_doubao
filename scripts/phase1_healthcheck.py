@@ -2,12 +2,28 @@
 from __future__ import annotations
 
 import json
+import importlib.util
+import os
 import subprocess
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def ensure_project_python() -> None:
+    if sys.version_info >= (3, 11) and importlib.util.find_spec("pdfplumber") is not None:
+        return
+    candidates = (
+        ROOT / ".venv" / "bin" / "python3",
+        Path.home() / ".cache" / "codex-runtimes" / "codex-primary-runtime" / "dependencies" / "python" / "bin" / "python3",
+    )
+    for candidate in candidates:
+        if candidate.is_file() and candidate.resolve() != Path(sys.executable).resolve():
+            os.execv(str(candidate), [str(candidate), str(Path(__file__).resolve())])
+    print("FAIL: Python >=3.11 with project dependencies is required; configure .venv or the Codex workspace runtime")
+    raise SystemExit(1)
 
 
 def main() -> int:
@@ -52,4 +68,5 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    ensure_project_python()
     raise SystemExit(main())

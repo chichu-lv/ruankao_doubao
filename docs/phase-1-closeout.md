@@ -48,6 +48,8 @@
 | C: failures are truthful | PASS | stable error envelope and failed-write audit |
 | C: offline replay | PASS | in-process reference outbox; persistent adapter is a later deployment concern (`P1-L04`) |
 
+Post-closeout update (v0.8.2): `P1-L04` is closed for local persistence. `PersistentOfflineOutbox` survives restart, retains unsuccessful sends, removes only acknowledged sends, preserves request/audit context, and rejects tampering, path escape, request conflicts and non-allowlisted operations. A real Doubao-to-Feishu outage remains a Phase 7 integration check rather than a local-persistence gap.
+
 ## Documented limitations
 
 1. Feishu Bitable exposes no native append-only table constraint. All writers must use the bounded workflow; ordinary users must not edit raw fact tables manually.

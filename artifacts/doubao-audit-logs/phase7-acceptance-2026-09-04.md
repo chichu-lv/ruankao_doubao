@@ -61,3 +61,11 @@ The same authorized read-only inventory pass opened the second Baidu Netdisk roo
 The user manually randomized and submitted the generated paper with the test account and explicitly excluded it from real learning data. Codex read only visible post-submission aggregates from `/test/select?test_id=1094788`: `自定义组卷`, submitted `2026-09-04 18:41:27`, score `6 / 21`, accuracy `28.57%`. No stem, blank, option, answer or explanation was captured.
 
 The page's 20 configured main questions expand to 21 scored answer items because one main stem can contain multiple blanks. UI contract `cheko-ui-2026-09-04.2` records these as separate fields. Sanitized dry-run fixture `cheko-custom-paper-test-sanitized.json`, tracked by `phase7-cheko-custom-result-dryrun-001` / `phase7-cheko-custom-result-dryrun-audit-001`, was accepted as aggregate-only and generated zero business-state writes. This proves the end-to-end UI flow but provides no mastery or checkpoint evidence.
+
+## Real exit/reopen recovery
+
+The real Doubao project validated the documented `study_sessions.checkpoint` shape, then created deployment-only checkpoint record `recvuftoo9Aje4` (`session_id=phase7-j1-recovery-v1`) with `req-phase7-recovery-checkpoint-v1` / `audit-phase7-recovery-checkpoint-v1`; audit record `recvuftq4rwygU` links the successful create and hash `be6ff9a5…`. It records Phase 7, completed Cheko UI-chain testing, explicit exclusion of result `1094788`, and recovery verification as the next step. `completed=[]`, `mastery_changes=[]`, and `write_status=deployment_acceptance_only_no_learning_claimed` prevent a learning claim.
+
+Codex used the native application menu to quit Doubao, confirmed it was not running, reopened `/Applications/Doubao.app`, and requested a fresh read from `ArchitectPass State v1`. The reopened project independently matched the checkpoint fields, request/audit IDs and hash, listed exactly one study-session record, and confirmed `practice_attempts=0`, `mastery_evidence=0`, `mastery_state=0`, `review_queue=0`. The recovery turn wrote zero records. Result: `EXIT_REOPEN_RECOVERY_PASS` for deployment context only.
+
+The user prioritized exam preparation over waiting for a seven-day pilot. Phase 7 therefore continues with compressed acceptance. The seven-day requirement remains `DEFERRED / NOT_RUN`, not waived or passed.

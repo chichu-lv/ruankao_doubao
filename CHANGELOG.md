@@ -2,6 +2,12 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.8.2] - 2026-09-04
+
+- Added a checksum-protected persistent offline outbox with atomic writes, restart recovery, original request/audit context, operation allowlisting and acknowledgement-only removal.
+- Verified the real Doubao client can exit, reopen and independently recover a deployment-only checkpoint from the authoritative Feishu state without creating learning evidence.
+- Continued Phase 7 under a compressed acceptance plan while leaving the mandatory seven-day independent pilot explicitly deferred and unpassed.
+
 ## [0.8.1] - 2026-09-04
 
 - Added custom-paper result support that distinguishes configured main questions from the larger number of answer items produced by multi-blank stems.

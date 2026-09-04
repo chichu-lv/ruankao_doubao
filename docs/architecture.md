@@ -27,13 +27,13 @@ Private Feishu Bitable (authoritative)
 - `study_events` and `mastery_evidence` are immutable facts.
 - `mastery_state` is a replaceable projection identified by `rule_version` and the exact evidence IDs used.
 - A write succeeds only after payload validation, request-ID deduplication, append-only audit, and read-after-write verification by the Feishu workflow.
-- A transport failure remains a failure. The payload may enter the outbox, but must not be reported as committed.
+- A transport failure remains a failure. The payload may enter the checksum-protected persistent outbox, but must not be reported as committed. Each queued write retains its original request ID, audit ID and actor; only an acknowledged `status=ok` removes it.
 - Replaying the same request ID and payload returns the first result. Reusing it for another payload fails with `IDEMPOTENCY_CONFLICT`.
 - Scheduled jobs are read-only until real scheduled-write retry/deduplication behavior is tested.
 
 ## Adapter boundary
 
-`backend/architectpass_state` is deliberately provider-independent. `InMemoryStore` is a fake/reference adapter for unit tests. The Feishu mapping in `schemas/feishu-bitable-v1.json` is the production contract; the private Doubao workflow performs the actual table operations. A trusted HTTPS adapter remains the documented fallback if Feishu constraints later block a required operation.
+`backend/architectpass_state` is deliberately provider-independent. `InMemoryStore` is a fake/reference adapter for unit tests. `PersistentOfflineOutbox` writes only inside a caller-authorized existing directory, uses atomic replacement and mode `0600`, and rejects path escape, tampering, request-ID conflicts and non-allowlisted operations. The Feishu mapping in `schemas/feishu-bitable-v1.json` is the production contract; the private Doubao workflow performs the actual table operations. A trusted HTTPS adapter remains the documented fallback if Feishu constraints later block a required operation.
 
 ## Safety boundaries
 

@@ -19,7 +19,8 @@
 | AI-inferred mastery | only typed raw evidence can drive `mastery-v1` |
 | Lost or tampered backup | canonical SHA-256 manifest verified before restore |
 | Path traversal | allowlisted directory plus plain filename validation |
-| Silent offline loss | failed response remains failed; outbox retains item until acknowledged |
+| Silent offline loss | failed response remains failed; checksum-protected persistent outbox survives restart and retains the original request/audit IDs until acknowledged |
+| Offline queue tampering/path escape | SHA-256 document/item checks, fixed write-operation allowlist, plain `.json` filename and caller-authorized existing root |
 | Destructive mistake | confirmation + backup reference + audit rollback pointer |
 | Copyrighted course leakage | raw/downloaded/parsed/index paths ignored; no public or cloud upload |
 | Path escape during import | real-path resolution against explicit authorized roots |

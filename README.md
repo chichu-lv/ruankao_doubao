@@ -51,6 +51,8 @@
 
 Run `python3 scripts/phase1_healthcheck.py` for the local regression and captured-deployment checks. It intentionally reports live Feishu authentication as partial because credentials stay platform-managed.
 
+Offline writes use `PersistentOfflineOutbox` in a caller-authorized existing local directory. The queue is checksum-protected, atomically persisted with mode `0600`, retains the original request/audit context across restart, and removes entries only after an acknowledged successful replay.
+
 ## Phase 2 输出
 
 - `backend/architectpass_materials/`

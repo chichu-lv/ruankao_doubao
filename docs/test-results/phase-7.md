@@ -1,11 +1,15 @@
 # Phase 7 test record
 
 - Date: 2026-09-04 (Asia/Shanghai)
-- Version under test: 0.8.1
+- Version under test: 0.8.2
 - Real environment: Doubao project `架构上岸教练`, chat `38440213023143426`, private Feishu Base `ArchitectPass State v1`
 - Product baseline: `01_豆包软考私教系统_Codex开发说明书.md`, sections 21–22
 - Acceptance baseline: `04_验收清单.md`, sections J–K
-- Status: IN_PROGRESS_AWAITING_HUMAN
+- Status: IN_PROGRESS_COMPRESSED_ACCEPTANCE
+
+## Compressed acceptance disposition
+
+The user stated that exam preparation time must take priority over a seven-day independent pilot. Development and all non-time-dependent acceptance scenarios therefore continue immediately. Section K remains a mandatory baseline item but is explicitly `DEFERRED / NOT_RUN`, never waived or reported as PASS; final sign-off can be at most conditional until it is completed.
 
 ## J1 — 90 minutes, medium energy
 
@@ -81,6 +85,18 @@ Sanitized fixture `cheko-custom-paper-test-sanitized.json` is marked aggregate-o
 
 Automated verification after the adapter correction: Phase 3 health check PASS, Cheko suite 13/13 PASS, complete repository suite 78/78 PASS, Python compilation PASS, and Git whitespace validation PASS.
 
+## Exit/reopen recovery — real Doubao and Feishu
+
+Codex instructed the real `架构上岸教练` project to validate the existing `study_sessions` schema before writing. The schema permits a seven-field checkpoint object, so Doubao created a deployment-acceptance-only record with `request_id=req-phase7-recovery-checkpoint-v1` and `audit_id=audit-phase7-recovery-checkpoint-v1`. The business record is `recvuftoo9Aje4` (`session_id=phase7-j1-recovery-v1`); audit record is `recvuftq4rwygU`.
+
+The checkpoint records only `current_phase=7`, `cheko_ui_chain_test=completed`, `workflow_test_result_1094788=excluded`, and `next_step=recovery_verification`. Both `completed` and `mastery_changes` are empty, and `write_status=deployment_acceptance_only_no_learning_claimed`. Independent read-back matched request/audit IDs, all recovery fields and content hash `be6ff9a5…`; the four learning tables remained empty.
+
+Codex then actually quit the Doubao desktop application, confirmed the process was no longer running, reopened it, and sent a read-only recovery request. The reopened project independently fetched the persisted record and reproduced all seven requested recovery facts. It also rechecked `practice_attempts=0`, `mastery_evidence=0`, `mastery_state=0`, and `review_queue=0`. The recovery turn performed zero writes. Acceptance item J `退出重开` is PASS for the deployment checkpoint path; this is not a learning-session checkpoint and does not close J1.
+
+## Persistent offline outbox regression
+
+Version 0.8.2 replaces the documented in-process-only limitation with `PersistentOfflineOutbox`: it is confined to a caller-authorized existing directory, uses atomic replacement and file mode `0600`, carries original request/audit/actor context, checks document and item hashes, rejects non-allowlisted operations/path escape/request-ID conflicts, survives process restart, retains failed sends, and removes an item only after `status=ok`. Ten backup/outbox tests and the complete 81-test repository suite pass. This closes local persistence and restart safety; a real Doubao-to-Feishu outage/recovery remains separately unverified.
+
 The authorized Baidu Netdisk material root was also enumerated through its ordinary UI. It contains eight visible PDFs, including `系统架构设计师选择真题分类解析.pdf` and `系统架构设计师案例真题分类解析.pdf`. Their existence and visible sizes are now recorded as remote inventory only; years, completeness, checksums and content quality remain unverified because no PDF was opened or downloaded.
 
 ## Zero-write safety probes
@@ -97,8 +113,8 @@ The health check independently reported nine expected repository skills, a reada
 
 - Complete the real J1 learning session and verified checkpoint.
 - Complete a non-random, user-authored learning attempt; the submitted test-account random run verifies only the browser/generation/submission/result-reading path and is excluded from learning state.
-- Exercise three-day checkpoint recovery and client restart recovery after that checkpoint exists.
+- Exercise three-day overdue-review recovery after genuine learning evidence exists; client exit/reopen recovery for a deployment checkpoint is already PASS.
 - Complete user-authored Cheko, case and essay scenarios; Codex/Doubao must not answer for the user.
 - Re-run real page-change/manual fallback, offline outbox replay, targeted rewatch and same-state weekly-report scenarios.
 - Record every result with date, version, evidence and issue ID.
-- Run the separate seven-day independent pilot required by acceptance section K.
+- Run the separate seven-day independent pilot required by acceptance section K; currently `DEFERRED / NOT_RUN` at the user's request and not a blocker for continued development.

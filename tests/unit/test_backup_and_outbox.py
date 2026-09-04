@@ -6,7 +6,7 @@ from pathlib import Path
 from architectpass_state import InMemoryStore, StateService, WriteContext
 from architectpass_state.backup import build_backup, export_csv_tables, export_json, export_markdown, restore_backup, safe_backup_path, verify_backup
 from architectpass_state.errors import StateError
-from architectpass_state.outbox import OfflineOutbox
+from architectpass_state.outbox import OfflineOutbox, PersistentOfflineOutbox
 
 
 class BackupAndOutboxTests(unittest.TestCase):
@@ -49,6 +49,55 @@ class BackupAndOutboxTests(unittest.TestCase):
         outbox.replay(sender)
         self.assertEqual([], outbox.pending())
         self.assertEqual("e1", calls[1]["payload"]["event_id"])
+
+    def test_persistent_outbox_survives_restart_and_acks_only_success(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            context = WriteContext("offline-req-1", "offline-audit-1", "unit-test")
+            queued = PersistentOfflineOutbox(root)
+            queued.enqueue("record_study_event", {"event_id": "offline-e1"}, context)
+
+            restarted = PersistentOfflineOutbox(root)
+            self.assertEqual("offline-req-1", restarted.pending()[0]["request_id"])
+            restarted.replay(lambda item: {"status": "error", "audit_id": item["audit_id"]})
+            self.assertEqual(1, len(PersistentOfflineOutbox(root).pending()))
+
+            restarted.replay(lambda item: {"status": "ok", "audit_id": item["audit_id"]})
+            self.assertEqual([], PersistentOfflineOutbox(root).pending())
+
+    def test_persistent_outbox_enforces_ids_idempotency_and_operation_allowlist(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            outbox = PersistentOfflineOutbox(Path(directory))
+            context = WriteContext("offline-req-2", "offline-audit-2", "unit-test")
+            first = outbox.enqueue("update_profile", {"user_id": "u1"}, context)
+            second = outbox.enqueue("update_profile", {"user_id": "u1"}, context)
+            self.assertFalse(first["deduplicated"])
+            self.assertTrue(second["deduplicated"])
+            with self.assertRaises(StateError) as conflict:
+                outbox.enqueue("update_profile", {"user_id": "u2"}, context)
+            self.assertEqual("IDEMPOTENCY_CONFLICT", conflict.exception.code)
+            with self.assertRaises(StateError) as blocked:
+                outbox.enqueue("arbitrary_shell", {}, WriteContext("r3", "a3", "unit-test"))
+            self.assertEqual("OPERATION_NOT_ALLOWED", blocked.exception.code)
+
+    def test_persistent_outbox_rejects_path_escape_and_tampering(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            with self.assertRaises(StateError):
+                PersistentOfflineOutbox(root, "../escape.json")
+            outbox = PersistentOfflineOutbox(root)
+            outbox.enqueue(
+                "update_profile",
+                {"user_id": "u1"},
+                WriteContext("offline-req-4", "offline-audit-4", "unit-test"),
+            )
+            path = root / "architectpass-outbox.json"
+            document = json.loads(path.read_text(encoding="utf-8"))
+            document["pending"][0]["payload"]["user_id"] = "tampered"
+            path.write_text(json.dumps(document), encoding="utf-8")
+            with self.assertRaises(StateError) as tampered:
+                PersistentOfflineOutbox(root)
+            self.assertEqual("OUTBOX_CHECKSUM_MISMATCH", tampered.exception.code)
 
     def test_restore_requires_current_backup_confirmation_and_preserves_idempotency(self) -> None:
         store = InMemoryStore()

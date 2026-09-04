@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 through Phase 6 closed; Phase 7 real acceptance is in progress and waiting for a user-controlled Cheko custom-paper handoff.
+- Current activity: Phase 0 through Phase 6 closed; Phase 7 continues under compressed acceptance, with the seven-day independent pilot explicitly deferred and unpassed.
 
 ### Repository initialization
 
@@ -145,9 +145,9 @@ The corrected adapter passes the Phase 3 health check, all 13 Cheko tests and th
 
 ## Phase 7 — 测试与验收
 
-- Status: IN_PROGRESS_AWAITING_HUMAN
+- Status: IN_PROGRESS_COMPRESSED_ACCEPTANCE
 - Started: 2026-09-04 (Asia/Shanghai)
-- Version under test: 0.8.1
+- Version under test: 0.8.2
 
 The real `架构上岸教练` project read the same `ArchitectPass State v1` and produced a bounded 90-minute, medium-energy plan with explicit operations, completion standards and an eight-minute checkpoint reserve. The plan phase passed, but the complete J1 loop remains `PARTIAL / AWAITING_HUMAN` because the user has not performed the learning tasks and no checkpoint has been written. An initial overclaim of J1 `PASS` was challenged and corrected in the same conversation.
 
@@ -164,3 +164,7 @@ The Cheko handoff is now configured for Doubao Browser. The allowlisted preferen
 Direct ordinary UI operation in the existing Doubao Browser later reached the form without bypassing protection and verified all available filter groups. An initial invalid save and visible inventory-shortage error exposed stale-index handling in dynamic forms; the rule was corrected with refreshed state between dependent UI actions. `出题` then visibly succeeded and opened the practice page without any answer or submission action. The second authorized Baidu material root was also enumerated: eight PDFs are present, including explicit choice and case `真题分类解析` titles. These entries are inventory-only until downloaded, hashed and content-verified. Phase 7 now waits for the user to answer and submit the generated paper.
 
 The user subsequently randomized and submitted that paper solely as a test-account flow probe. Codex observed only the post-submission aggregate (`test_id=1094788`, `6 / 21`, `28.57%`, timestamp `2026-09-04 18:41:27`). The paper's 20 configured main questions expanded to 21 scored answer items because a stem can contain more than one blank. The corrected adapter and regression fixture preserve those two counts separately and emit zero learning writes. Phase 7 therefore waits for a genuine user-authored learning attempt, not another infrastructure probe.
+
+At the user's request, non-time-dependent validation now continues without waiting for the seven-day independent pilot. The pilot remains `DEFERRED / NOT_RUN` and cannot be counted as PASS at final sign-off. A deployment-only checkpoint was created in real Feishu with unique request/audit IDs, independently verified, then recovered after Codex actually quit and reopened the real Doubao client. The reopened recovery was read-only and reproduced the exclusion of workflow-test result `1094788`; all four learning tables remained empty. The J `退出重开` path is PASS for deployment recovery, not for a completed learning session.
+
+Version 0.8.2 also adds a checksum-protected persistent offline outbox. Restart retention, failed-send retention, acknowledgement-only removal, request/audit preservation, path confinement, operation allowlisting, idempotency conflicts and tamper rejection pass. The complete repository suite now passes 81/81; a deliberately induced real Doubao-to-Feishu outage is still pending.
