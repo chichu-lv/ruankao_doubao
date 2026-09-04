@@ -17,18 +17,23 @@
 - Real Doubao client/account/version inspected.
 - Private minimal skill created; automatic and explicit invocation passed.
 - Exact generated skill file and provenance captured.
-- Custom-connector UI and existing Baidu connector inspected; runtime connector calls remain incomplete.
+- Local ZIP skill import passed with a separate canary; its explicit invocation returned `IMPORT_OK:roundtrip-001`.
+- A packaged runtime probe read `references/` and `assets/` and ran a dependency-free Python script successfully.
+- Private custom localhost connector installed after explicit confirmation; its MCP handshake and one exact read-only call passed in local-computer mode. Cloud-computer mode could not discover it, confirming the product's local-only boundary.
 - Authorized local PDF read passed with an exact marker match.
-- Signed-in Feishu document, spreadsheet, and multidimensional-table write paths exercised; Doubao access to the same state remains incomplete.
-- User-designated Baidu course scopes located; course player opened; time seeking/progress extraction incomplete.
+- Doubao created, wrote, and read a private Feishu multidimensional table containing a harmless state marker plus audit/request IDs.
+- Doubao created and read back a private Feishu document with exact marker/audit/request IDs; the platform's automatic generated-content block required structural cleanup and re-verification.
+- User-designated Baidu course scopes located and a real course player opened.
+- Doubao browser skill opened and read a public test page in its side workbench.
+- A real authorized Baidu course video was sought to `00:10:01`, and current/total playback times were read from the player.
 - Logged-in 芝士架构 progress and navigation entries read without answering or submitting questions.
+- Native one-time, daily, and weekly tasks executed and each read the same Feishu state record.
 - Scheduler, partner, cross-device, privacy, and diagnostic surfaces inspected.
-- Capability matrix and provisional ADR-001 created.
+- Capability matrix updated and ADR-001 accepted for the Phase 0 architecture decision.
 
 ### Current gate blockers
 
-- Prove a state layer readable and writable by Doubao and scheduled tasks.
-- Execute one-time, daily, and weekly schedule tests.
+- Close residual skill lifecycle, trusted-HTTPS/authentication, Feishu calendar, limit, and cross-device rows or record final constrained fallbacks.
 - Complete a post-submission result or official export import from 芝士架构.
 - Obtain the user's privacy-setting choice before sensitive uploads.
 

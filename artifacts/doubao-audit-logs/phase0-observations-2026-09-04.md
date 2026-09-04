@@ -19,6 +19,10 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 - Explicit-name result: `PHASE0_OK:manual-001`.
 - The personal skill appeared in the skill selector.
 - Platform validator attempt failed because the local Python environment lacked the `yaml` module; no dependency was installed during the audit.
+- Local import was tested with a separate, non-sensitive `phase0-import-probe` to avoid overwriting the existing generated skill. The client file picker accepted the ZIP package, the skill appeared under personal skills, and explicit invocation returned `IMPORT_OK:roundtrip-001`.
+- Standalone `.md`, copied `.skill`, and `.tar.gz` files were not selectable in the upload file picker; ZIP was the demonstrated package format.
+- A second ZIP, `phase0-runtime-probe`, contained `scripts/probe.py`, `references/marker.txt`, and `assets/template.md`. Doubao executed it and returned `RUNTIME_OK:REFERENCE_OK_20260904:TEMPLATE_OK_20260904`, proving dependency-free Python plus packaged reference/template reads.
+- Personal skills expose a reversible enable/disable toggle. A same-name ZIP upload showed an explicit warning that replacement is irreversible; the replacement was cancelled. No native version history or rollback control was observed, and no skill was removed.
 
 ## Connector surface
 
@@ -26,7 +30,10 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 - Custom connector form exposed server name, HTTP transport, server URL, and custom headers.
 - UI stated that custom connectors are supported only on the local computer.
 - No separate OAuth or secret-vault field was visible in this form.
-- Local MCP probe could not be started because the managed execution sandbox denied binding a localhost port. This is an audit-environment blocker, not evidence that Doubao rejects localhost.
+- A temporary localhost MCP probe was subsequently started outside the managed sandbox after the user asked for a retry. After explicit confirmation, Doubao installed private connector `ArchitectPass Phase0 Local Probe` at `http://127.0.0.1:18080/mcp` with no headers or secrets.
+- The probe log recorded `initialize`, `notifications/initialized`, and `tools/list`. In `云电脑`, the task could not discover `phase0_ping`; after switching the same task to `工作任务·本地电脑`, the connector selector showed the custom connector enabled and tool discovery succeeded.
+- Doubao called `phase0_ping` exactly once with `message=roundtrip-001` and returned `LOCALHOST_MCP_OK:roundtrip-001`. Evidence: `artifacts/doubao-audit-screenshots/DB-011-localhost-connector-roundtrip.png` and `artifacts/doubao-audit-logs/localhost-mcp-probe.jsonl`.
+- The temporary probe process was stopped immediately after the successful round trip. The private connector remains installed because no deletion was requested or confirmed; it points to a currently inactive localhost endpoint.
 
 ## Feishu
 
@@ -35,7 +42,11 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 - A private cloud document was created; body marker `PHASE0_DOC_WRITE_OK 2026-09-03` was saved and read back. Rich-text title manipulation produced a duplicated title, so title editing is not treated as a clean pass.
 - A blank multidimensional table was created; AI paste import returned `已成功录入 1 条记录` for a two-field probe row.
 - A blank spreadsheet was created; a cell value was written and read back as `PHASE0_SHEET_WRITE_OK`.
-- These actions prove the signed-in Feishu account can write. They do not yet prove that Doubao scheduled tasks or connectors can access the same objects.
+- Doubao then created a private multidimensional table named `ArchitectPass Phase0 State Probe` with table `StateProbe` and fields `key`, `value`, `audit_id`, and `request_id`.
+- Doubao wrote and read back one harmless record: `key=phase0_shared_state`, `value=STATE_OK_20260904`, `audit_id=P0-STATE-001`, `request_id=req-p0-state-001`.
+- The read-after-write passed and no sharing was enabled. This proves a foreground Doubao structured-state read/write path.
+- Doubao's `文档` skill created private `ArchitectPass Phase0 Doc Probe` and read back `marker=DOC_STATE_OK_20260904`, `audit_id=P0-DOC-001`, and `request_id=req-p0-doc-001` exactly.
+- Feishu automatically added a generated-content notice block. Doubao's first cleanup attempt did not take effect; it fetched current block IDs, removed the extra block, and verified the document contained only the title and requested three lines. This is a structural read-after-write requirement for future generated documents.
 
 ## Local PDF
 
@@ -46,6 +57,12 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 - Actual Doubao output: `ARCHITECTPASS_LOCAL_FILE_PROBE_20260903`.
 - Result: exact match; authorized local PDF reading is a PASS.
 
+## Browser control
+
+- Doubao's built-in `操作浏览器` skill opened the public test page `https://example.com` in the side workbench.
+- It read the HTML title and first H1 as `Example Domain` and explicitly reported no login, form entry, download, or other navigation.
+- This proves a bounded Doubao-controlled browser open/read path; screenshot/manual import remains the fallback for site-specific UI changes.
+
 ## Baidu Netdisk
 
 - Real macOS client was logged in and displayed private course files.
@@ -54,7 +71,9 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
   - `5、【2026年05月】芝士架构系统架构设计师`
 - The first scope contained MP4 lessons and could open a video-player window.
 - The second scope contained eight PDFs covering case, textbook, exam guide, essay, and choice-question material.
-- Exact time seeking and stable progress extraction were not proven; fallback is to name the video and timestamp for manual positioning.
+- In the authorized wen-teacher folder, the real player opened `202605-0.架构第二版考试介绍考点分析学习方法.mp4`.
+- The player exposed current time and total duration in accessibility output. A visible progress-bar action moved it to `00:10:01` of `01:00:31`; the player was then closed.
+- Exact time seeking and progress extraction are therefore demonstrated. The fallback remains video filename plus timestamp when player UI changes.
 
 ## 芝士架构
 
@@ -66,7 +85,10 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 
 ## Scheduling, partner, cross-device, and logs
 
-- Scheduler UI and templates for recurring work were visible; no real one-time/daily/weekly tasks have yet been created.
+- After explicit user confirmation, three private read-only schedules were created: `P0-ONE-TIME-STATE-READ`, `P0-DAILY-STATE-READ`, and `P0-WEEKLY-STATE-READ`. Creation evidence: `artifacts/doubao-audit-screenshots/DB-031-033-created-schedules.png`.
+- One-time execution completed at `2026-09-04 09:52:18 Asia/Shanghai`, daily execution at `09:53:23`, and weekly execution at `09:54:15`.
+- Each execution located the Feishu base by name, read `key=phase0_shared_state`, and returned exactly `STATE_OK_20260904`, `P0-STATE-001`, and `req-p0-state-001`.
+- All three execution transcripts explicitly reported no write and no sharing. No induced failure/retry or scheduled write-deduplication test was performed.
 - Standard-plan partner marketplace and `我的伙伴` were visible, but no private custom-partner creation entry was found. The existing private Doubao Project is the current equivalent persistent entry.
 - Mobile remote-control page stated that a same-account phone can continue PC work tasks and receive progress notifications; no mobile device round trip was performed.
 - Work-task history, step status, approval prompts, and explicit errors were visible and usable for diagnostics.
