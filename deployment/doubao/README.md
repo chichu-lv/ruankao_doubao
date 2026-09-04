@@ -4,6 +4,8 @@ This directory is the production install source. Its skill package contract is a
 
 The delivery path is Git-driven: the user gives Doubao the private repository link plus the root-README prompt. Doubao must follow `bootstrap-v1.md` from a clean project context. No prior local project, installed skill or development artifact is a prerequisite.
 
+The two Baidu Netdisk course folders are runtime-private sources, not Git payloads. During bootstrap, Doubao must use the user's authenticated official Baidu interface to verify only the exact roots listed in `project-v1.json`, then incrementally index files needed for the current study unit. Raw courses, extracted text, transcripts and indexes remain local and ignored by Git. Missing local OCR/transcription tooling is a truthful `PARTIAL` with an official-UI/manual page-or-timestamp fallback, not an installation failure.
+
 ## Build and static verification
 
 Run `python3 scripts/phase5_healthcheck.py`. Reproducible packages and SHA-256 values are written to ignored `dist/doubao-skills/`. Source `SKILL.md` files remain version controlled under `skills/doubao/`.

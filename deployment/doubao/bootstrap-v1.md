@@ -30,7 +30,7 @@
 
 ```text
 FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
-→ ATTACH_BASELINE → CONNECT_STATE → CONFIGURE_READ_ONLY_JOBS
+→ ATTACH_BASELINE → CONNECT_PRIVATE_MATERIALS → CONNECT_STATE → CONFIGURE_READ_ONLY_JOBS
 → HEALTHCHECK → REPORT
 ```
 
@@ -44,7 +44,7 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 
 ### 2. VERIFY
 
-- 核对 `VERSION=1.0.0`、`main` 分支、Git 提交 ID、工作树状态和上述权威文件存在性。
+- 核对 `VERSION=1.0.1`、`main` 分支、Git 提交 ID、工作树状态和上述权威文件存在性。
 - 运行敏感信息检查；发现疑似秘密时停止安装并报告文件路径，不展示秘密值。
 - 不得仅凭清单假定当前豆包仍支持某个技能、连接器或项目格式；先在当前真实账号与界面只读复核。若界面变化，使用手工导入/私有项目上下文等已写明的降级路径，不得猜测成功。
 
@@ -74,7 +74,19 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 - 有持久项目指令字段时写入并回读；没有时把该文件作为私有项目上下文，并在项目第一条初始化消息中明确采用。
 - 仅在能精确选中仓库根目录时绑定本地文件夹。选择结果若是父目录，立即取消并报告 `PARTIAL`。
 
-### 7. CONNECT_STATE
+### 7. CONNECT_PRIVATE_MATERIALS
+
+- 读取 `project-v1.json` 的 `materials.authorized_baidu_scopes` 和 `materials/manifests/authorized-sources-v1.json`；只允许以下两个精确目录：
+  - `00、【推荐】【26年10月】wen老师架构课程（第二版）`
+  - `5、【2026年05月】芝士架构系统架构设计师`
+- 使用用户当前已登录的百度网盘官方网页或客户端核对目录。未登录时暂停，让用户在官方界面完成登录；不得索取密码、Cookie、验证码或令牌。
+- Git 只保存授权范围、文件元数据和索引程序，不保存课程原文件、课程正文、完整转写或私有检索索引。运行时数据仅写入被 `.gitignore` 排除的 `materials/inbox/`、`materials/index/`、`materials/parsed/` 和 `materials/models/`，或用户另行明确授权的本机目录。
+- 不做两个目录的整库下载。先核对远端清单；开始某个学习单元时，才通过官方界面获取所需 PDF、视频或字幕，并按文件哈希增量处理。不得绕过网盘会员、下载、播放、DRM 或分享限制。
+- PDF 索引必须保留文件名和页码；视频转写必须保留原视频开始/结束时间与置信度。观看记录只能写成 `played_unchecked`，不能直接提升掌握度。
+- 本机具备 Python 3.11+、`pdfplumber` 及 `deployment/models/local-processing-v1.json` 声明的本地处理工具后，运行 `python3 scripts/phase2_healthcheck.py`。缺少模型或工具时报告 `PARTIAL` 并继续使用“官方界面打开 + 人工页码/时间点”兜底，不得假装已建立全文索引。
+- 每次新增或变化仅处理差异，输出保持私有；写入资源与学习进度时必须带唯一 `request_id`、`audit_id` 并回读验证。
+
+### 8. CONNECT_STATE
 
 - 解析 `deployment/feishu/production-v1.json`，只在用户已授权的飞书账号中按精确名称和 15 表 schema 定位私有 `ArchitectPass State v1`。发布分支不保存 Base URL、对象 ID 或表 ID。
 - 先只读核对 `schemas/feishu-bitable-v1.json` 规定的 15 张表。零匹配时，在用户确认私有目标后按 schema/migration 创建；多匹配时必须让用户选择，禁止按内部 ID 猜测。缺失字段只按迁移链修复，不得盲目覆盖已有数据。
@@ -83,20 +95,20 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 - 若本机已有 Phase 2 私有索引，`scripts/build_phase6_private_segments.py` 会在忽略提交的 `dist/phase6-initialization/` 生成页码/时间戳写入计划。其片段只能进入用户私人状态库，不得提交 Git、公开或复制到其他项目。
 - 初始化后以纯只读方式重放全部 request ID；只有业务主键、载荷、哈希、audit ID 全部一致且计数不增长，才算幂等通过。
 
-### 8. CONFIGURE_READ_ONLY_JOBS
+### 9. CONFIGURE_READ_ONLY_JOBS
 
 - 读取 `schedules-v1.json` 和两个提示模板。
 - 分别在用户确认每日或每周执行时刻后创建或对齐对应的只读任务；未确认的任务保持 `template_pending_user_time`，不得因另一项已确认而擅自启用。
 - 不启用 scheduled writes，不删除或修改无关定时任务。
 
-### 9. HEALTHCHECK
+### 10. HEALTHCHECK
 
 - 在新项目中显式调用 `ruankao-healthcheck-v1`。
-- 只读核对九技能、Feishu 状态、资料索引、浏览器/Baidu 精确兜底、Cheko 登录/允许路由和定时任务。
+- 只读核对九技能、Feishu 状态、两个授权百度网盘目录、资料索引、浏览器/Baidu 精确兜底、Cheko 登录/允许路由和定时任务。
 - 不打开练习题、不读取题目/答案、不提交答案，不以聊天记忆替代状态。
 - 输出每项 `PASS/PARTIAL/FAIL`、证据、限制和精确降级路径；重新计算汇总，不能直接复制不一致的计数。
 
-### 10. REPORT
+### 11. REPORT
 
 最终只报告：
 
@@ -104,6 +116,7 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 - Git 提交 ID 与版本；
 - 九个技能的安装/启用状态；
 - 状态库和定时任务状态；
+- 两个百度网盘授权目录的连接状态、清单核对结果、已索引范围和未索引范围；
 - 健康检查逐项结果；
 - 未关闭限制及用户下一步；
 - 明确声明未修改的既有项目和未执行的敏感动作。

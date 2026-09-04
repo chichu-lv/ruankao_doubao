@@ -117,6 +117,25 @@ class DoubaoSkillPackageTests(unittest.TestCase):
         self.assertFalse(project["onboarding"]["past_exam_attempts_required"])
         self.assertFalse(project["onboarding"]["past_exam_scores_required"])
 
+    def test_baidu_materials_are_connected_at_runtime_and_never_shipped_in_git(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        bootstrap = (ROOT / "deployment" / "doubao" / "bootstrap-v1.md").read_text(encoding="utf-8")
+        project = json.loads((ROOT / "deployment" / "doubao" / "project-v1.json").read_text(encoding="utf-8"))
+        expected_roots = [
+            "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+            "5、【2026年05月】芝士架构系统架构设计师",
+        ]
+        self.assertEqual(expected_roots, project["materials"]["authorized_baidu_scopes"])
+        self.assertEqual("authenticated_official_baidu_ui", project["materials"]["connection_method"])
+        self.assertEqual("verify_inventory_then_incremental_local_index", project["materials"]["bootstrap_mode"])
+        self.assertFalse(project["materials"]["full_library_download"])
+        self.assertIn("CONNECT_PRIVATE_MATERIALS", bootstrap)
+        self.assertIn("python3 scripts/phase2_healthcheck.py", bootstrap)
+        self.assertIn("不要把课程原文件、转写正文或私有索引提交到 Git", readme)
+        for root in expected_roots:
+            self.assertIn(root, readme)
+            self.assertIn(root, bootstrap)
+
     def test_built_packages_use_named_skill_directory_format(self) -> None:
         output = ROOT / "dist" / "doubao-skills"
         manifest = json.loads((output / "build-manifest.json").read_text(encoding="utf-8"))

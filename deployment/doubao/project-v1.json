@@ -24,6 +24,18 @@
   },
   "materials": {
     "local_root": "materials/",
+    "connection_method": "authenticated_official_baidu_ui",
+    "bootstrap_mode": "verify_inventory_then_incremental_local_index",
+    "full_library_download": false,
+    "git_payload": "metadata_and_code_only",
+    "private_runtime_paths": [
+      "materials/inbox/",
+      "materials/index/",
+      "materials/parsed/",
+      "materials/models/"
+    ],
+    "healthcheck": "scripts/phase2_healthcheck.py",
+    "fallback": "official_ui_open_with_manual_page_or_timestamp",
     "authorized_baidu_scopes": [
       "00、【推荐】【26年10月】wen老师架构课程（第二版）",
       "5、【2026年05月】芝士架构系统架构设计师"
