@@ -2,7 +2,7 @@
 
 - Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
 - Completed: 2026-09-04 (Asia/Shanghai)
-- Version: 0.7.0
+- Version: 0.7.1
 
 Phase 5 packages the product into nine single-responsibility, versioned private Doubao skills using the real client-observed `SKILL.md` format. Deterministic archives use one same-name top-level directory, are secret-scanned during build, and have SHA-256 values in an ignored build manifest. The deployment manifest forbids arbitrary SQL, shell and filesystem access; Cheko answer/submit and pre-submission content; private API reverse engineering; public publishing; unconfirmed deletion, permission changes, and sensitive export.
 
@@ -28,4 +28,4 @@ This satisfies the Phase 5 delivery set: skill packages, connector/project manif
 
 ## Next gate
 
-Phase 6 may initialize only user-confirmed real scores, the authorized material/video state, the first knowledge-map state, a post-submission Cheko baseline, redacted project facts, and an initial seven-day plan. Every write requires an idempotency request ID, audit ID, and read-back verification.
+Phase 6 may initialize the authorized material/video state, the first knowledge-map state, a post-submission Cheko baseline, redacted project facts, and an initial seven-day plan. Prior exam attempts and scores are optional and must not be requested as an entry condition; if the user voluntarily supplies them, only confirmed values may be stored. Every write requires an idempotency request ID, audit ID, and read-back verification.

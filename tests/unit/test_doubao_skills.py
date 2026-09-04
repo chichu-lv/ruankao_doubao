@@ -68,6 +68,13 @@ class DoubaoSkillPackageTests(unittest.TestCase):
         for name in EXPECTED:
             self.assertIn(name, text)
         self.assertIn("ArchitectPass State v1", text)
+        self.assertIn("历史成绩均为可选信息", text)
+        self.assertIn("历史成绩不属于必问信息", text)
+
+    def test_project_onboarding_does_not_require_exam_history(self) -> None:
+        project = json.loads((ROOT / "deployment" / "doubao" / "project-v1.json").read_text(encoding="utf-8"))
+        self.assertFalse(project["onboarding"]["past_exam_attempts_required"])
+        self.assertFalse(project["onboarding"]["past_exam_scores_required"])
 
     def test_built_packages_use_observed_named_skill_directory_format(self) -> None:
         output = ROOT / "dist" / "doubao-skills"

@@ -114,7 +114,7 @@ The Phase 4-specific suite passes 14/14 and the complete repository suite passes
 - Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
 - Started: 2026-09-04 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
-- Version: 0.7.0
+- Version: 0.7.1
 
 Delivered nine deterministic, versioned private Doubao skill packages; minimum-permission skill/connector/project manifests; rendered system instructions; read-only daily/weekly templates; and installation, update and rollback guidance. All nine formal skills were registered READY and enabled in the user's real Doubao 2.27.11 account. A new isolated private Project named `架构上岸教练` was created, while the older `系统架构设计师 AI Tutor` / `pass_ai` project remained untouched.
 
@@ -124,4 +124,4 @@ See `docs/phase-5-closeout.md`, `docs/test-results/phase-5.md`, and `artifacts/d
 
 ### Next activity
 
-Phase 6 should initialize only user-confirmed real scores, authorized material/video progress, the first knowledge-map state, a post-submission Cheko baseline, redacted project facts, and the initial seven-day plan. Missing user facts must remain explicit, and every state write requires request/audit IDs plus read-back verification.
+Phase 6 should initialize authorized material/video progress, the first knowledge-map state, a post-submission Cheko baseline, redacted project facts, and the initial seven-day plan. Prior exam attempts and scores are optional, never an entry condition, and are stored only if the user volunteers confirmed values. Other missing user facts must remain explicit, and every state write requires request/audit IDs plus read-back verification.

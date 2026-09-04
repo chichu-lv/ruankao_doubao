@@ -19,6 +19,18 @@ class StateServiceTests(unittest.TestCase):
         self.assertTrue(second["data"]["deduplicated"])
         self.assertEqual(1, len(self.store.list("audit_log")))
 
+    def test_profile_initializes_without_prior_exam_history(self) -> None:
+        result = self.service.invoke(
+            "update_profile",
+            user_id="new-candidate",
+            patch={"target_exam": "系统架构设计师", "timezone": "Asia/Shanghai"},
+            context=ctx(101),
+        )
+        self.assertEqual("ok", result["status"])
+        profile = self.store.read("user_profile", "new-candidate")
+        self.assertNotIn("past_exam_scores", profile)
+        self.assertEqual("系统架构设计师", profile["target_exam"])
+
     def test_request_id_cannot_be_reused_for_different_payload(self) -> None:
         self.service.invoke("update_profile", user_id="u1", patch={"timezone": "Asia/Shanghai"}, context=ctx(2))
         conflict_context = WriteContext("req-2", "audit-2-conflict", "unit-test")

@@ -31,6 +31,11 @@
   },
   "system_instructions": "deployment/doubao/system-instructions-v1.md",
   "skill_manifest": "deployment/doubao/skills-v1.json",
+  "onboarding": {
+    "past_exam_attempts_required": false,
+    "past_exam_scores_required": false,
+    "missing_history_behavior": "continue with current diagnostic evidence; do not ask unless the user volunteers it"
+  },
   "scheduled_writes_enabled": false,
   "persistent_project_instruction_field_observed": false
 }

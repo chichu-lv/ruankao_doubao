@@ -2,6 +2,11 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.7.1] - 2026-09-04
+
+- Made prior exam attempts and scores explicitly optional across onboarding, the profile contract, Phase 6 entry, and the final Doubao system instructions.
+- Added regression coverage proving a new profile and private project can initialize without exam-history fields.
+
 ## [0.7.0] - 2026-09-04
 
 - Added nine versioned, single-responsibility private Doubao skills and deterministic named-directory ZIP packages.

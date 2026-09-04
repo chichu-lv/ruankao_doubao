@@ -20,6 +20,8 @@ All production tables are private Feishu Bitable tables. Every written record al
 | `essay_attempts` | `essay_id` | Outline/full essay tied to real project facts | append revisions; no invented facts |
 | `audit_log` | `audit_id` | Who/what/before-after hashes/result/confirmation/rollback | immutable append-only |
 
+`user_profile.past_exam_scores` is optional. A user may initialize, train, schedule reviews, and create checkpoints without stating whether they have taken the exam before. If historical scores are absent, diagnosis starts from current, source-traceable learning evidence and does not infer a prior attempt.
+
 ## Raw study event
 
 `event_id`, `event_type`, `topic_ids`, `session_id`, `payload`, `source_ref`, and `occurred_at`. `source_ref` must contain a traceable anchor and never stores credentials or a full copyrighted question.

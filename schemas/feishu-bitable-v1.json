@@ -5,7 +5,8 @@
   "tables": {
     "user_profile": {
       "primary_key": "user_id", "mutable": true,
-      "payload_fields": ["target_exam", "target_exam_date", "timezone", "weekday_minutes", "weekend_minutes", "past_exam_scores", "preferred_study_time", "current_video_progress", "constraints"]
+      "payload_fields": ["target_exam", "target_exam_date", "timezone", "weekday_minutes", "weekend_minutes", "past_exam_scores", "preferred_study_time", "current_video_progress", "constraints"],
+      "optional_payload_fields": ["past_exam_scores"]
     },
     "exam_config": {
       "primary_key": "exam_name", "mutable": true,

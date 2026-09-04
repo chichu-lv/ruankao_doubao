@@ -1,7 +1,7 @@
 # Phase 5 test record
 
 - Date: 2026-09-04 (Asia/Shanghai)
-- Project version: 0.7.0
+- Project version: 0.7.1
 - Product baseline: `01_豆包软考私教系统_Codex开发说明书.md`, Phase 5 and sections 13–16
 - Acceptance baseline: `04_验收清单.md`, sections A, B, C and I
 - Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
@@ -40,6 +40,6 @@ Detailed real-account evidence: `artifacts/doubao-audit-logs/phase5-installation
 
 ## Final run
 
-- `python3 scripts/phase5_healthcheck.py`: PASS (render, deterministic build, policy checks, 6/6 Phase 5 tests).
-- Full repository unit suite under the bundled Python 3.12 runtime: 63/63 PASS.
+- `python3 scripts/phase5_healthcheck.py`: PASS (render, deterministic build, policy checks, 7/7 Phase 5 tests).
+- Full repository unit suite under the bundled Python 3.12 runtime: 65/65 PASS.
 - `git diff --check`: PASS at closeout.
