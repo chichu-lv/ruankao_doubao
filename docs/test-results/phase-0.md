@@ -31,7 +31,8 @@
 | Doubao browser open/read | PASS | Opened `example.com`; title and H1 both read as `Example Domain` |
 | Baidu exact time seek/progress read | PASS | Authorized course video sought to `00:10:01`; total `01:00:31` |
 | 芝士架构 login and visible chapter progress | PASS | Sanitized observation log |
-| 芝士架构 post-submission result/export | INCOMPLETE | DB-028/DB-029 matrix rows |
+| 芝士架构 post-submission result import | PASS | Aggregate page showed 488 total, 127 wrong, 74.0% accuracy, estimated score 42.93, and five answer sessions. Completed `数据库系统` report `test_id=710358` opened with 55 questions and displayed result 42; no answer content was preserved. Evidence: `artifacts/doubao-audit-screenshots/DB-028-submitted-report-header.png`. |
+| 芝士架构 official export | PARTIAL | Authenticated export-history page opened but showed `No data`; broad error-book PDF export was not triggered. |
 | One-time schedule reads shared state | PASS | Executed 2026-09-04 09:52:18 Asia/Shanghai; sanitized observation log |
 | Daily schedule reads shared state | PASS | Executed 2026-09-04 09:53:23 Asia/Shanghai; sanitized observation log |
 | Weekly schedule reads shared state | PASS | Executed 2026-09-04 09:54:15 Asia/Shanghai; sanitized observation log |
@@ -42,6 +43,7 @@
 
 - No 芝士架构 question was answered or submitted by automation.
 - No answer or explanation was exposed before user submission.
+- No submitted-report question or answer text was copied into repository evidence; only result metadata and a cropped header were retained.
 - No private API, DRM, paywall, membership limit, or CAPTCHA was bypassed.
 - No password, cookie, OTP, API key, access token, full account ID, or device ID was recorded.
 - Three generator placeholder files were deleted only after explicit user confirmation; the empty skill directories were retained.

@@ -82,11 +82,12 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 
 ## 芝士架构
 
-- Edge session was confirmed logged in by the user and then re-read through the real browser UI.
-- Visible homepage progress included nonzero completed counts across multiple chapters.
-- Navigation entries for practice logs, past exams, error book, collections, notes, statistics, and one-click export were present.
-- No question was answered, submitted, or opened for pre-submission answers.
-- Direct navigation to the statistics route left the visible single-page-app content on the homepage in this audit run; result-page and export-file tests remain incomplete.
+- Edge session was initially confirmed logged in and exposed visible homepage progress. The user later re-authenticated the same private account in 豆包浏览器, where the previously unstable routes loaded normally.
+- The error-book page showed completed progress across multiple subjects. The practice-log page listed ordinary, daily, past-exam, and wrong-question sessions with creation timestamps and `查看报告`/`查看回顾` actions.
+- The live statistics page exposed aggregate submitted-work metadata: 488 total questions, 127 wrong questions, 74.0% accuracy, estimated score 42.93 (updated 09-04), and five answer sessions.
+- A completed ordinary `数据库系统` session created at `2026-03-17 20:44:53` opened its submitted report at trace ID `test_id=710358`. Its header displayed 55 small questions, result 42, elapsed time 00:19, and navigation position 55/55. Evidence was cropped above the question body: `artifacts/doubao-audit-screenshots/DB-028-submitted-report-header.png`.
+- No question was answered, restarted, closed, or submitted. Although the historical report legitimately displayed answers after submission, no question or answer content was copied into repository evidence.
+- The authenticated export-history page loaded with task name, creation/update time, status, and download-address columns, but contained `No data`. The error-book `导出PDF` action was visible but not triggered because its scope could include a broad question set.
 
 ## Scheduling, partner, cross-device, and logs
 

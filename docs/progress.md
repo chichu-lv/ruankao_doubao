@@ -27,7 +27,7 @@
 - User-designated Baidu course scopes located and a real course player opened.
 - Doubao browser skill opened and read a public test page in its side workbench.
 - A real authorized Baidu course video was sought to `00:10:01`, and current/total playback times were read from the player.
-- Logged-in 芝士架构 progress and navigation entries read without answering or submitting questions.
+- Logged-in 芝士架构 aggregate statistics, practice log, and one traceable submitted report were read in 豆包浏览器 without answering or submitting questions; official export history was empty.
 - Native one-time, daily, and weekly tasks executed and each read the same Feishu state record.
 - Scheduler, partner, cross-device, privacy, and diagnostic surfaces inspected.
 - After explicit user confirmation, all three Doubao model-improvement data categories were disabled and read back as closed.
@@ -36,7 +36,6 @@
 ### Current gate blockers
 
 - Close residual skill lifecycle, trusted-HTTPS/authentication, Feishu calendar client-visibility, limit, and cross-device rows or record final constrained fallbacks.
-- Complete a post-submission result or official export import from 芝士架构.
 
 ### Exit criteria
 

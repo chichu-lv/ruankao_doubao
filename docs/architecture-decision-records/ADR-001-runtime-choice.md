@@ -38,6 +38,5 @@ The product baseline requires Doubao to remain the sole user-facing controller. 
 ## Remaining Phase 0 checks
 
 - Characterize scheduled failure/retry behavior and enforce write deduplication during implementation.
-- Complete a post-submission 芝士架构 result-page or official-export import test without answering questions.
 - Resolve or accept a constrained fallback for Feishu calendar client visibility: connector create/search/read passed, but the local weekly view did not visibly render the probe event.
 - Close the remaining skill update/rollback/remove, trusted-HTTPS/authentication, file-limit, and cross-device audit rows or record their final constrained fallbacks.
