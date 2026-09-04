@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import importlib.util
 import os
 import subprocess
 import sys
@@ -13,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def ensure_project_python() -> None:
-    if sys.version_info >= (3, 11) and importlib.util.find_spec("pdfplumber") is not None:
+    if sys.version_info >= (3, 11):
         return
     candidates = (
         ROOT / ".venv" / "bin" / "python3",
@@ -22,7 +21,7 @@ def ensure_project_python() -> None:
     for candidate in candidates:
         if candidate.is_file() and candidate.resolve() != Path(sys.executable).resolve():
             os.execv(str(candidate), [str(candidate), str(Path(__file__).resolve())])
-    print("FAIL: Python >=3.11 with project dependencies is required; configure .venv or the Codex workspace runtime")
+    print("FAIL: Python >=3.11 is required; configure .venv or the Codex workspace runtime")
     raise SystemExit(1)
 
 
@@ -49,7 +48,15 @@ def main() -> int:
         checks.append(("feishu_deployment_evidence", False, str(error)))
 
     process = subprocess.run(
-        [sys.executable, "-m", "unittest", "discover", "-s", "tests/unit", "-v"],
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "tests.unit.test_state_service",
+            "tests.unit.test_backup_and_outbox",
+            "tests.unit.test_migrations",
+            "-v",
+        ],
         cwd=ROOT,
         env={**__import__("os").environ, "PYTHONPATH": str(ROOT / "backend")},
         capture_output=True,

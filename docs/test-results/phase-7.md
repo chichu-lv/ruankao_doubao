@@ -97,6 +97,8 @@ Codex then actually quit the Doubao desktop application, confirmed the process w
 
 Version 0.8.2 replaces the documented in-process-only limitation with `PersistentOfflineOutbox`: it is confined to a caller-authorized existing directory, uses atomic replacement and file mode `0600`, carries original request/audit/actor context, checks document and item hashes, rejects non-allowlisted operations/path escape/request-ID conflicts, survives process restart, retains failed sends, and removes an item only after `status=ok`. Ten backup/outbox tests and the complete 81-test repository suite pass. This closes local persistence and restart safety; a real Doubao-to-Feishu outage/recovery remains separately unverified.
 
+A clean `git archive` bootstrap probe exposed an ordering defect: `phase1_healthcheck.py` ran the entire repository suite before Phase 5 had generated ignored `dist/doubao-skills` artifacts. Version 0.8.2 scopes the Phase 1 command to its own 25 state/backup/outbox/migration tests. The clean bootstrap is rerun after this correction.
+
 The authorized Baidu Netdisk material root was also enumerated through its ordinary UI. It contains eight visible PDFs, including `系统架构设计师选择真题分类解析.pdf` and `系统架构设计师案例真题分类解析.pdf`. Their existence and visible sizes are now recorded as remote inventory only; years, completeness, checksums and content quality remain unverified because no PDF was opened or downloaded.
 
 ## Zero-write safety probes

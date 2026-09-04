@@ -7,6 +7,7 @@ All notable changes to this private project are recorded here.
 - Added a checksum-protected persistent offline outbox with atomic writes, restart recovery, original request/audit context, operation allowlisting and acknowledgement-only removal.
 - Verified the real Doubao client can exit, reopen and independently recover a deployment-only checkpoint from the authoritative Feishu state without creating learning evidence.
 - Continued Phase 7 under a compressed acceptance plan while leaving the mandatory seven-day independent pilot explicitly deferred and unpassed.
+- Corrected the Phase 1 health check to run only its own state/backup/outbox/migration suite, so a clean Git checkout no longer fails before Phase 5 has built ignored skill archives.
 
 ## [0.8.1] - 2026-09-04
 
