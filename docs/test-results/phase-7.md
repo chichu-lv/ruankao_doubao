@@ -59,7 +59,15 @@ On 2026-09-04, Doubao performed a real read-only probe in the same Doubao Browse
 
 Further automated attempts to locate the entry target and inspect its configuration fields repeatedly triggered the site's own `/anti-hack` page, which displayed `检测到调试窗口` and requested that browser developer tools be closed. Doubao used only the site's ordinary automatic/home-return behavior and did not bypass the protection. Consequently, the exact supported subject, chapter, question type/count, difficulty and time controls remain unverified, and no first-paper parameters are claimed.
 
-The accepted fallback is a human handoff: the user manually opens `自定义组卷` in the existing Doubao Browser session and shares a screenshot of the configuration page before generating anything. ArchitectPass can then define a fixed baseline using only the controls visibly supported there. The user must still generate, answer and submit the paper; after the explicit `已提交` signal, Doubao may attempt to read only visible aggregate results, with screenshot/manual aggregate entry as fallback. This probe opened no question, generated no paper, created no mastery/checkpoint and performed zero business-state writes.
+At that point the accepted fallback was a human handoff and a configuration-page screenshot. The user must still generate, answer and submit any paper; after the explicit `已提交` signal, Doubao may attempt to read only visible aggregate results, with screenshot/manual aggregate entry as fallback. This initial probe opened no question, generated no paper, created no mastery/checkpoint and performed zero business-state writes. The later direct-UI result below supersedes only the configuration-page uncertainty.
+
+#### Custom-paper rule creation
+
+After the user explicitly asked Codex to operate the computer, direct ordinary UI control of the existing Doubao Browser reached the configuration form without bypassing any site protection. The observed fields were: rule name; question count up to 100; preset/custom easy-medium-hard proportions; an `未做优先` switch; 16 knowledge-point filters; six labels (`第一版教材`, `第二版教材`, `必须掌握`, `了解即可`, `超纲`, `争议题`); and 16 exam periods from 2013-11 through 2026-05. The home page also stated that the bank contains real exams from 2013 onward and does not provide simulated questions.
+
+Codex created and read back rule `AP-J1-计算机网络基线-v1` under project tracking IDs `request_id=phase7-cheko-rule-001` and `audit_id=phase7-cheko-rule-audit-001`. The saved rule contains 20 questions, balanced difficulty (6 easy / 10 medium / 4 hard), `未做优先=on`, only `计算机网络`, only `第二版教材` plus `必须掌握`, and periods 2025-05, 2024-11, 2024-05, 2023-11 and 2022-11. The selected periods intentionally exclude the two sittings the user reported taking (2025-11 and 2026-05). The browser is stopped at the enabled `出题` button; no paper was generated and no question content was opened.
+
+The authorized Baidu Netdisk material root was also enumerated through its ordinary UI. It contains eight visible PDFs, including `系统架构设计师选择真题分类解析.pdf` and `系统架构设计师案例真题分类解析.pdf`. Their existence and visible sizes are now recorded as remote inventory only; years, completeness, checksums and content quality remain unverified because no PDF was opened or downloaded.
 
 ## Zero-write safety probes
 
@@ -74,7 +82,7 @@ The health check independently reported nine expected repository skills, a reada
 ## Still required before Phase 7 closes
 
 - Complete the real J1 learning session and verified checkpoint.
-- Manually capture the visible `自定义组卷` configuration controls, then run one user-authored fixed-parameter diagnostic paper; the configuration and post-submission result DOM are not yet verified.
+- Have the user start, answer and submit the saved `AP-J1-计算机网络基线-v1` paper, then verify aggregate-only result import and the post-submission result DOM.
 - Exercise three-day checkpoint recovery and client restart recovery after that checkpoint exists.
 - Complete user-authored Cheko, case and essay scenarios; Codex/Doubao must not answer for the user.
 - Re-run real page-change/manual fallback, offline outbox replay, targeted rewatch and same-state weekly-report scenarios.

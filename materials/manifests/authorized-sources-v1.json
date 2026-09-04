@@ -2,8 +2,8 @@
   "schema_version": "1.0.0",
   "generated_at": "2026-09-04T04:45:00Z",
   "write_context": {
-    "request_id": "phase2-material-manifest-001",
-    "audit_id": "phase2-material-manifest-audit-001",
+    "request_id": "phase7-authorized-material-inventory-001",
+    "audit_id": "phase7-authorized-material-inventory-audit-001",
     "actor": "codex"
   },
   "authorization": {
@@ -201,6 +201,86 @@
       "checksum": null,
       "status": "remote_inventory_only",
       "source_anchor": "user-authorized-scope:2026-09-03"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师案例冲刺宝典.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "8.12 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师案例真题分类解析.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "7.26 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师红宝书一本全 .pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "6.17 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师考前指南.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "1.09 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师论文必背.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "3.03 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师论文写作宝典.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "2.12 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师论文押题.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "1.16 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师选择真题分类解析.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "4.50 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
     }
   ]
 }
