@@ -26,6 +26,7 @@
 | Doubao-to-Feishu structured-state write/read | PASS | Created private `ArchitectPass Phase0 State Probe`; read back `STATE_OK_20260904`, `P0-STATE-001`, and `req-p0-state-001` |
 | Doubao-to-Feishu calendar event create/search/read | PASS via connector; client visibility unresolved | Created private `P0-CALENDAR-PROBE` for 2026-09-05 09:00–09:15 Asia/Shanghai with no attendees/reminders; search and separate detail/attendee reads matched audit/request IDs and stable object ID. Local Feishu weekly view did not visibly render it. |
 | Doubao-to-Feishu task create/search/read | PASS | Created private `P0-TASK-PROBE`, due 2026-09-05 09:30 Asia/Shanghai with no assignee/follower/reminder; separate search/detail reads matched audit/request IDs and stable object ID. Evidence: `artifacts/doubao-audit-screenshots/DB-018-feishu-calendar-task-readback.png`. |
+| Feishu calendar/task cleanup with exact-ID guard | PASS | After separate explicit confirmation, both ID/title pairs matched before deletion. Calendar delete returned `action: deleted` and post-read `status: cancelled` with cleared content; task post-read returned code `1470404`, subtype `not_found`. Evidence: `artifacts/doubao-audit-logs/DB-018-deletion-verification.md`. |
 | Baidu Netdisk login and target-course lookup | PASS | Sanitized observation log |
 | Doubao browser open/read | PASS | Opened `example.com`; title and H1 both read as `Example Domain` |
 | Baidu exact time seek/progress read | PASS | Authorized course video sought to `00:10:01`; total `01:00:31` |
@@ -45,6 +46,6 @@
 - Three generator placeholder files were deleted only after explicit user confirmation; the empty skill directories were retained.
 - The three test schedules were created only after explicit user confirmation. Their prompts were read-only; no scheduled write or sharing occurred.
 - The persistent localhost connector was installed only after explicit user confirmation. It used no secret, was called once read-only, and the temporary localhost server was stopped afterward; the connector itself was not deleted.
-- The Feishu calendar event and task were created only after explicit user confirmation, were private and unshared, and remain in the account pending a separately confirmed deletion.
+- The Feishu calendar event and task were created only after explicit user confirmation, remained private and unshared, and were deleted only after a separate explicit confirmation. Exact IDs and titles were checked before deletion; post-delete reads were recorded.
 
 See `docs/doubao-capability-matrix.md` for all DB-001 through DB-040 statuses and open issue IDs.

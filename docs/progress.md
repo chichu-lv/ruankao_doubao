@@ -23,7 +23,7 @@
 - Authorized local PDF read passed with an exact marker match.
 - Doubao created, wrote, and read a private Feishu multidimensional table containing a harmless state marker plus audit/request IDs.
 - Doubao created and read back a private Feishu document with exact marker/audit/request IDs; the platform's automatic generated-content block required structural cleanup and re-verification.
-- After explicit confirmation, Doubao created one private Feishu calendar event and one private Feishu task, located both by title, and independently read them back with exact audit/request IDs and stable object IDs. The local Feishu weekly view did not visibly render the event, so cross-client visibility remains open.
+- After explicit confirmation, Doubao created one private Feishu calendar event and one private Feishu task, located both by title, and independently read them back with exact audit/request IDs and stable object IDs. After a second explicit confirmation, it validated the ID/title pairs, deleted only those two objects, and verified a cancelled calendar tombstone plus task `not_found`. The local Feishu weekly view did not visibly render the event before deletion, so cross-client visibility remains open.
 - User-designated Baidu course scopes located and a real course player opened.
 - Doubao browser skill opened and read a public test page in its side workbench.
 - A real authorized Baidu course video was sought to `00:10:01`, and current/total playback times were read from the player.
