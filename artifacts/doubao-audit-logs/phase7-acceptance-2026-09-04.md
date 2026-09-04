@@ -24,4 +24,6 @@ All three probes produced zero state writes. No Cheko question, option, answer o
 
 ## Human gate
 
-The next J1 action must come from the user: supply a target exam date or choose `暂不排期`, then personally execute the plan. Prior exam history is not required. Phase 7 and the seven-day pilot remain incomplete until their evidence exists.
+The user supplied `2026-10-24`. Doubao derived 50 days remaining, located the correct schema destination, and left the unverified official `exam_config` table empty. It updated `user_profile` record `recvueHtVtAe7a` with `target_exam_date=2026-10-24` under `req-phase7-j1-exam-date-v1`, appended audit record `recvueX11Bz7fi` under `audit-phase7-j1-exam-date-v1`, then independently read back and recomputed both hashes successfully. The operation changed one business record and added one audit record; it did not change mastery, review, checkpoints, schedules, permissions or unrelated state.
+
+The next J1 action must come from the user: complete the 15-minute closed-book seven-section confidence/boundary recall. Self-rating remains baseline input and is not mastery evidence. Prior exam history is not required. Phase 7 and the seven-day pilot remain incomplete until their evidence exists.

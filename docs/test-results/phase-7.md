@@ -23,7 +23,15 @@ The generated plan totals exactly 90 minutes:
 | Three-subject coverage check | 5 | Choice, case and essay each have an activity or explicit gap. |
 | Checkpoint reserve | 8 | Write only after actual execution; incomplete work must remain truthful. |
 
-OBSERVE, DIAGNOSE and PLAN passed. The complete J1 result is `PARTIAL / AWAITING_HUMAN`, because EXECUTE through CHECKPOINT have not occurred. Doubao initially reported the plan-only stage as overall PASS; after challenge, it explicitly withdrew that conclusion and made the remaining human step clear. No state write occurred.
+OBSERVE, DIAGNOSE and PLAN passed. The complete J1 result is `PARTIAL / AWAITING_HUMAN`, because EXECUTE through CHECKPOINT have not occurred. Doubao initially reported the plan-only stage as overall PASS; after challenge, it explicitly withdrew that conclusion and made the remaining human step clear. No state write occurred during this planning run.
+
+### Step A — target date
+
+The user supplied `2026-10-24` as the expected exam date. Doubao validated it as a future Saturday, derived 50 remaining days from `2026-09-04`, and correctly found that a user-provided target date belongs in `user_profile.target_exam_date`; `exam_config` remains empty because it is reserved for verified official rules and sources.
+
+The real write used `request_id=req-phase7-j1-exam-date-v1` and `audit_id=audit-phase7-j1-exam-date-v1`. It updated existing user-profile record `recvueHtVtAe7a` and created audit record `recvueX11Bz7fi`. Independent read-back matched the user ID, date, request/audit IDs, relationship fields and recomputed content hashes. The derived planning mode is regular baseline, not sprint. No mastery, review, checkpoint, schedule, permission or unrelated state changed.
+
+Step B is now `AWAITING_HUMAN`: the user must complete the 15-minute, closed-book seven-section self-rating and boundary recall. These self-ratings are baseline input only and must not become mastery evidence.
 
 ## Zero-write safety probes
 

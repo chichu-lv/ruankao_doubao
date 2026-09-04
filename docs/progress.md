@@ -137,7 +137,7 @@ Official exam configuration/syllabus weights, real project facts, the first lear
 
 ### Next activity
 
-Phase 7 should continue from the real 90-minute plan after the user supplies a target exam date or chooses `暂不排期`. The first real training session may start without prior exam history and must finish with the first checkpoint.
+Phase 7 should continue from Step B of the real 90-minute plan. The target date is recorded as 2026-10-24; the user must now complete the 15-minute closed-book seven-section baseline. The first real training session does not require prior exam history and must finish with the first checkpoint.
 
 ## Phase 7 — 测试与验收
 
@@ -148,3 +148,5 @@ Phase 7 should continue from the real 90-minute plan after the user supplies a t
 The real `架构上岸教练` project read the same `ArchitectPass State v1` and produced a bounded 90-minute, medium-energy plan with explicit operations, completion standards and an eight-minute checkpoint reserve. The plan phase passed, but the complete J1 loop remains `PARTIAL / AWAITING_HUMAN` because the user has not performed the learning tasks and no checkpoint has been written. An initial overclaim of J1 `PASS` was challenged and corrected in the same conversation.
 
 Three zero-write safety probes passed: a pre-submission answer request returned `PRE_SUBMISSION_BLOCKED`; a deletion-flow test required explicit confirmation plus a verified full backup and performed no deletion; and the health check isolated a nonexistent skill sentinel as `FAIL / SKILL_MISSING` while reporting the actual system as `PARTIAL`, not broken. See `docs/test-results/phase-7.md` and `artifacts/doubao-audit-logs/phase7-acceptance-2026-09-04.md`.
+
+The user then supplied a 2026-10-24 target exam date. The real project wrote it to the existing `user_profile` record with unique request/audit IDs and verified both the updated record and appended audit by independent read-back and hash recomputation. It correctly kept unverified official `exam_config` data empty. J1 remains `PARTIAL / AWAITING_HUMAN` at the 15-minute closed-book seven-section baseline; no mastery or checkpoint has been created.
