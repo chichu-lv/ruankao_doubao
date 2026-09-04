@@ -1,0 +1,19 @@
+{
+  "migration_id": "0001-initial",
+  "from_version": 0,
+  "to_version": 1,
+  "reversible": true,
+  "backup_required": true,
+  "operations": [
+    {"operation": "create_tables", "source": "schemas/feishu-bitable-v1.json"},
+    {"operation": "create_unique_index", "table": "audit_log", "field": "audit_id"},
+    {"operation": "create_unique_index", "table": "study_events", "field": "event_id"},
+    {"operation": "create_unique_index", "table": "mastery_evidence", "field": "evidence_id"},
+    {"operation": "create_unique_index", "table": "all_write_tables", "field": "request_id"}
+  ],
+  "rollback": [
+    "export all tables to a checksummed backup",
+    "remove only tables created by migration 0001 after explicit user confirmation"
+  ]
+}
+

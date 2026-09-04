@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 closed; prepare Phase 1 state-model and private-skill implementation under the accepted constraints.
+- Current activity: Phase 0 and Phase 1 closed; prepare Phase 2 incremental material ingestion and traceable retrieval.
 
 ### Repository initialization
 
@@ -50,3 +50,18 @@
 - Demonstrate a feasible path for every decision gate in specification section 7.3.
 
 All Phase 0 exit criteria are satisfied with the limitations and fallbacks recorded in `docs/phase-0-closeout.md`.
+
+## Phase 1 — 仓库、数据模型与状态服务
+
+- Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
+- Started: 2026-09-04 (Asia/Shanghai)
+- Completed: 2026-09-04 (Asia/Shanghai)
+- Version: 0.3.0
+
+Delivered the canonical schemas, allowlisted state API, immutable raw-event and evidence model, reproducible mastery projection, idempotency/audit rules, backup/export/guarded restore, migration chain, offline replay reference, and 21 fake-data unit tests. A private unshared Feishu Base named `ArchitectPass State v1` was installed with all 15 logical tables. Complete canaries and a mutable profile create/update were independently read back; identical request-ID replays produced no duplicate records.
+
+The native Feishu platform has no table-level append-only constraint, local health checks intentionally have no live Feishu credential, and scheduled writes remain disabled. See `docs/phase-1-closeout.md` for the full evidence and acceptance trace.
+
+### Next activity
+
+Phase 2 starts with a bounded inventory and incremental manifest for only the user-authorized material scopes. No bulk upload or full reprocessing is authorized by Phase 1 completion.

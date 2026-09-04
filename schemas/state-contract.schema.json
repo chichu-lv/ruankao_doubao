@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://architectpass.local/schemas/state-contract.schema.json",
+  "title": "ArchitectPass State Contract",
+  "schema_version": 1,
+  "$defs": {
+    "source_ref": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "resource_id": {"type": "string"},
+        "pdf_page": {"type": "integer", "minimum": 1},
+        "video_start_seconds": {"type": "number", "minimum": 0},
+        "video_end_seconds": {"type": "number", "minimum": 0},
+        "cheko_test_id": {"type": "string"},
+        "cheko_result_id": {"type": "string"},
+        "web_url": {"type": "string", "format": "uri"}
+      },
+      "additionalProperties": false
+    },
+    "write_context": {
+      "type": "object",
+      "required": ["request_id", "audit_id", "actor"],
+      "properties": {
+        "request_id": {"type": "string", "minLength": 1},
+        "audit_id": {"type": "string", "minLength": 1},
+        "actor": {"type": "string", "minLength": 1},
+        "user_confirmed": {"type": "boolean", "default": false}
+      },
+      "additionalProperties": false
+    },
+    "study_event": {
+      "type": "object",
+      "required": ["event_id", "event_type", "occurred_at", "source_ref"],
+      "properties": {
+        "event_id": {"type": "string", "minLength": 1},
+        "event_type": {"type": "string", "minLength": 1},
+        "topic_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "session_id": {"type": ["string", "null"]},
+        "payload": {"type": "object"},
+        "source_ref": {"$ref": "#/$defs/source_ref"},
+        "occurred_at": {"type": "string", "format": "date-time"}
+      },
+      "additionalProperties": false
+    },
+    "mastery_evidence": {
+      "type": "object",
+      "required": ["evidence_id", "topic_id", "evidence_type", "score", "confidence", "source_id", "created_at"],
+      "properties": {
+        "evidence_id": {"type": "string", "minLength": 1},
+        "topic_id": {"type": "string", "minLength": 1},
+        "evidence_type": {"enum": ["viewed", "open_book_recall", "closed_book_recall", "choice_untimed", "choice_timed", "case_points", "essay_application", "timed_mock"]},
+        "score": {"type": "number", "minimum": 0, "maximum": 1},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "difficulty": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "timed": {"type": "boolean"},
+        "source_id": {"type": "string", "minLength": 1},
+        "created_at": {"type": "string", "format": "date-time"},
+        "expires_or_decay_rule": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "mastery_state": {
+      "type": "object",
+      "required": ["topic_id", "level_0_to_5", "confidence", "risk_flags", "derivation"],
+      "properties": {
+        "topic_id": {"type": "string"},
+        "level_0_to_5": {"type": "integer", "minimum": 0, "maximum": 5},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "last_verified_at": {"type": ["string", "null"], "format": "date-time"},
+        "next_review_at": {"type": ["string", "null"], "format": "date-time"},
+        "risk_flags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "derivation": {
+          "type": "object",
+          "required": ["evidence_ids", "rule_version"],
+          "properties": {
+            "evidence_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+            "rule_version": {"type": "string"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
+

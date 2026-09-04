@@ -1,0 +1,28 @@
+{
+  "deployment_id": "architectpass-feishu-v1-20260904",
+  "deployed_at": "2026-09-04T11:52:00+08:00",
+  "base_name": "ArchitectPass State v1",
+  "base_id": "EyjxbTJUtafqe3sA7mRchccXnAh",
+  "base_url": "https://my.feishu.cn/base/EyjxbTJUtafqe3sA7mRchccXnAh",
+  "visibility": "private_unshared",
+  "authentication_note": "base_id is an object identifier, not an authentication credential",
+  "tables": {
+    "user_profile": "tblM35e9O6uAKcK6",
+    "exam_config": "tblhFDqVmXKC5Jf7",
+    "topics": "tblvmIcgkh39o7He",
+    "resources": "tblQg5Q85sGUzNaD",
+    "resource_segments": "tblMFct44tYi2lGO",
+    "video_progress": "tblNB2iLzEr1xMhH",
+    "study_sessions": "tblyOxXkEbJhllSf",
+    "practice_attempts": "tblSmxAT4FttHF5y",
+    "study_events": "tblXQilACHs411tk",
+    "mastery_evidence": "tblR5td5AAfE6CiI",
+    "mastery_state": "tblPh3mlOXqEH9wu",
+    "review_queue": "tblQuQK6RCRBPrgp",
+    "case_attempts": "tblO3qzeXBaOUywd",
+    "essay_attempts": "tblD5MUqXlxKFZKU",
+    "audit_log": "tblFQIubK6ZpAmBD"
+  },
+  "scheduled_writes_enabled": false
+}
+

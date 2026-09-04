@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "authority": "private_feishu_bitable",
+  "local_role": "cache_backup_outbox_only",
+  "tables": {
+    "user_profile": {
+      "primary_key": "user_id", "mutable": true,
+      "payload_fields": ["target_exam", "target_exam_date", "timezone", "weekday_minutes", "weekend_minutes", "past_exam_scores", "preferred_study_time", "current_video_progress", "constraints"]
+    },
+    "exam_config": {
+      "primary_key": "exam_name", "mutable": true,
+      "payload_fields": ["exam_year", "official_syllabus_version", "subjects", "pass_rule", "exam_mode", "official_sources", "verified_at"]
+    },
+    "topics": {
+      "primary_key": "topic_id", "mutable": true,
+      "payload_fields": ["parent_id", "name", "syllabus_weight", "choice_relevance", "case_relevance", "essay_relevance", "prerequisites", "source_refs"]
+    },
+    "resources": {
+      "primary_key": "resource_id", "mutable": true,
+      "payload_fields": ["type", "title", "local_path_or_uri", "copyright_scope", "processing_status", "checksum", "created_at"]
+    },
+    "resource_segments": {
+      "primary_key": "segment_id", "mutable": true,
+      "payload_fields": ["resource_id", "page_start", "page_end", "time_start", "time_end", "section", "text", "keywords", "topic_ids", "citation_anchor"]
+    },
+    "video_progress": {
+      "primary_key": "video_id", "mutable": true,
+      "payload_fields": ["watched_until", "status", "last_watched_at", "recall_checked", "practice_checked", "needs_rewatch"]
+    },
+    "study_sessions": {
+      "primary_key": "session_id", "mutable": true,
+      "payload_fields": ["start", "end", "available_minutes", "energy_level", "plan_id", "status", "checkpoint"]
+    },
+    "practice_attempts": {
+      "primary_key": "attempt_id", "mutable": false,
+      "payload_fields": ["platform", "question_or_set_id", "topic_ids", "correct", "confidence", "duration", "error_type", "source_evidence", "submitted_at"]
+    },
+    "study_events": {
+      "primary_key": "event_id", "mutable": false,
+      "payload_fields": ["event_type", "topic_ids", "session_id", "payload", "source_ref", "occurred_at"]
+    },
+    "mastery_evidence": {
+      "primary_key": "evidence_id", "mutable": false,
+      "payload_fields": ["topic_id", "evidence_type", "score", "confidence", "difficulty", "timed", "source_id", "created_at", "expires_or_decay_rule"]
+    },
+    "mastery_state": {
+      "primary_key": "topic_id", "mutable": true, "derived": true,
+      "payload_fields": ["level_0_to_5", "confidence", "last_verified_at", "next_review_at", "risk_flags", "derivation"]
+    },
+    "review_queue": {
+      "primary_key": "review_id", "mutable": true,
+      "payload_fields": ["topic_id", "due_at", "review_type", "priority", "reason", "status"]
+    },
+    "case_attempts": {
+      "primary_key": "case_id", "mutable": false,
+      "payload_fields": ["question_source", "user_answer", "rubric", "covered_points", "missing_points", "irrelevant_content", "time_used", "score_estimate", "review_due"]
+    },
+    "essay_attempts": {
+      "primary_key": "essay_id", "mutable": false,
+      "payload_fields": ["topic", "outline_or_full", "project_fact_ids", "word_count", "time_used", "rubric_results", "factual_risks", "revision_history"]
+    },
+    "audit_log": {
+      "primary_key": "audit_id", "mutable": false,
+      "payload_fields": ["request_id", "actor", "operation", "table", "record_id", "before_hash", "after_hash", "success", "error", "user_confirmed", "rollback_ref", "created_at"]
+    }
+  },
+  "mandatory_write_fields": ["request_id", "audit_id", "actor", "created_at"],
+  "write_protocol": [
+    "validate payload against allowlist",
+    "look up request_id",
+    "write raw fact or mutable state",
+    "append audit record",
+    "read after write and compare primary key plus content hash",
+    "report success only after verification"
+  ]
+}
