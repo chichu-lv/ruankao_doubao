@@ -147,7 +147,7 @@ The corrected adapter passes the Phase 3 health check, all 13 Cheko tests and th
 
 - Status: IN_PROGRESS_COMPRESSED_ACCEPTANCE
 - Started: 2026-09-04 (Asia/Shanghai)
-- Version under test: 0.8.2
+- Version under test: 0.8.3
 
 The real `架构上岸教练` project read the same `ArchitectPass State v1` and produced a bounded 90-minute, medium-energy plan with explicit operations, completion standards and an eight-minute checkpoint reserve. The plan phase passed, but the complete J1 loop remains `PARTIAL / AWAITING_HUMAN` because the user has not performed the learning tasks and no checkpoint has been written. An initial overclaim of J1 `PASS` was challenged and corrected in the same conversation.
 
@@ -176,3 +176,5 @@ The real Doubao project then generated the same weekly-report preview twice from
 The same real project also validated the Cheko manual aggregate fallback while the attached browser panel visibly hit `/anti-hack`. It accepted the excluded workflow-test aggregate, distinguished 20 main stems from 21 scored blanks/items, verified `6/21=28.57%`, and generated a zero-write dry-run. Before/after remained `practice_attempts=0`, all mastery/review tables `0`, `study_sessions=1`, and `audit_log=72`; no private API or question/answer content was used. Result: `CHEKO_MANUAL_AGGREGATE_FALLBACK=PASS`, without claiming learning progress.
 
 Direct inspection of Doubao's native schedule list then corrected the scope of earlier schedule evidence. The only active entries are `P0-DAILY-STATE-READ` at 09:53 daily and `P0-WEEKLY-STATE-READ` at 09:54 Friday, both reading `ArchitectPass Phase0 State Probe`; the completed one-time entry is also Phase 0. No schedule targets production `ArchitectPass State v1`. The J scheduled-weekly-report item is therefore `NOT_CONFIGURED`; creating it awaits an explicit time/notification choice, and no schedule was changed during this read-only audit.
+
+After the user selected Saturday 20:00, Codex created the production native task `架构上岸教练-每周只读复盘-v1`. The schedule list visibly read it back under `进行中` as `每星期六 • 20:00`, with a prompt bound to private `ArchitectPass State v1` and explicit zero state/audit writes. Git deployment manifest and prompt now match the installed task; Phase 5 health and all 82 repository tests pass. Result: `PRODUCTION_WEEKLY_TASK_CONFIGURED_PASS`; actual time-triggered delivery remains pending, and the daily production reminder still has no user-selected time.

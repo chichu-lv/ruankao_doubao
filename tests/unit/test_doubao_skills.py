@@ -53,6 +53,29 @@ class DoubaoSkillPackageTests(unittest.TestCase):
         health = next(item for item in manifest["skills"] if item["name"] == "ruankao-healthcheck-v1")
         self.assertEqual([], health["writes"])
 
+    def test_weekly_schedule_matches_verified_read_only_doubao_task(self) -> None:
+        schedules = json.loads(
+            (ROOT / "deployment" / "doubao" / "schedules-v1.json").read_text(encoding="utf-8")
+        )
+        weekly = next(
+            item for item in schedules["jobs"]
+            if item["name"] == "架构上岸教练-每周只读复盘-v1"
+        )
+        self.assertEqual("active_verified_in_doubao", weekly["status"])
+        self.assertEqual({
+            "repeat": "weekly",
+            "weekday": "saturday",
+            "time": "20:00",
+            "timezone": "Asia/Shanghai",
+        }, weekly["schedule"])
+        self.assertEqual([], weekly["write_operations"])
+
+        prompt = (ROOT / weekly["prompt_file"]).read_text(encoding="utf-8")
+        self.assertIn("ArchitectPass State v1", prompt)
+        self.assertIn("每次必须重新只读统计", prompt)
+        self.assertIn("workflow_test", prompt)
+        self.assertIn("零状态写入、零审计写入", prompt)
+
     def test_sensitive_and_cheko_operations_are_forbidden(self) -> None:
         manifest = json.loads((ROOT / "deployment" / "doubao" / "skills-v1.json").read_text(encoding="utf-8"))
         forbidden = set(manifest["forbidden_capabilities"])

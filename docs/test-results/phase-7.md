@@ -1,7 +1,7 @@
 # Phase 7 test record
 
 - Date: 2026-09-04 (Asia/Shanghai)
-- Version under test: 0.8.2
+- Version under test: 0.8.3
 - Real environment: Doubao project `架构上岸教练`, chat `38440213023143426`, private Feishu Base `ArchitectPass State v1`
 - Product baseline: `01_豆包软考私教系统_Codex开发说明书.md`, sections 21–22
 - Acceptance baseline: `04_验收清单.md`, sections J–K
@@ -108,6 +108,8 @@ The real Doubao project performed two consecutive, independently requested, read
 Both previews excluded two schema canaries, deployment checkpoint `phase7-j1-recovery-v1`, and randomized Cheko result `1094788`. They independently retained the same four key findings: one aggregate-only Cheko baseline that cannot update mastery; case and essay have zero activity; `played_unchecked` video progress shows a watch-without-output risk; and the next priorities are a user-authored Cheko attempt, first case submission and first essay outline/input. Run 2 encountered a table-list response-shape parsing error, reported it, re-read the table list through a safer path, and completed without writes. Results: `SAME_STATE_WEEKLY_REPORT_RUN1=PASS`, `SAME_STATE_WEEKLY_REPORT_RUN2=PASS`, and `SAME_STATE_WEEKLY_REPORT_SCENARIO=PASS`. This validates same-state report generation and non-duplication in the real project; it does not yet prove that the configured scheduled task itself fired and delivered a report.
 
 A subsequent direct inventory of Doubao's native schedule page corrected an earlier ambiguous health statement. The only active tasks are `P0-DAILY-STATE-READ` (daily 09:53) and `P0-WEEKLY-STATE-READ` (Friday 09:54); both explicitly read the separate `ArchitectPass Phase0 State Probe`. The completed one-time task is also a Phase 0 probe. No active task reads `ArchitectPass State v1` or generates the ArchitectPass learning report. Therefore acceptance item J `周报定时任务` is `NOT_CONFIGURED`, not PASS. Creating the production task would change notification/schedule state and awaits the user's explicit choice of time.
+
+The user then selected Saturday 20:00. Codex created `架构上岸教练-每周只读复盘-v1` in the native Doubao schedule UI and independently read it back under `进行中` as `每星期六 • 20:00`. Its visible prompt names private `ArchitectPass State v1`, requires a fresh seven-day read, excludes deployment checkpoints, canaries, workflow tests and `exclude_from_learning` results, and forbids all state/audit writes, sharing and export. Result: `PRODUCTION_WEEKLY_TASK_CONFIGURED_PASS`. The Git manifest/prompt match the installed schedule, Phase 5 health check passes, and the complete repository suite passes 82 tests. Actual time-triggered execution/delivery remains `NOT_RUN` until the next Saturday occurrence, so acceptance item J is still PARTIAL rather than fully closed.
 
 ## Cheko manual-aggregate fallback — real Doubao dry-run
 

@@ -12,11 +12,18 @@
     },
     {
       "name": "架构上岸教练-每周只读复盘-v1",
-      "status": "template_pending_user_time",
+      "status": "active_verified_in_doubao",
       "prompt_file": "deployment/doubao/schedule-prompts/weekly-readonly.md",
+      "schedule": {
+        "repeat": "weekly",
+        "weekday": "saturday",
+        "time": "20:00",
+        "timezone": "Asia/Shanghai"
+      },
+      "verified_on": "2026-09-04",
       "write_operations": []
     }
   ],
-  "activation_gate": "user confirms preferred daily and weekly execution times",
+  "activation_gate": "weekly time confirmed and active; daily time still requires user confirmation",
   "write_gate": "failure/retry/idempotency behavior must pass before any scheduled write is enabled"
 }

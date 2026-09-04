@@ -2,6 +2,13 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.8.3] - 2026-09-04
+
+- Created and visibly read back the production Doubao task `架构上岸教练-每周只读复盘-v1`, scheduled every Saturday at 20:00 Asia/Shanghai.
+- Bound the task to private `ArchitectPass State v1` with a read-only, zero-audit-write prompt that excludes deployment checkpoints, canaries and workflow tests from learning evidence.
+- Updated the Git deployment manifest and prompt so a clean bootstrap can reproduce the user-confirmed weekly schedule; the daily task remains pending a separate time choice.
+- Added a deployment regression test for the verified Saturday 20:00 schedule and read-only prompt; the complete repository suite now passes 82 tests.
+
 ## [0.8.2] - 2026-09-04
 
 - Added a checksum-protected persistent offline outbox with atomic writes, restart recovery, original request/audit context, operation allowlisting and acknowledgement-only removal.

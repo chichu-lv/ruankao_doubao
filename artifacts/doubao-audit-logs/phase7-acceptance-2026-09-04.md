@@ -85,3 +85,5 @@ While the real Doubao Browser panel visibly encountered `/anti-hack`, the projec
 ## Native schedule inventory correction
 
 Direct read-only inspection of Doubao's native schedule page showed two active entries: `P0-DAILY-STATE-READ` (daily 09:53) and `P0-WEEKLY-STATE-READ` (Friday 09:54). Both prompts explicitly target the separate `ArchitectPass Phase0 State Probe`; the completed one-time entry is the same Phase 0 probe. No task targets `ArchitectPass State v1` or the learning weekly-report workflow. Result: production scheduled weekly report `NOT_CONFIGURED`. No schedule or notification setting was changed.
+
+After the user explicitly chose Saturday 20:00, Codex created `架构上岸教练-每周只读复盘-v1`. The native schedule list visibly placed it under `进行中` and displayed `每星期六 • 20:00`, with the complete read-only prompt targeting private `ArchitectPass State v1`. The prompt excludes non-learning/test evidence and permits zero state or audit writes. Result: `PRODUCTION_WEEKLY_TASK_CONFIGURED_PASS`; natural time-triggered execution is not yet claimed.

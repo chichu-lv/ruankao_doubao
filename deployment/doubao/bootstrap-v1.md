@@ -85,7 +85,7 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 ### 8. CONFIGURE_READ_ONLY_JOBS
 
 - 读取 `schedules-v1.json` 和两个提示模板。
-- 在用户确认每日与每周执行时刻后，创建或对齐两个只读任务；在确认前保持 `template_pending_user_time`。
+- 分别在用户确认每日或每周执行时刻后创建或对齐对应的只读任务；未确认的任务保持 `template_pending_user_time`，不得因另一项已确认而擅自启用。
 - 不启用 scheduled writes，不删除或修改无关定时任务。
 
 ### 9. HEALTHCHECK
