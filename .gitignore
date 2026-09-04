@@ -1,0 +1,19 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+dist/
+build/
+tmp/
+
+# Future local/private runtime data. Evidence intended for acceptance remains tracked.
+materials/raw/
+materials/inbox/
+materials/index/
+backups/
+secrets/
