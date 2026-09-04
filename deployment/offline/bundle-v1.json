@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "visibility": "private_personal_offline_backup",
+  "redistribution_allowed": false,
+  "git_upload_allowed": false,
+  "contains_credentials": false,
+  "project_prefix": "ArchitectPass-offline/project/",
+  "skills_prefix": "ArchitectPass-offline/prebuilt-skills/",
+  "materials_prefix": "ArchitectPass-offline/private-materials/",
+  "manifest": "ArchitectPass-offline/offline-manifest.json",
+  "entrypoint": "ArchitectPass-offline/README-OFFLINE.md",
+  "authorized_roots": [
+    "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+    "5、【2026年05月】芝士架构系统架构设计师"
+  ],
+  "complete_build_requires": "all file entries currently declared in materials/manifests/authorized-sources-v1.json",
+  "partial_build_policy": "requires --allow-incomplete and a filename/status containing PARTIAL"
+}

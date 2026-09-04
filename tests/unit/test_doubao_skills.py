@@ -144,6 +144,9 @@ class DoubaoSkillPackageTests(unittest.TestCase):
             with zipfile.ZipFile(output / item["package"]) as package:
                 self.assertIn(f"{item['name']}/SKILL.md", package.namelist())
                 self.assertFalse(any(name.startswith("/") or ".." in Path(name).parts for name in package.namelist()))
+                for member in package.infolist():
+                    self.assertEqual((1980, 1, 1, 0, 0, 0), member.date_time)
+                    self.assertEqual(0o100644, member.external_attr >> 16)
 
 
 if __name__ == "__main__":

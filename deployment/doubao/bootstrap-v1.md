@@ -44,16 +44,17 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 
 ### 2. VERIFY
 
-- 核对 `VERSION=1.0.1`、`main` 分支、Git 提交 ID、工作树状态和上述权威文件存在性。
+- 核对 `VERSION=1.1.0`、`main` 分支、Git 提交 ID、工作树状态和上述权威文件存在性。
 - 运行敏感信息检查；发现疑似秘密时停止安装并报告文件路径，不展示秘密值。
 - 不得仅凭清单假定当前豆包仍支持某个技能、连接器或项目格式；先在当前真实账号与界面只读复核。若界面变化，使用手工导入/私有项目上下文等已写明的降级路径，不得猜测成功。
 
 ### 3. BUILD
 
-- 在仓库根目录运行 `python3 scripts/phase5_healthcheck.py`。
-- 该命令必须生成 `dist/doubao-skills/build-manifest.json` 和九个同名目录结构的 ZIP。
+- 在仓库根目录运行 `python3 scripts/bootstrap_local.py`。此入口保持兼容系统 Python 3.9，并自动发现 Python 3.11+；没有兼容解释器但已有 `uv` 时，只在仓库私有 `.runtime/` 和 `.venv/` 中配置 Python 3.12 与依赖。
+- 该命令必须生成 `dist/bootstrap/local-bootstrap-result.json`、`dist/doubao-skills/build-manifest.json` 和九个同名目录结构的 ZIP。
 - 只有专项测试通过、九个哈希齐全且没有未解析占位符时才继续。
-- 若 Python 或依赖不可用，明确报告并给出安装环境/手工构建兜底；不得伪造 ZIP 或 PASS。
+- 若既没有 Python 3.11+ 也没有 `uv`，明确报告一个通过官方来源安装 Python 3.12 或 `uv` 的用户动作；不得修改系统 Python，不得伪造 ZIP 或 PASS。
+- `phase2_healthcheck.py` 的 `PARTIAL` 表示本地 OCR/ASR 能力不完整但官方界面人工页码/时间点兜底仍可用，不得把该状态改写为 PASS。
 
 ### 4. CREATE_PRIVATE_PROJECT
 

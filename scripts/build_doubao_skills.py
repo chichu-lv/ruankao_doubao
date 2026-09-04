@@ -30,6 +30,8 @@ SECRET_PATTERNS = {
     "cookie": re.compile(r"(?i)(?:^|\s)cookie\s*:\s*\S+"),
     "generic secret": re.compile(r"(?i)(?:api[_-]?key|access[_-]?token|password)\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{12,}"),
 }
+ZIP_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
+ZIP_FILE_MODE = 0o100644
 
 
 def sha256(path: Path) -> str:
@@ -74,9 +76,17 @@ def main() -> int:
         files = sorted(path for path in directory.rglob("*") if path.is_file())
         with zipfile.ZipFile(package, "w", compression=zipfile.ZIP_DEFLATED) as archive:
             for path in files:
-                archive.write(
-                    path,
-                    (Path(directory.name) / path.relative_to(directory)).as_posix(),
+                member = (Path(directory.name) / path.relative_to(directory)).as_posix()
+                info = zipfile.ZipInfo(member, date_time=ZIP_TIMESTAMP)
+                info.create_system = 3
+                info.external_attr = ZIP_FILE_MODE << 16
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.flag_bits |= 0x800
+                archive.writestr(
+                    info,
+                    path.read_bytes(),
+                    compress_type=zipfile.ZIP_DEFLATED,
+                    compresslevel=9,
                 )
         metadata["files"] = len(files)
         metadata["package"] = package.name

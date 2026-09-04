@@ -8,7 +8,9 @@ The two Baidu Netdisk course folders are runtime-private sources, not Git payloa
 
 ## Build and static verification
 
-Run `python3 scripts/phase5_healthcheck.py`. Reproducible packages and SHA-256 values are written to ignored `dist/doubao-skills/`. Source `SKILL.md` files remain version controlled under `skills/doubao/`.
+Run `python3 scripts/bootstrap_local.py`. The Python-3.9-compatible launcher discovers or provisions a private Python 3.11+ environment, installs the project, runs the local health checks and writes reproducible packages plus SHA-256 values to ignored `dist/doubao-skills/`. Source `SKILL.md` files remain version controlled under `skills/doubao/`.
+
+If GitHub or Baidu Netdisk may be unavailable later, build the private local archive described in `deployment/offline/README.md` while both authorized course folders are still accessible. The archive is never a Git payload and never carries account credentials.
 
 ## Safe install
 
