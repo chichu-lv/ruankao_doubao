@@ -69,3 +69,7 @@ The real Doubao project validated the documented `study_sessions.checkpoint` sha
 Codex used the native application menu to quit Doubao, confirmed it was not running, reopened `/Applications/Doubao.app`, and requested a fresh read from `ArchitectPass State v1`. The reopened project independently matched the checkpoint fields, request/audit IDs and hash, listed exactly one study-session record, and confirmed `practice_attempts=0`, `mastery_evidence=0`, `mastery_state=0`, `review_queue=0`. The recovery turn wrote zero records. Result: `EXIT_REOPEN_RECOVERY_PASS` for deployment context only.
 
 The user prioritized exam preparation over waiting for a seven-day pilot. Phase 7 therefore continues with compressed acceptance. The seven-day requirement remains `DEFERRED / NOT_RUN`, not waived or passed.
+
+## Clean Git snapshot bootstrap
+
+After commit `b6f1ad1`, Codex exported `HEAD` with `git archive` into a new temporary directory so no ignored or untracked local files were available. Phase 1, 3, 4, 5 and 6 health checks passed in order; Phase 5 rebuilt the ignored Doubao skill packages from tracked source. Full unit discovery then ran 81 tests successfully with two expected skips because the private PDF/video runtime catalogs are intentionally excluded from Git. The Phase 1 live-Feishu probe remained truthfully `PARTIAL` because the local command verifies captured evidence and does not authenticate. Result: `CLEAN_GIT_SNAPSHOT_BOOTSTRAP_PASS`. A real remote-clone bootstrap remains pending until the private Git remote is provided.

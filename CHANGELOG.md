@@ -8,6 +8,7 @@ All notable changes to this private project are recorded here.
 - Verified the real Doubao client can exit, reopen and independently recover a deployment-only checkpoint from the authoritative Feishu state without creating learning evidence.
 - Continued Phase 7 under a compressed acceptance plan while leaving the mandatory seven-day independent pilot explicitly deferred and unpassed.
 - Corrected the Phase 1 health check to run only its own state/backup/outbox/migration suite, so a clean Git checkout no longer fails before Phase 5 has built ignored skill archives.
+- Verified the corrected tracked-only bootstrap from a fresh `git archive`: Phase 1/3/4/5/6 health checks passed and the full 81-test suite passed with two expected private-catalog skips.
 
 ## [0.8.1] - 2026-09-04
 
