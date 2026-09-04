@@ -81,3 +81,7 @@ The real Doubao project generated two consecutive read-only weekly-report previe
 ## Cheko manual aggregate fallback
 
 While the real Doubao Browser panel visibly encountered `/anti-hack`, the project accepted workflow-test result `1094788` through `source=manual_aggregate_fallback` for dry-run validation only. It correctly separated 20 main stems from 21 scored items and verified `6/21=28.57%`. Counts remained `practice_attempts=0`, `mastery_evidence=0`, `mastery_state=0`, `review_queue=0`, `study_sessions=1`, and `audit_log=72`; `wrong_questions` is not one of the 15 Base tables. No question/answer content or private API was used and no write was planned or performed. Result: `CHEKO_MANUAL_AGGREGATE_FALLBACK=PASS`.
+
+## Native schedule inventory correction
+
+Direct read-only inspection of Doubao's native schedule page showed two active entries: `P0-DAILY-STATE-READ` (daily 09:53) and `P0-WEEKLY-STATE-READ` (Friday 09:54). Both prompts explicitly target the separate `ArchitectPass Phase0 State Probe`; the completed one-time entry is the same Phase 0 probe. No task targets `ArchitectPass State v1` or the learning weekly-report workflow. Result: production scheduled weekly report `NOT_CONFIGURED`. No schedule or notification setting was changed.

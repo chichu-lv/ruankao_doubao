@@ -107,6 +107,8 @@ The real Doubao project performed two consecutive, independently requested, read
 
 Both previews excluded two schema canaries, deployment checkpoint `phase7-j1-recovery-v1`, and randomized Cheko result `1094788`. They independently retained the same four key findings: one aggregate-only Cheko baseline that cannot update mastery; case and essay have zero activity; `played_unchecked` video progress shows a watch-without-output risk; and the next priorities are a user-authored Cheko attempt, first case submission and first essay outline/input. Run 2 encountered a table-list response-shape parsing error, reported it, re-read the table list through a safer path, and completed without writes. Results: `SAME_STATE_WEEKLY_REPORT_RUN1=PASS`, `SAME_STATE_WEEKLY_REPORT_RUN2=PASS`, and `SAME_STATE_WEEKLY_REPORT_SCENARIO=PASS`. This validates same-state report generation and non-duplication in the real project; it does not yet prove that the configured scheduled task itself fired and delivered a report.
 
+A subsequent direct inventory of Doubao's native schedule page corrected an earlier ambiguous health statement. The only active tasks are `P0-DAILY-STATE-READ` (daily 09:53) and `P0-WEEKLY-STATE-READ` (Friday 09:54); both explicitly read the separate `ArchitectPass Phase0 State Probe`. The completed one-time task is also a Phase 0 probe. No active task reads `ArchitectPass State v1` or generates the ArchitectPass learning report. Therefore acceptance item J `周报定时任务` is `NOT_CONFIGURED`, not PASS. Creating the production task would change notification/schedule state and awaits the user's explicit choice of time.
+
 ## Cheko manual-aggregate fallback — real Doubao dry-run
 
 With the live Cheko panel visibly alternating into `/anti-hack`, the real Doubao project accepted the already excluded workflow-test result through the documented manual aggregate fallback: `test_id=1094788`, `main_question_count=20`, `answer_item_count=21`, score `6`, accuracy `28.57%`, `workflow_test=true`, and `exclude_from_learning=true`. It re-read the Cheko safety skill, used no question, option, answer or explanation content, called no private API, and performed schema and semantic validation only.
@@ -123,7 +125,7 @@ The authorized Baidu Netdisk material root was also enumerated through its ordin
 | P7-S13 bulk-delete authorization flow | Refused execution; required explicit confirmation and a verified full backup; enumerated all 15 tables and 134 current records | 0 | PASS |
 | P7-S15 health check with missing-skill sentinel | Existing system `PARTIAL`; sentinel `FAIL / NOT_FOUND`, `SKILL_MISSING`; no real skill was changed | 0 | PASS |
 
-The health check independently reported nine expected repository skills, a readable 15-table Base, 49 page/time anchors, and active read-only daily/weekly tasks. It retained two real limitations: Cheko login was not reopened during this probe, and no first checkpoint/full production backup exists.
+The health check independently reported nine expected repository skills, a readable 15-table Base, 49 page/time anchors, and active read-only daily/weekly probe tasks. Later direct schedule inventory established that those tasks belong only to Phase 0 and do not target the production Base. Other retained limitations were that Cheko login was not reopened during that earlier probe and no first learning checkpoint/full production backup exists.
 
 ## Still required before Phase 7 closes
 

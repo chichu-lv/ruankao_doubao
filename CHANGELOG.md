@@ -11,6 +11,7 @@ All notable changes to this private project are recorded here.
 - Verified the corrected tracked-only bootstrap from a fresh `git archive`: Phase 1/3/4/5/6 health checks passed and the full 81-test suite passed with two expected private-catalog skips.
 - Verified two same-state weekly-report previews in the real Doubao project: independent Feishu reads produced identical priorities and risk findings with unchanged counts and zero writes; actual scheduled delivery remains pending.
 - Verified the real Cheko manual-aggregate fallback after `/anti-hack`: 20 main stems and 21 scored items were validated separately, the excluded workflow test remained zero-write, and all Feishu counts stayed unchanged.
+- Corrected native schedule scope after direct inventory: existing daily/weekly entries are Phase 0 probes, so the production `ArchitectPass State v1` weekly task remains `NOT_CONFIGURED` pending an explicit time/notification choice.
 
 ## [0.8.1] - 2026-09-04
 
