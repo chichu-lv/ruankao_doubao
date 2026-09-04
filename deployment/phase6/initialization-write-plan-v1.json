@@ -1,0 +1,434 @@
+{
+  "schema_version": 1,
+  "status": "ready_for_verified_write",
+  "history_required": false,
+  "scheduled_writes_enabled": false,
+  "operations": [
+    {
+      "operation": "update_profile",
+      "table": "user_profile",
+      "record_id": "architectpass-user",
+      "record": {
+        "user_id": "architectpass-user",
+        "target_exam": "系统架构设计师",
+        "timezone": "Asia/Shanghai",
+        "current_video_progress": {
+          "course_scope": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+          "reported_fraction": 0.5,
+          "confidence": "low"
+        }
+      },
+      "request_id": "req-phase6-profile-v1",
+      "audit_id": "audit-phase6-profile-v1"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "subject-choice",
+      "record": {
+        "topic_id": "subject-choice",
+        "parent_id": null,
+        "name": "综合知识",
+        "syllabus_weight": null,
+        "choice_relevance": 1.0,
+        "case_relevance": 0.5,
+        "essay_relevance": 0.3,
+        "prerequisites": [],
+        "source_refs": [
+          "product-spec:01#section=3.2"
+        ]
+      },
+      "request_id": "req-phase6-topic-subject-choice",
+      "audit_id": "audit-phase6-topic-subject-choice"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "subject-case",
+      "record": {
+        "topic_id": "subject-case",
+        "parent_id": null,
+        "name": "案例分析",
+        "syllabus_weight": null,
+        "choice_relevance": 0.4,
+        "case_relevance": 1.0,
+        "essay_relevance": 0.6,
+        "prerequisites": [],
+        "source_refs": [
+          "product-spec:01#section=3.2"
+        ]
+      },
+      "request_id": "req-phase6-topic-subject-case",
+      "audit_id": "audit-phase6-topic-subject-case"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "subject-essay",
+      "record": {
+        "topic_id": "subject-essay",
+        "parent_id": null,
+        "name": "论文",
+        "syllabus_weight": null,
+        "choice_relevance": 0.2,
+        "case_relevance": 0.5,
+        "essay_relevance": 1.0,
+        "prerequisites": [],
+        "source_refs": [
+          "product-spec:01#section=3.2"
+        ]
+      },
+      "request_id": "req-phase6-topic-subject-essay",
+      "audit_id": "audit-phase6-topic-subject-essay"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "choice-computer-systems",
+      "record": {
+        "topic_id": "choice-computer-systems",
+        "parent_id": "subject-choice",
+        "name": "计算机系统基础",
+        "syllabus_weight": null,
+        "choice_relevance": 1.0,
+        "case_relevance": 0.3,
+        "essay_relevance": 0.1,
+        "prerequisites": [],
+        "source_refs": [
+          "baidunetdisk:visible-row:2026-09-04#202605-1"
+        ]
+      },
+      "request_id": "req-phase6-topic-choice-computer-systems",
+      "audit_id": "audit-phase6-topic-choice-computer-systems"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "choice-operating-systems",
+      "record": {
+        "topic_id": "choice-operating-systems",
+        "parent_id": "subject-choice",
+        "name": "操作系统",
+        "syllabus_weight": null,
+        "choice_relevance": 1.0,
+        "case_relevance": 0.5,
+        "essay_relevance": 0.2,
+        "prerequisites": [
+          "choice-computer-systems"
+        ],
+        "source_refs": [
+          "baidunetdisk:visible-row:2026-09-04#202605-2"
+        ]
+      },
+      "request_id": "req-phase6-topic-choice-operating-systems",
+      "audit_id": "audit-phase6-topic-choice-operating-systems"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "choice-databases",
+      "record": {
+        "topic_id": "choice-databases",
+        "parent_id": "subject-choice",
+        "name": "数据库技术",
+        "syllabus_weight": null,
+        "choice_relevance": 1.0,
+        "case_relevance": 0.8,
+        "essay_relevance": 0.5,
+        "prerequisites": [],
+        "source_refs": [
+          "baidunetdisk:visible-row:2026-09-04#202605-3",
+          "cheko:submitted-report:710358"
+        ]
+      },
+      "request_id": "req-phase6-topic-choice-databases",
+      "audit_id": "audit-phase6-topic-choice-databases"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "choice-embedded",
+      "record": {
+        "topic_id": "choice-embedded",
+        "parent_id": "subject-choice",
+        "name": "嵌入式技术",
+        "syllabus_weight": null,
+        "choice_relevance": 0.8,
+        "case_relevance": 0.4,
+        "essay_relevance": 0.2,
+        "prerequisites": [
+          "choice-computer-systems"
+        ],
+        "source_refs": [
+          "baidunetdisk:visible-row:2026-09-04#202605-4"
+        ]
+      },
+      "request_id": "req-phase6-topic-choice-embedded",
+      "audit_id": "audit-phase6-topic-choice-embedded"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "choice-network",
+      "record": {
+        "topic_id": "choice-network",
+        "parent_id": "subject-choice",
+        "name": "计算机网络",
+        "syllabus_weight": null,
+        "choice_relevance": 1.0,
+        "case_relevance": 0.8,
+        "essay_relevance": 0.5,
+        "prerequisites": [
+          "choice-computer-systems"
+        ],
+        "source_refs": [
+          "baidunetdisk:visible-row:2026-09-04#202605-5"
+        ]
+      },
+      "request_id": "req-phase6-topic-choice-network",
+      "audit_id": "audit-phase6-topic-choice-network"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "choice-system-performance",
+      "record": {
+        "topic_id": "choice-system-performance",
+        "parent_id": "subject-choice",
+        "name": "系统性能",
+        "syllabus_weight": null,
+        "choice_relevance": 0.9,
+        "case_relevance": 0.9,
+        "essay_relevance": 0.7,
+        "prerequisites": [
+          "choice-computer-systems"
+        ],
+        "source_refs": [
+          "baidunetdisk:visible-row:2026-09-04#202605-7"
+        ]
+      },
+      "request_id": "req-phase6-topic-choice-system-performance",
+      "audit_id": "audit-phase6-topic-choice-system-performance"
+    },
+    {
+      "operation": "upsert_topic",
+      "table": "topics",
+      "record_id": "choice-information-systems",
+      "record": {
+        "topic_id": "choice-information-systems",
+        "parent_id": "subject-choice",
+        "name": "信息系统基础",
+        "syllabus_weight": null,
+        "choice_relevance": 0.9,
+        "case_relevance": 0.7,
+        "essay_relevance": 0.6,
+        "prerequisites": [],
+        "source_refs": [
+          "baidunetdisk:visible-row:2026-09-04#202605-8"
+        ]
+      },
+      "request_id": "req-phase6-topic-choice-information-systems",
+      "audit_id": "audit-phase6-topic-choice-information-systems"
+    },
+    {
+      "operation": "upsert_resource",
+      "table": "resources",
+      "record_id": "sha256:d5d747e7c83c9275538e6c2d60c3d568d1203402f4e8282d35c433f3dd8f0cd7",
+      "record": {
+        "resource_id": "sha256:d5d747e7c83c9275538e6c2d60c3d568d1203402f4e8282d35c433f3dd8f0cd7",
+        "type": "video",
+        "title": "202605-0.架构第二版考试介绍考点分析学习方法.mp4",
+        "local_path_or_uri": "baidunetdisk://00、【推荐】【26年10月】wen老师架构课程（第二版）/01.26年最新基础精讲/202605-0.架构第二版考试介绍考点分析学习方法.mp4",
+        "copyright_scope": "private_personal_exam_study",
+        "processing_status": "partially_indexed",
+        "checksum": "sha256:d5d747e7c83c9275538e6c2d60c3d568d1203402f4e8282d35c433f3dd8f0cd7",
+        "created_at": "2026-09-04T04:45:00Z"
+      },
+      "request_id": "req-phase6-resource-d5d747e7c83c9275",
+      "audit_id": "audit-phase6-resource-d5d747e7c83c9275"
+    },
+    {
+      "operation": "upsert_resource",
+      "table": "resources",
+      "record_id": "sha256:4a474dd400868889702dcf7105360ba42526161fc72b340935f15d942ad8de2e",
+      "record": {
+        "resource_id": "sha256:4a474dd400868889702dcf7105360ba42526161fc72b340935f15d942ad8de2e",
+        "type": "pdf",
+        "title": "202605-0.架构导学课.pdf",
+        "local_path_or_uri": "baidunetdisk://00、【推荐】【26年10月】wen老师架构课程（第二版）/01.26年最新基础精讲/课件/202605-0.架构导学课.pdf",
+        "copyright_scope": "private_personal_exam_study",
+        "processing_status": "indexed",
+        "checksum": "sha256:4a474dd400868889702dcf7105360ba42526161fc72b340935f15d942ad8de2e",
+        "created_at": "2026-09-04T04:45:00Z"
+      },
+      "request_id": "req-phase6-resource-4a474dd400868889",
+      "audit_id": "audit-phase6-resource-4a474dd400868889"
+    },
+    {
+      "operation": "update_video_progress",
+      "table": "video_progress",
+      "record_id": "video-9919eaa44c8728a664d6",
+      "record": {
+        "video_id": "video-9919eaa44c8728a664d6",
+        "watched_until": 611,
+        "status": "played_unchecked",
+        "last_watched_at": "2026-09-04T00:00:00Z",
+        "recall_checked": false,
+        "practice_checked": false,
+        "needs_rewatch": null,
+        "source_anchor": "baidunetdisk:player-resume-position:2026-09-04"
+      },
+      "request_id": "req-phase6-progress-video-9919eaa44c8728a664d6",
+      "audit_id": "audit-phase6-progress-video-9919eaa44c8728a664d6"
+    },
+    {
+      "operation": "record_study_event",
+      "table": "study_events",
+      "record_id": "phase6-cheko-baseline-710358",
+      "record": {
+        "event_id": "phase6-cheko-baseline-710358",
+        "event_type": "cheko_submitted_aggregate_baseline",
+        "topic_ids": [
+          "choice-databases"
+        ],
+        "payload": {
+          "question_count": 55,
+          "score_display": "42",
+          "elapsed_display": "00:19",
+          "aggregate_only": true,
+          "mastery_update_allowed": false
+        },
+        "source_ref": {
+          "cheko_result_id": "710358",
+          "import_method": "visible_submitted_report",
+          "ui_contract_version": "cheko-ui-2026-09-04.1"
+        },
+        "occurred_at": "2026-09-04T05:05:00Z"
+      },
+      "request_id": "req-phase6-cheko-baseline-710358",
+      "audit_id": "audit-phase6-cheko-baseline-710358"
+    }
+  ],
+  "local_index_sources": [
+    "materials/index/phase2-real-pdf-ocr-catalog.json",
+    "materials/index/phase2-real-video-catalog-v3.json"
+  ],
+  "local_index_policy": "private runtime files; import segments only after exact-path and anchor validation",
+  "project_facts": {
+    "status": "awaiting_user_confirmed_redacted_facts",
+    "fact_count": 0
+  },
+  "seven_day_plan": {
+    "schema_version": 1,
+    "status": "runtime_budgeted",
+    "history_required": false,
+    "budget_policy": "Each day asks only for available minutes and energy; task fractions plus checkpoint reserve never exceed 1.0.",
+    "days": [
+      {
+        "day": 1,
+        "focus": "综合诊断",
+        "tasks": [
+          {
+            "kind": "closed_book_diagnostic",
+            "budget_fraction": 0.55
+          },
+          {
+            "kind": "targeted_material_review",
+            "budget_fraction": 0.35
+          }
+        ],
+        "checkpoint_reserve_fraction": 0.1
+      },
+      {
+        "day": 2,
+        "focus": "案例基线",
+        "tasks": [
+          {
+            "kind": "user_first_case_attempt",
+            "budget_fraction": 0.6
+          },
+          {
+            "kind": "source_bound_feedback",
+            "budget_fraction": 0.3
+          }
+        ],
+        "checkpoint_reserve_fraction": 0.1
+      },
+      {
+        "day": 3,
+        "focus": "论文事实缺口",
+        "tasks": [
+          {
+            "kind": "redacted_fact_gap_review",
+            "budget_fraction": 0.45
+          },
+          {
+            "kind": "fact_free_structure_drill",
+            "budget_fraction": 0.45
+          }
+        ],
+        "checkpoint_reserve_fraction": 0.1
+      },
+      {
+        "day": 4,
+        "focus": "综合定点强化",
+        "tasks": [
+          {
+            "kind": "due_review",
+            "budget_fraction": 0.35
+          },
+          {
+            "kind": "cheko_user_answered_practice",
+            "budget_fraction": 0.55
+          }
+        ],
+        "checkpoint_reserve_fraction": 0.1
+      },
+      {
+        "day": 5,
+        "focus": "案例迁移",
+        "tasks": [
+          {
+            "kind": "case_transfer_attempt",
+            "budget_fraction": 0.6
+          },
+          {
+            "kind": "concise_rewrite",
+            "budget_fraction": 0.3
+          }
+        ],
+        "checkpoint_reserve_fraction": 0.1
+      },
+      {
+        "day": 6,
+        "focus": "论文提纲",
+        "tasks": [
+          {
+            "kind": "confirmed_fact_matching",
+            "budget_fraction": 0.35
+          },
+          {
+            "kind": "user_written_outline",
+            "budget_fraction": 0.55
+          }
+        ],
+        "checkpoint_reserve_fraction": 0.1
+      },
+      {
+        "day": 7,
+        "focus": "混合复习与周报",
+        "tasks": [
+          {
+            "kind": "three_subject_due_review",
+            "budget_fraction": 0.45
+          },
+          {
+            "kind": "read_only_weekly_report",
+            "budget_fraction": 0.45
+          }
+        ],
+        "checkpoint_reserve_fraction": 0.1
+      }
+    ]
+  }
+}

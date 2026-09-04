@@ -12,8 +12,12 @@ from .validation import (
     validate_essay_attempt,
     validate_mastery_evidence,
     validate_practice_attempt,
+    validate_resource,
+    validate_resource_segment,
     validate_review,
     validate_study_event,
+    validate_topic,
+    validate_video_progress,
 )
 
 
@@ -27,6 +31,7 @@ class StateService:
         """External boundary: only named operations are callable and errors are truthful."""
         allowed = {
             "get_system_health", "get_profile", "update_profile", "record_study_event",
+            "upsert_topic", "upsert_resource", "upsert_resource_segment", "update_video_progress",
             "record_practice_attempt", "record_mastery_evidence", "recompute_topic_state", "get_topic_state",
             "schedule_review", "get_due_reviews", "record_case_attempt", "record_essay_attempt", "finish_session",
         }
@@ -68,6 +73,40 @@ class StateService:
         result, duplicate = self.store.write(
             table="study_events", record_id=event.get("event_id", ""), record=event,
             operation="record_study_event", context=context, validate=validate_study_event,
+        )
+        result["deduplicated"] = duplicate
+        return response(data=result, audit_id=result["audit_id"])
+
+    def upsert_topic(self, topic: dict[str, Any], context: WriteContext) -> dict[str, Any]:
+        result, duplicate = self.store.write(
+            table="topics", record_id=topic.get("topic_id", ""), record=topic,
+            operation="upsert_topic", context=context, validate=validate_topic,
+        )
+        result["deduplicated"] = duplicate
+        return response(data=result, audit_id=result["audit_id"])
+
+    def upsert_resource(self, resource: dict[str, Any], context: WriteContext) -> dict[str, Any]:
+        result, duplicate = self.store.write(
+            table="resources", record_id=resource.get("resource_id", ""), record=resource,
+            operation="upsert_resource", context=context, validate=validate_resource,
+        )
+        result["deduplicated"] = duplicate
+        return response(data=result, audit_id=result["audit_id"])
+
+    def upsert_resource_segment(self, segment: dict[str, Any], context: WriteContext) -> dict[str, Any]:
+        result, duplicate = self.store.write(
+            table="resource_segments", record_id=segment.get("segment_id", ""), record=segment,
+            operation="upsert_resource_segment", context=context, validate=validate_resource_segment,
+        )
+        result["deduplicated"] = duplicate
+        return response(data=result, audit_id=result["audit_id"])
+
+    def update_video_progress(self, video_id: str, progress: dict[str, Any], context: WriteContext) -> dict[str, Any]:
+        if progress.get("video_id") != video_id:
+            raise StateError("VALIDATION_ERROR", "video_id must match progress record")
+        result, duplicate = self.store.write(
+            table="video_progress", record_id=video_id, record=progress,
+            operation="update_video_progress", context=context, validate=validate_video_progress,
         )
         result["deduplicated"] = duplicate
         return response(data=result, audit_id=result["audit_id"])

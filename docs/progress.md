@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 through Phase 5 closed; prepare Phase 6 real-data initialization.
+- Current activity: Phase 0 through Phase 6 closed; prepare Phase 7 end-to-end acceptance.
 
 ### Repository initialization
 
@@ -122,6 +122,19 @@ The project initialization chat read the final instruction baseline and deployme
 
 See `docs/phase-5-closeout.md`, `docs/test-results/phase-5.md`, and `artifacts/doubao-audit-logs/phase5-installation-2026-09-04.md`.
 
+## Phase 6 — 真实数据初始化
+
+- Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
+- Started: 2026-09-04 (Asia/Shanghai)
+- Completed: 2026-09-04 (Asia/Shanghai)
+- Version: 0.8.0
+
+Delivered and verified a Git-driven Phase 6 initialization plan, a provisional ten-node knowledge map, an optional-history profile, two authorized resource records, the observed video position, a post-submission aggregate Cheko baseline, a private runtime segment builder, an explicitly empty project-fact v1 and a runtime-budgeted seven-day plan.
+
+In the real private Feishu Base, 15 public-safe records plus 49 private PDF/video segments were created with 64 matching audit records. Independent read-back verified every primary key, payload, hash, request ID and audit ID. A separate read-only replay returned 64/64 DEDUP_VERIFIED and changed no counts. Course text did not enter Git; historical exam information was not requested or inferred; no mastery was derived from playback, index text or aggregate results.
+
+Official exam configuration/syllabus weights, real project facts, the first learning checkpoint and production schedule times remain explicit gaps. See `docs/phase-6-closeout.md`, `docs/test-results/phase-6.md`, and `artifacts/doubao-audit-logs/phase6-initialization-2026-09-04.md`.
+
 ### Next activity
 
-Phase 6 should initialize authorized material/video progress, the first knowledge-map state, a post-submission Cheko baseline, redacted project facts, and the initial seven-day plan. Prior exam attempts and scores are optional, never an entry condition, and are stored only if the user volunteers confirmed values. Other missing user facts must remain explicit, and every state write requires request/audit IDs plus read-back verification.
+Phase 7 should execute real end-to-end, failure/recovery, safety, restart and same-state schedule tests. A first real training session may start without prior exam history and must finish with the first checkpoint.

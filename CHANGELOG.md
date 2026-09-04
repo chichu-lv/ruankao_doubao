@@ -2,6 +2,14 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.8.0] - 2026-09-04
+
+- Added the deterministic Phase 6 initialization builder, rendered write plan, provisional sourced knowledge map, empty anti-fabrication project-fact store, and runtime-budgeted seven-day plan.
+- Initialized 15 public-safe real-state records and 49 private page/timestamp segments in `ArchitectPass State v1`, each with request/audit IDs and independent read-back.
+- Verified a read-only 64/64 idempotency replay with no new records and unchanged counts.
+- Kept historical exam data optional, course text out of Git, Cheko data aggregate/post-submission only, and mastery untouched by playback or index content.
+- Documented pending official exam configuration, project facts, first learning checkpoint, schedule times, and clean-room Git URL bootstrap.
+
 ## [0.7.1] - 2026-09-04
 
 - Made prior exam attempts and scores explicitly optional across onboarding, the profile contract, Phase 6 entry, and the final Doubao system instructions.

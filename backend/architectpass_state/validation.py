@@ -49,6 +49,74 @@ def validate_study_event(record: dict[str, Any]) -> None:
         raise StateError("UNTRACEABLE_SOURCE", "source_ref must contain a traceable anchor")
 
 
+def validate_topic(record: dict[str, Any]) -> None:
+    allowed = {
+        "topic_id", "parent_id", "name", "syllabus_weight", "choice_relevance", "case_relevance",
+        "essay_relevance", "prerequisites", "source_refs",
+    }
+    unknown = sorted(set(record) - allowed)
+    if unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"topic fields are not allowlisted: {', '.join(unknown)}")
+    require_fields(record, ("topic_id", "name", "choice_relevance", "case_relevance", "essay_relevance", "source_refs"))
+    if not isinstance(record["source_refs"], list) or not record["source_refs"]:
+        raise StateError("UNTRACEABLE_SOURCE", "topic requires source references")
+    for name in ("choice_relevance", "case_relevance", "essay_relevance"):
+        if not isinstance(record[name], (int, float)) or not 0 <= record[name] <= 1:
+            raise StateError("VALIDATION_ERROR", f"{name} must be between 0 and 1")
+
+
+def validate_resource(record: dict[str, Any]) -> None:
+    allowed = {
+        "resource_id", "type", "title", "local_path_or_uri", "copyright_scope",
+        "processing_status", "checksum", "created_at",
+    }
+    unknown = sorted(set(record) - allowed)
+    if unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"resource fields are not allowlisted: {', '.join(unknown)}")
+    require_fields(record, tuple(sorted(allowed)))
+    require_iso_datetime(record["created_at"], "created_at")
+    if record["type"] not in {"pdf", "video", "transcript", "web", "cheko", "note"}:
+        raise StateError("VALIDATION_ERROR", "unsupported resource type")
+
+
+def validate_resource_segment(record: dict[str, Any]) -> None:
+    allowed = {
+        "segment_id", "resource_id", "page_start", "page_end", "time_start", "time_end",
+        "section", "text", "keywords", "topic_ids", "citation_anchor",
+    }
+    unknown = sorted(set(record) - allowed)
+    if unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"resource segment fields are not allowlisted: {', '.join(unknown)}")
+    require_fields(record, ("segment_id", "resource_id", "citation_anchor"))
+    has_page = record.get("page_start") is not None and record.get("page_end") is not None
+    has_time = record.get("time_start") is not None and record.get("time_end") is not None
+    if has_page == has_time:
+        raise StateError("VALIDATION_ERROR", "segment requires exactly one page or time range")
+    anchor = record["citation_anchor"]
+    if has_page and "#page=" not in anchor:
+        raise StateError("UNTRACEABLE_SOURCE", "PDF segment requires a page anchor")
+    if has_time and "#t=" not in anchor:
+        raise StateError("UNTRACEABLE_SOURCE", "video segment requires a time anchor")
+
+
+def validate_video_progress(record: dict[str, Any]) -> None:
+    allowed = {
+        "video_id", "watched_until", "status", "last_watched_at", "recall_checked",
+        "practice_checked", "needs_rewatch", "source_anchor",
+    }
+    unknown = sorted(set(record) - allowed)
+    if unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"video progress fields are not allowlisted: {', '.join(unknown)}")
+    require_fields(record, ("video_id", "watched_until", "status", "last_watched_at", "source_anchor"))
+    require_iso_datetime(record["last_watched_at"], "last_watched_at")
+    if not isinstance(record["watched_until"], (int, float)) or record["watched_until"] < 0:
+        raise StateError("VALIDATION_ERROR", "watched_until must be non-negative")
+    if record["status"] not in {
+        "unwatched", "played_unchecked", "recalled", "choice_converted", "case_essay_converted", "needs_rewatch"
+    }:
+        raise StateError("VALIDATION_ERROR", "unsupported video progress status")
+
+
 def validate_mastery_evidence(record: dict[str, Any]) -> None:
     require_fields(
         record,

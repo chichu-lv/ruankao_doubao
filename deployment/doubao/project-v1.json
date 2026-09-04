@@ -36,6 +36,12 @@
     "past_exam_scores_required": false,
     "missing_history_behavior": "continue with current diagnostic evidence; do not ask unless the user volunteers it"
   },
+  "phase6": {
+    "healthcheck": "scripts/phase6_healthcheck.py",
+    "initialization_plan": "deployment/phase6/initialization-write-plan-v1.json",
+    "private_segment_builder": "scripts/build_phase6_private_segments.py",
+    "private_segment_output": "dist/phase6-initialization/private-segments-v1.json"
+  },
   "scheduled_writes_enabled": false,
   "persistent_project_instruction_field_observed": false
 }

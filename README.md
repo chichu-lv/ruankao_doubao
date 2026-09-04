@@ -14,9 +14,9 @@
 
 ## 当前阶段
 
-`Phase 5 — 豆包私有技能与项目部署：已完成（含已记录限制）`
+`Phase 6 — 真实数据初始化：已完成（含已记录限制）`
 
-真实账号审计、状态层、本地资料管线、芝士架构安全适配、学习决策引擎和豆包私有部署已经完成。九个正式技能已在真实豆包账号中启用，并由隔离的私有项目 `架构上岸教练` 调用；豆包仍是唯一日常对话主控。
+真实账号审计、状态层、本地资料管线、芝士架构安全适配、学习决策引擎、豆包私有部署和真实数据初始化已经完成。九个正式技能已启用；授权资料、页码/时间戳索引、视频进度、暂定知识图和已提交芝士聚合基线已写入同一私人状态层。豆包仍是唯一日常对话主控。
 
 ## 权威基线
 
@@ -100,3 +100,16 @@ Run `python3 scripts/phase4_healthcheck.py` to verify the fixed lifecycle, state
 - `artifacts/doubao-audit-logs/phase5-installation-2026-09-04.md`
 
 Run `python3 scripts/phase5_healthcheck.py` to render the instruction baseline, rebuild deterministic private skill packages, enforce the minimum-permission manifest, and run Phase 5 package tests. Build archives and hashes are generated under ignored `dist/doubao-skills/`.
+
+## Phase 6 输出
+
+- `backend/architectpass_initialization/`
+- `deployment/phase6/`
+- `scripts/render_phase6_initialization.py`
+- `scripts/build_phase6_private_segments.py`
+- `scripts/phase6_healthcheck.py`
+- `docs/phase-6-closeout.md`
+- `docs/test-results/phase-6.md`
+- `artifacts/doubao-audit-logs/phase6-initialization-2026-09-04.md`
+
+Run `python3 scripts/phase6_healthcheck.py` to build the deterministic initialization plan and validate Phase 6. Private segment payloads are generated only under ignored `dist/`; course text is never a Git artifact. Prior exam attempts and scores are optional.

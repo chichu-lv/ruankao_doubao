@@ -78,6 +78,9 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 - 解析 `deployment/feishu/production-v1.json`，只连接用户私有的 `ArchitectPass State v1`。
 - 先只读核对 15 张表；缺失时按 Phase 1 部署与迁移文档创建/修复，不得盲目覆盖已有数据。
 - 所有写操作必须有 `request_id`、`audit_id` 和写后回读。连接失败时保留待同步事件，不能声称已保存。
+- 运行 `python3 scripts/phase6_healthcheck.py`，读取生成的 `deployment/phase6/initialization-write-plan-v1.json`，按 `request_id` 查重后执行已授权的初始化记录；历史考试经历与成绩不得作为前置条件。
+- 若本机已有 Phase 2 私有索引，`scripts/build_phase6_private_segments.py` 会在忽略提交的 `dist/phase6-initialization/` 生成页码/时间戳写入计划。其片段只能进入用户私人状态库，不得提交 Git、公开或复制到其他项目。
+- 初始化后以纯只读方式重放全部 request ID；只有业务主键、载荷、哈希、audit ID 全部一致且计数不增长，才算幂等通过。
 
 ### 8. CONFIGURE_READ_ONLY_JOBS
 
