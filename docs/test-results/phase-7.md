@@ -107,6 +107,12 @@ The real Doubao project performed two consecutive, independently requested, read
 
 Both previews excluded two schema canaries, deployment checkpoint `phase7-j1-recovery-v1`, and randomized Cheko result `1094788`. They independently retained the same four key findings: one aggregate-only Cheko baseline that cannot update mastery; case and essay have zero activity; `played_unchecked` video progress shows a watch-without-output risk; and the next priorities are a user-authored Cheko attempt, first case submission and first essay outline/input. Run 2 encountered a table-list response-shape parsing error, reported it, re-read the table list through a safer path, and completed without writes. Results: `SAME_STATE_WEEKLY_REPORT_RUN1=PASS`, `SAME_STATE_WEEKLY_REPORT_RUN2=PASS`, and `SAME_STATE_WEEKLY_REPORT_SCENARIO=PASS`. This validates same-state report generation and non-duplication in the real project; it does not yet prove that the configured scheduled task itself fired and delivered a report.
 
+## Cheko manual-aggregate fallback — real Doubao dry-run
+
+With the live Cheko panel visibly alternating into `/anti-hack`, the real Doubao project accepted the already excluded workflow-test result through the documented manual aggregate fallback: `test_id=1094788`, `main_question_count=20`, `answer_item_count=21`, score `6`, accuracy `28.57%`, `workflow_test=true`, and `exclude_from_learning=true`. It re-read the Cheko safety skill, used no question, option, answer or explanation content, called no private API, and performed schema and semantic validation only.
+
+The validation correctly treated 20 as main stems and 21 as scored blanks/items, did not require equality, and independently verified `6 / 21 = 28.57%` rather than the invalid `6 / 20 = 30%`. Before and after remained `practice_attempts=0`, `mastery_evidence=0`, `mastery_state=0`, `review_queue=0`, `study_sessions=1`, and `audit_log=72`; the Base has no `wrong_questions` table. Result: `CHEKO_MANUAL_AGGREGATE_FALLBACK=PASS`, with zero planned or actual learning/audit writes. This closes the real page-read failure to manual-input fallback path without converting the randomized test into learning evidence.
+
 The authorized Baidu Netdisk material root was also enumerated through its ordinary UI. It contains eight visible PDFs, including `系统架构设计师选择真题分类解析.pdf` and `系统架构设计师案例真题分类解析.pdf`. Their existence and visible sizes are now recorded as remote inventory only; years, completeness, checksums and content quality remain unverified because no PDF was opened or downloaded.
 
 ## Zero-write safety probes
@@ -125,6 +131,6 @@ The health check independently reported nine expected repository skills, a reada
 - Complete a non-random, user-authored learning attempt; the submitted test-account random run verifies only the browser/generation/submission/result-reading path and is excluded from learning state.
 - Exercise three-day overdue-review recovery after genuine learning evidence exists; client exit/reopen recovery for a deployment checkpoint is already PASS.
 - Complete user-authored Cheko, case and essay scenarios; Codex/Doubao must not answer for the user.
-- Re-run real page-change/manual fallback, offline outbox replay and targeted rewatch scenarios; same-state weekly-report generation is PASS, while an actual scheduled-task firing remains pending.
+- Re-run real offline outbox replay and targeted rewatch scenarios; Cheko page-read failure to manual aggregate fallback and same-state weekly-report generation are PASS, while an actual scheduled-task firing remains pending.
 - Record every result with date, version, evidence and issue ID.
 - Run the separate seven-day independent pilot required by acceptance section K; currently `DEFERRED / NOT_RUN` at the user's request and not a blocker for continued development.

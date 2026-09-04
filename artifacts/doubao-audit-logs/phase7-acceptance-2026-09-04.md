@@ -77,3 +77,7 @@ After commit `b6f1ad1`, Codex exported `HEAD` with `git archive` into a new temp
 ## Same-state weekly report
 
 The real Doubao project generated two consecutive read-only weekly-report previews from independent reads of the real Base. Run 1 and Run 2 both observed `audit_log=72`, `study_events=3`, `practice_attempts=0`, `mastery_evidence=0`, `mastery_state=0`, and `review_queue=0` before and after; the Base has no `weekly_reports` table. Both excluded two schema canaries, the deployment-only checkpoint and randomized result `1094788`, and returned the same effective evidence count, three-subject imbalance, watch-without-output risk and three next priorities. Run 2 exposed one response-shape parsing error and recovered by re-reading the table list. Both runs wrote zero records. Result: `SAME_STATE_WEEKLY_REPORT_SCENARIO=PASS`; scheduled-task firing/delivery remains untested.
+
+## Cheko manual aggregate fallback
+
+While the real Doubao Browser panel visibly encountered `/anti-hack`, the project accepted workflow-test result `1094788` through `source=manual_aggregate_fallback` for dry-run validation only. It correctly separated 20 main stems from 21 scored items and verified `6/21=28.57%`. Counts remained `practice_attempts=0`, `mastery_evidence=0`, `mastery_state=0`, `review_queue=0`, `study_sessions=1`, and `audit_log=72`; `wrong_questions` is not one of the 15 Base tables. No question/answer content or private API was used and no write was planned or performed. Result: `CHEKO_MANUAL_AGGREGATE_FALLBACK=PASS`.
