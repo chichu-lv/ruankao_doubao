@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 through Phase 6 closed; Phase 7 real acceptance is in progress and waiting for the user's first learning-session input.
+- Current activity: Phase 0 through Phase 6 closed; Phase 7 real acceptance is in progress and waiting for a user-controlled Cheko custom-paper handoff.
 
 ### Repository initialization
 
@@ -137,7 +137,7 @@ Official exam configuration/syllabus weights, real project facts, the first lear
 
 ### Next activity
 
-Phase 7 should continue from revised Step D of the real 90-minute plan. The target date, optional user-provided score history, preference to skip exam-background material and Doubao Browser Cheko handoff preference are recorded; the seven-section blanket self-rating remains conversation-only and Step B is PARTIAL because recall boundaries were unknown. The user must now say `开始芝士实战`; Doubao may open the safe selection route, must hand control back before question content, and may resume only after the user's `已提交` signal to read visible aggregate results. The session must finish with the first checkpoint.
+Phase 7 should continue from revised Step D of the real 90-minute plan. The target date, optional user-provided score history, preference to skip exam-background material and Doubao Browser Cheko handoff preference are recorded; the seven-section blanket self-rating remains conversation-only and Step B is PARTIAL because recall boundaries were unknown. A real same-session probe verified the logged-in Cheko home surface and visible `自定义组卷` entry, but automated configuration inspection triggered `/anti-hack`; the user must therefore open the configuration page manually and share its visible controls before any paper is generated. The user alone generates, answers and submits; Doubao may resume only after the user's `已提交` signal to read visible aggregate results. The session must finish with the first checkpoint.
 
 ## Phase 7 — 测试与验收
 
@@ -155,4 +155,4 @@ The user later volunteered two historical score triples and a blanket 3/5 seven-
 
 The user subsequently confirmed that they have already taken the exam and do not need exam-introduction background. Doubao reclassified Step C as `SKIPPED_BY_USER / NOT_NEEDED_FOR_CURRENT_GOAL`, safely stored the user-provided constraint with unique request/audit IDs, and independently verified both records and hashes. The 611-second video position remains `played_unchecked`; no learning completion, mastery or checkpoint was inferred. Its 20 minutes were reassigned to Cheko and case practice without exceeding the original 90-minute session cap. J1 remains `PARTIAL / AWAITING_HUMAN` at the user-controlled Cheko practice gate.
 
-The Cheko handoff is now configured for Doubao Browser. The allowlisted preference write and audit passed independent read-back with prior constraints preserved. The design can read only visible post-submission aggregate fields after the user's explicit `已提交` signal; it must pause before question content and cannot answer or submit. Same-session login and the actual result-page DOM remain unverified until the real Step D run, with screenshot/manual aggregate entry as fallback.
+The Cheko handoff is now configured for Doubao Browser. The allowlisted preference write and audit passed independent read-back with prior constraints preserved. A subsequent real read-only probe observed a logged-in `www.cheko.cc` home surface with personal practice progress and a visible `自定义组卷` entry. Automated attempts to inspect its configuration repeatedly triggered the site's `/anti-hack` protection, so no bypass was attempted and the exact supported controls remain unverified. The accepted path is manual opening plus a configuration-page screenshot, followed by user-only generation, answering and submission. Doubao may read only visible post-submission aggregates after the explicit `已提交` signal; screenshot/manual aggregate entry remains the fallback. The custom-paper probe performed zero business-state writes, opened no question and created no mastery/checkpoint.

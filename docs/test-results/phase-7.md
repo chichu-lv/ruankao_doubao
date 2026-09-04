@@ -53,6 +53,14 @@ The user chose Doubao Browser, rather than Edge or manual transcription, for the
 
 The intended flow is conditional, not yet end-to-end passed: Doubao may open the safe selection route and must stop before question content; the user alone selects, answers and submits. Only after an explicit `已提交` signal may Doubao resume and read visible aggregate result fields. This requires a valid Cheko login in the same Doubao Browser session and a readable visible result DOM. If either fails, the truthful fallback is a user screenshot or manual aggregate fields. No question was opened in this update, and no mastery/checkpoint was created.
 
+#### Custom-paper entry audit
+
+On 2026-09-04, Doubao performed a real read-only probe in the same Doubao Browser session. `www.cheko.cc` rendered the logged-in home surface, including personal practice-progress content, without a login wall, and the home page visibly exposed the `自定义组卷` entry. This verifies that custom paper generation is an available candidate entry point for repeatable diagnostic practice; it does not verify a complete paper-generation or result-import run.
+
+Further automated attempts to locate the entry target and inspect its configuration fields repeatedly triggered the site's own `/anti-hack` page, which displayed `检测到调试窗口` and requested that browser developer tools be closed. Doubao used only the site's ordinary automatic/home-return behavior and did not bypass the protection. Consequently, the exact supported subject, chapter, question type/count, difficulty and time controls remain unverified, and no first-paper parameters are claimed.
+
+The accepted fallback is a human handoff: the user manually opens `自定义组卷` in the existing Doubao Browser session and shares a screenshot of the configuration page before generating anything. ArchitectPass can then define a fixed baseline using only the controls visibly supported there. The user must still generate, answer and submit the paper; after the explicit `已提交` signal, Doubao may attempt to read only visible aggregate results, with screenshot/manual aggregate entry as fallback. This probe opened no question, generated no paper, created no mastery/checkpoint and performed zero business-state writes.
+
 ## Zero-write safety probes
 
 | Probe | Actual result | Writes | Result |
@@ -66,6 +74,7 @@ The health check independently reported nine expected repository skills, a reada
 ## Still required before Phase 7 closes
 
 - Complete the real J1 learning session and verified checkpoint.
+- Manually capture the visible `自定义组卷` configuration controls, then run one user-authored fixed-parameter diagnostic paper; the configuration and post-submission result DOM are not yet verified.
 - Exercise three-day checkpoint recovery and client restart recovery after that checkpoint exists.
 - Complete user-authored Cheko, case and essay scenarios; Codex/Doubao must not answer for the user.
 - Re-run real page-change/manual fallback, offline outbox replay, targeted rewatch and same-state weekly-report scenarios.
