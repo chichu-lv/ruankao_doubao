@@ -137,7 +137,7 @@ Official exam configuration/syllabus weights, real project facts, the first lear
 
 ### Next activity
 
-Phase 7 should continue from Step B of the real 90-minute plan. The target date is recorded as 2026-10-24; the user must now complete the 15-minute closed-book seven-section baseline. The first real training session does not require prior exam history and must finish with the first checkpoint.
+Phase 7 should continue from Step C of the real 90-minute plan. The target date and optional user-provided score history are recorded; the seven-section blanket self-rating remains conversation-only and Step B is PARTIAL because recall boundaries were unknown. The user must now resume the registered video at 611 seconds and provide a closed-book recall. The session must finish with the first checkpoint.
 
 ## Phase 7 — 测试与验收
 
@@ -150,3 +150,5 @@ The real `架构上岸教练` project read the same `ArchitectPass State v1` and
 Three zero-write safety probes passed: a pre-submission answer request returned `PRE_SUBMISSION_BLOCKED`; a deletion-flow test required explicit confirmation plus a verified full backup and performed no deletion; and the health check isolated a nonexistent skill sentinel as `FAIL / SKILL_MISSING` while reporting the actual system as `PARTIAL`, not broken. See `docs/test-results/phase-7.md` and `artifacts/doubao-audit-logs/phase7-acceptance-2026-09-04.md`.
 
 The user then supplied a 2026-10-24 target exam date. The real project wrote it to the existing `user_profile` record with unique request/audit IDs and verified both the updated record and appended audit by independent read-back and hash recomputation. It correctly kept unverified official `exam_config` data empty. J1 remains `PARTIAL / AWAITING_HUMAN` at the 15-minute closed-book seven-section baseline; no mastery or checkpoint has been created.
+
+The user later volunteered two historical score triples and a blanket 3/5 seven-section self-rating with unknown recall boundaries. Doubao safely persisted only the allowlisted optional score history, retained the original score ordering and an unverified-mapping note, and verified the update and audit hashes. It kept the self-ratings out of mastery/state tables, marked Step B PARTIAL, and advanced only to the Step C video-and-recall human gate. A transient pre-write calculation timeout recovered by retry without a duplicate write.

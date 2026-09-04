@@ -33,6 +33,14 @@ The real write used `request_id=req-phase7-j1-exam-date-v1` and `audit_id=audit-
 
 Step B is now `AWAITING_HUMAN`: the user must complete the 15-minute, closed-book seven-section self-rating and boundary recall. These self-ratings are baseline input only and must not become mastery evidence.
 
+### Step B — optional history and safe degradation
+
+The user voluntarily supplied two ordered score triples: `2025H2 [49,43,37]` and `2026H1 [43,44,39]`, plus a blanket self-rating of 3/5 for all seven choice sections while stating that the recall boundaries were unknown. Doubao found `user_profile.past_exam_scores` on the payload allowlist, preserved the original order and added `source=user_provided` plus an explicit note that the subject mapping was not independently verified. It updated record `recvueHtVtAe7a` under `req-phase7-j1-past-scores-v1`, appended audit record `recvuf00gUXaUV` under `audit-phase7-j1-past-scores-v1`, and independently verified the periods, score arrays, annotations, retained target date, relationships and recomputed hashes.
+
+One local calculation call timed out before the write and was retried with the same inputs; the retry succeeded. No duplicate write occurred. Because no schema field safely accepts the seven-section self-ratings and all recall boundaries remain `unknown/not_provided`, those ratings stayed in conversation evidence only. Step B is `PARTIAL`: it produced neither mastery evidence nor mastery state, and the recall baseline remains unestablished.
+
+Step C is `AWAITING_HUMAN`: resume the registered video at 611 seconds, watch approximately 15 minutes, then provide a five-minute closed-book recall covering exam structure, the abilities tested and at least three study-method/pace points. Playback alone must remain non-mastery evidence.
+
 ## Zero-write safety probes
 
 | Probe | Actual result | Writes | Result |
