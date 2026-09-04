@@ -11,7 +11,7 @@
 
 The real Doubao project performed a fresh read of the same production state before planning. It observed 10 topics, two resources, 49 segments, the `611`-second `played_unchecked` position, submitted aggregate Cheko result `710358`, and empty exam configuration, mastery, review queue and checkpoint state.
 
-The generated plan totals exactly 90 minutes:
+The original generated plan totaled exactly 90 minutes:
 
 | Work | Minutes | Completion boundary |
 |---|---:|---|
@@ -39,7 +39,13 @@ The user voluntarily supplied two ordered score triples: `2025H2 [49,43,37]` and
 
 One local calculation call timed out before the write and was retried with the same inputs; the retry succeeded. No duplicate write occurred. Because no schema field safely accepts the seven-section self-ratings and all recall boundaries remain `unknown/not_provided`, those ratings stayed in conversation evidence only. Step B is `PARTIAL`: it produced neither mastery evidence nor mastery state, and the recall baseline remains unestablished.
 
-Step C is `AWAITING_HUMAN`: resume the registered video at 611 seconds, watch approximately 15 minutes, then provide a five-minute closed-book recall covering exam structure, the abilities tested and at least three study-method/pace points. Playback alone must remain non-mastery evidence.
+### Step C — user-driven skip and replan
+
+The user clarified that they have already taken the exam and do not need exam-introduction, subject-format, duration or pass-standard background. Doubao therefore marked the original Step C as `SKIPPED_BY_USER / NOT_NEEDED_FOR_CURRENT_GOAL`, explicitly not as completed, passed, learned or mastered.
+
+`user_profile.constraints` is an allowlisted payload field, so Doubao recorded the user-provided disposition and policy under `req-phase7-j1-skip-stepc-v1`, updated existing profile record `recvueHtVtAe7a`, and appended audit record `recvuf3ZPQ8Ewb` under `audit-phase7-j1-skip-stepc-v1`. Independent read-back verified the disposition, source, request/audit relationship and recomputed hashes. The profile hash changed from `8fcc9353…` to `7099b6d4…`; the audit hash is `da810dc4…20fa2`.
+
+The registered video remained at 611 seconds with `played_unchecked`; no video completion, mastery evidence/state or checkpoint was written. The 20 minutes were reassigned to practice while preserving the 90-minute cap: user-controlled Cheko practice increased from 25 to 40 minutes, and case practice from 15 to 20 minutes. The revised next gate is a user-authored Cheko aggregate result after submission; Doubao may register only aggregate result fields, never question, option, answer or explanation content.
 
 ## Zero-write safety probes
 

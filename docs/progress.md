@@ -137,7 +137,7 @@ Official exam configuration/syllabus weights, real project facts, the first lear
 
 ### Next activity
 
-Phase 7 should continue from Step C of the real 90-minute plan. The target date and optional user-provided score history are recorded; the seven-section blanket self-rating remains conversation-only and Step B is PARTIAL because recall boundaries were unknown. The user must now resume the registered video at 611 seconds and provide a closed-book recall. The session must finish with the first checkpoint.
+Phase 7 should continue from revised Step D of the real 90-minute plan. The target date, optional user-provided score history and user preference to skip exam-background material are recorded; the seven-section blanket self-rating remains conversation-only and Step B is PARTIAL because recall boundaries were unknown. The user must now independently complete and submit a Cheko practice set, then provide only the aggregate result. The session must finish with the first checkpoint.
 
 ## Phase 7 — 测试与验收
 
@@ -152,3 +152,5 @@ Three zero-write safety probes passed: a pre-submission answer request returned 
 The user then supplied a 2026-10-24 target exam date. The real project wrote it to the existing `user_profile` record with unique request/audit IDs and verified both the updated record and appended audit by independent read-back and hash recomputation. It correctly kept unverified official `exam_config` data empty. J1 remains `PARTIAL / AWAITING_HUMAN` at the 15-minute closed-book seven-section baseline; no mastery or checkpoint has been created.
 
 The user later volunteered two historical score triples and a blanket 3/5 seven-section self-rating with unknown recall boundaries. Doubao safely persisted only the allowlisted optional score history, retained the original score ordering and an unverified-mapping note, and verified the update and audit hashes. It kept the self-ratings out of mastery/state tables, marked Step B PARTIAL, and advanced only to the Step C video-and-recall human gate. A transient pre-write calculation timeout recovered by retry without a duplicate write.
+
+The user subsequently confirmed that they have already taken the exam and do not need exam-introduction background. Doubao reclassified Step C as `SKIPPED_BY_USER / NOT_NEEDED_FOR_CURRENT_GOAL`, safely stored the user-provided constraint with unique request/audit IDs, and independently verified both records and hashes. The 611-second video position remains `played_unchecked`; no learning completion, mastery or checkpoint was inferred. Its 20 minutes were reassigned to Cheko and case practice without exceeding the original 90-minute session cap. J1 remains `PARTIAL / AWAITING_HUMAN` at the user-controlled Cheko practice gate.
