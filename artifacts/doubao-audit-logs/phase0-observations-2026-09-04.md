@@ -47,6 +47,10 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 - The read-after-write passed and no sharing was enabled. This proves a foreground Doubao structured-state read/write path.
 - Doubao's `文档` skill created private `ArchitectPass Phase0 Doc Probe` and read back `marker=DOC_STATE_OK_20260904`, `audit_id=P0-DOC-001`, and `request_id=req-p0-doc-001` exactly.
 - Feishu automatically added a generated-content notice block. Doubao's first cleanup attempt did not take effect; it fetched current block IDs, removed the extra block, and verified the document contained only the title and requested three lines. This is a structural read-after-write requirement for future generated documents.
+- After explicit user confirmation, Doubao created a private calendar event titled `P0-CALENDAR-PROBE` for `2026-09-05 09:00–09:15 Asia/Shanghai`, with `audit_id=P0-CAL-001`, `request_id=req-p0-cal-001`, no attendees, and no reminders. It found the unique title match, fetched event details by stable object ID, and separately listed attendees as empty.
+- Doubao also created private task `P0-TASK-PROBE`, due `2026-09-05 09:30 Asia/Shanghai`, with `audit_id=P0-TASK-001`, `request_id=req-p0-task-001`, no assignee/follower, and no reminders. It found the unique title match and fetched task details by stable object ID.
+- Both create payloads used explicit empty reminder/member fields where supported; readback omitted those empty fields or returned them empty. Neither object was shared, and neither was deleted. Evidence: `artifacts/doubao-audit-screenshots/DB-018-feishu-calendar-task-readback.png`.
+- A separate read-only check opened the local Feishu weekly calendar for `2026-08-31` through `2026-09-06`; the `2026-09-05 09:00` event was not visibly rendered. Therefore connector create/search/read is demonstrated, but local-client visibility or same-account synchronization remains unproven and is recorded as a limitation rather than inferred success.
 
 ## Local PDF
 

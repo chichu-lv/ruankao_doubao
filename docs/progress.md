@@ -23,6 +23,7 @@
 - Authorized local PDF read passed with an exact marker match.
 - Doubao created, wrote, and read a private Feishu multidimensional table containing a harmless state marker plus audit/request IDs.
 - Doubao created and read back a private Feishu document with exact marker/audit/request IDs; the platform's automatic generated-content block required structural cleanup and re-verification.
+- After explicit confirmation, Doubao created one private Feishu calendar event and one private Feishu task, located both by title, and independently read them back with exact audit/request IDs and stable object IDs. The local Feishu weekly view did not visibly render the event, so cross-client visibility remains open.
 - User-designated Baidu course scopes located and a real course player opened.
 - Doubao browser skill opened and read a public test page in its side workbench.
 - A real authorized Baidu course video was sought to `00:10:01`, and current/total playback times were read from the player.
@@ -33,7 +34,7 @@
 
 ### Current gate blockers
 
-- Close residual skill lifecycle, trusted-HTTPS/authentication, Feishu calendar, limit, and cross-device rows or record final constrained fallbacks.
+- Close residual skill lifecycle, trusted-HTTPS/authentication, Feishu calendar client-visibility, limit, and cross-device rows or record final constrained fallbacks.
 - Complete a post-submission result or official export import from 芝士架构.
 - Obtain the user's privacy-setting choice before sensitive uploads.
 
