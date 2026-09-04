@@ -6,4 +6,4 @@
 
 必须排除部署验收 checkpoint、schema canary、workflow_test 和明确标记 `exclude_from_learning` 的结果；不得把播放、随机测试或一次聚合基线当作掌握。
 
-读取失败只输出 `STATE_READ_FAILED` 与人工降级路径。不得显示公司敏感事实、课程正文、题干、选项、答案、解析或账号信息。任务全程只读、零状态写入、零审计写入、零重复复习任务。
+读取失败只输出 `STATE_READ_FAILED` 与人工降级路径。不得显示公司敏感事实、课程正文、题干、选项、答案、解析或账号信息，且不得显示或部分显示 `base_token`、`app_token`、`table_id`、`record_id`、URL、链接及其他内部标识符。任务全程只读、零状态写入、零审计写入、零重复复习任务。

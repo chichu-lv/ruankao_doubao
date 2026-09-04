@@ -75,6 +75,11 @@ class DoubaoSkillPackageTests(unittest.TestCase):
         self.assertIn("每次必须重新只读统计", prompt)
         self.assertIn("workflow_test", prompt)
         self.assertIn("零状态写入、零审计写入", prompt)
+        self.assertIn("不得显示或部分显示", prompt)
+        self.assertIn("base_token", prompt)
+        self.assertEqual("pass_via_native_run_now", weekly["manual_execution_evidence"]["dispatch"])
+        self.assertEqual(0, weekly["manual_execution_evidence"]["writes_observed"])
+        self.assertEqual("not_run", weekly["manual_execution_evidence"]["natural_time_trigger"])
 
     def test_sensitive_and_cheko_operations_are_forbidden(self) -> None:
         manifest = json.loads((ROOT / "deployment" / "doubao" / "skills-v1.json").read_text(encoding="utf-8"))

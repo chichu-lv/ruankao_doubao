@@ -8,6 +8,8 @@ All notable changes to this private project are recorded here.
 - Bound the task to private `ArchitectPass State v1` with a read-only, zero-audit-write prompt that excludes deployment checkpoints, canaries and workflow tests from learning evidence.
 - Updated the Git deployment manifest and prompt so a clean bootstrap can reproduce the user-confirmed weekly schedule; the daily task remains pending a separate time choice.
 - Added a deployment regression test for the verified Saturday 20:00 schedule and read-only prompt; the complete repository suite now passes 82 tests.
+- Dispatched the production task through Doubao's native `立即运行` path and verified that it read the active 15-table Base, excluded non-learning evidence, produced exactly three priorities, and left the audit count at 72 with no observed writes.
+- Hardened both the installed and Git-tracked prompts after the first manual run echoed a partial internal Base identifier; the task now explicitly forbids full or partial internal identifiers, URLs and links. A second immediate dispatch was deduplicated by Doubao, so post-hardening output and the first natural Saturday trigger remain pending.
 
 ## [0.8.2] - 2026-09-04
 

@@ -21,6 +21,16 @@
         "timezone": "Asia/Shanghai"
       },
       "verified_on": "2026-09-04",
+      "manual_execution_evidence": {
+        "dispatch": "pass_via_native_run_now",
+        "production_state_read": "pass",
+        "non_learning_exclusions": "pass",
+        "writes_observed": 0,
+        "audit_log_count": 72,
+        "sensitive_identifier_redaction": "prompt_hardened_after_initial_partial_identifier_echo",
+        "post_hardening_retest": "not_run_native_short_interval_deduplication",
+        "natural_time_trigger": "not_run"
+      },
       "write_operations": []
     }
   ],
