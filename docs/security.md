@@ -21,4 +21,12 @@
 | Path traversal | allowlisted directory plus plain filename validation |
 | Silent offline loss | failed response remains failed; outbox retains item until acknowledged |
 | Destructive mistake | confirmation + backup reference + audit rollback pointer |
+| Copyrighted course leakage | raw/downloaded/parsed/index paths ignored; no public or cloud upload |
+| Path escape during import | real-path resolution against explicit authorized roots |
+| Derived-file overwrite | request fingerprint plus adjacent audit receipt; conflicts fail closed |
+| Overconfident ASR | machine transcript confidence explicitly bounded and marked unreviewed |
+| Private API/DRM bypass | normal Baidu UI/local files only; filename+timestamp fallback |
 
+## Phase 2 data boundary
+
+Local model binaries, course PDFs/videos, extracted audio, transcripts and private indexes are excluded from Git. The tracked material manifest contains filenames, sizes, checksums, bounded indexed ranges and source anchors but no account token, cookie, private download URL or device identifier. Search is designed to return only a bounded snippet with a page/time citation. Cheko content is outside this pipeline and no question or answer content was imported.

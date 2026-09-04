@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 and Phase 1 closed; prepare Phase 2 incremental material ingestion and traceable retrieval.
+- Current activity: Phase 0 through Phase 2 closed; prepare Phase 3 safe 芝士架构 adaptation.
 
 ### Repository initialization
 
@@ -64,4 +64,21 @@ The native Feishu platform has no table-level append-only constraint, local heal
 
 ### Next activity
 
-Phase 2 starts with a bounded inventory and incremental manifest for only the user-authorized material scopes. No bulk upload or full reprocessing is authorized by Phase 1 completion.
+Phase 2 started with a bounded inventory and incremental manifest for only the user-authorized material scopes. No bulk upload or full reprocessing was performed.
+
+## Phase 2 — 资料导入与可追溯检索
+
+- Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
+- Started: 2026-09-04 (Asia/Shanghai)
+- Completed: 2026-09-04 (Asia/Shanghai)
+- Version: 0.4.0
+
+Delivered an allowlisted local material package, manifest/progress schemas, SHA-256 deduplication, page-level PDF extraction, necessary selected-page OCR, local video metadata/audio/Whisper processing, original-time subtitle offsets, bounded search results, page/time open targets, quarantine receipts, derived-write audit receipts and a Phase 2 health check.
+
+Real probes passed on one 10-page course PDF and a 75-second range of one complete course video. Course progress is imported as an approximate half-watched low-confidence statement, supplemented by one observed `611/3631`-second position. Viewing remains `played_unchecked`, and the implemented review rule requires diagnosis before any bounded targeted rewatch.
+
+The complete repository suite passes 33/33 tests. See `docs/phase-2-closeout.md` and `docs/test-results/phase-2.md`.
+
+### Next activity
+
+Phase 3 should implement the safe 芝士架构 workflow around user-authored answers: explicit practice tasks, `AWAITING_HUMAN`, post-submission result import, confidence/error capture and DOM-change fallbacks. It must not answer or submit questions.

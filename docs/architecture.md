@@ -42,3 +42,27 @@ Private Feishu Bitable (authoritative)
 - Original course videos and full Cheko question banks never enter the state layer.
 - Deletion requires an explicit confirmation and a verified backup reference; immutable facts are not deleted by ordinary operations.
 
+## Phase 2 local material plane
+
+The private material plane is separate from authoritative Feishu state. It retains large copyrighted inputs locally and exposes only bounded, source-traceable retrieval results to Doubao.
+
+```text
+Authorized Baidu/local file
+        |
+        v
+SHA-256 manifest + allowlisted importer
+        |
+        +--> PDF pages --> selected-page OCR --> page citation/open target
+        |
+        +--> video metadata --> bounded audio --> local SRT --> original-time citation
+        |
+        v
+Private ignored catalog --> bounded snippet + filename/page-or-time/confidence
+```
+
+- PDF pages retain checksum, page number, extraction confidence and OCR flag.
+- Video clips retain a non-negative offset so subtitle times map back to the original video timeline.
+- Original video SHA-256 is used in citations even though the transcript has its own checksum.
+- Raw text is stored in the private catalog; search responses contain bounded snippets rather than the full document or transcript.
+- Baidu automation failure does not block study: filename plus page/timestamp is the stable fallback.
+- `played_unchecked` is a progress fact, not mastery evidence. Review planning starts with diagnosis and can only create bounded weak-range rewatch targets.

@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "privacy": "local_only",
+  "write_context": {
+    "request_id": "phase2-local-model-config-001",
+    "audit_id": "phase2-local-model-config-audit-001",
+    "actor": "codex"
+  },
+  "models": [
+    {
+      "purpose": "zh_timestamped_transcription",
+      "engine": "whisper.cpp",
+      "engine_version": "1.9.2",
+      "model": "ggml-medium-q5_0.bin",
+      "source_revision": "d15393806e24a74f60827e23e986f0c10750b358",
+      "sha256": "19fea4b380c3a618ec4723c3eef2eb785ffba0d0538cf43f8f235e7b3b34220f",
+      "tracked_in_git": false
+    },
+    {
+      "purpose": "simplified_chinese_page_ocr",
+      "engine": "tesseract",
+      "engine_version": "5.5.2",
+      "model": "tessdata_fast/chi_sim.traineddata",
+      "source_revision": "4.1.0",
+      "sha256": "a5fcb6f0db1e1d6d8522f39db4e848f05984669172e584e8d76b6b3141e1f730",
+      "tracked_in_git": false
+    }
+  ]
+}

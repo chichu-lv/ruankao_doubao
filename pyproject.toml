@@ -4,14 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "architectpass-state"
-version = "0.1.0"
-description = "Provider-independent state contract for ArchitectPass"
+version = "0.4.0"
+description = "Provider-independent state and private material pipeline for ArchitectPass"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["pdfplumber==0.11.9"]
 
 [tool.setuptools]
 package-dir = {"" = "backend"}
 
 [tool.setuptools.packages.find]
 where = ["backend"]
-

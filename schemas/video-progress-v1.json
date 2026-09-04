@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://architectpass.local/schemas/video-progress-v1.json",
+  "title": "ArchitectPass video progress import v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "write_context", "course_scope", "reported_progress", "observations", "learning_policy"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "write_context": {
+      "type": "object",
+      "required": ["request_id", "audit_id", "actor"],
+      "properties": {
+        "request_id": {"type": "string", "minLength": 1},
+        "audit_id": {"type": "string", "minLength": 1},
+        "actor": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "course_scope": {"type": "string", "minLength": 1},
+    "reported_progress": {
+      "type": "object",
+      "required": ["approximate_fraction", "precision", "source", "confidence"],
+      "properties": {
+        "approximate_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "precision": {"const": "course_scope"},
+        "source": {"const": "user_statement"},
+        "confidence": {"const": "low"}
+      },
+      "additionalProperties": false
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["video", "watched_until_seconds", "duration_seconds", "status", "recall_checked", "practice_checked", "source_anchor"],
+        "properties": {
+          "video": {"type": "string", "minLength": 1},
+          "watched_until_seconds": {"type": "integer", "minimum": 0},
+          "duration_seconds": {"type": "integer", "minimum": 1},
+          "status": {"const": "played_unchecked"},
+          "recall_checked": {"const": false},
+          "practice_checked": {"const": false},
+          "needs_rewatch": {"type": ["boolean", "null"]},
+          "source_anchor": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "learning_policy": {"const": "diagnose_then_targeted_rewatch_never_restart_by_default"}
+  }
+}

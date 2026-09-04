@@ -2,6 +2,15 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.4.0] - 2026-09-04
+
+- Added the private, allowlisted Phase 2 PDF/video material pipeline with SHA-256 deduplication and audited writes.
+- Added selected-page Chinese OCR, local ffmpeg audio extraction and pinned whisper.cpp timestamped transcription.
+- Preserved original-video time offsets and checksum-backed PDF/video citations with bounded search snippets.
+- Imported the approximate half-watched course state without treating playback as mastery; added diagnosis-before-targeted-rewatch enforcement.
+- Verified one real 10-page course PDF and one real 75-second video range without uploading original material.
+- Added 12 Phase 2 tests, a health check and a complete section-D acceptance trace.
+
 ## [0.3.0] - 2026-09-04
 
 - Added the provider-independent, allowlisted Phase 1 state service and stable error envelope.

@@ -15,5 +15,8 @@ tmp/
 materials/raw/
 materials/inbox/
 materials/index/
+materials/models/
+materials/parsed/
+materials/quarantine/
 backups/
 secrets/
