@@ -7,7 +7,7 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 - Real installed macOS client opened successfully.
 - Version: 2.27.11 (2.27.11).
 - Identity type: personal Doubao account; subscription surface displayed `标准套餐`.
-- Work-task composer exposed local-computer mode, project selection, confirmation mode, skills, connectors, and an automatic/high model selector.
+- Work-task composer exposed local-computer mode, project selection, confirmation mode, skills, connectors, automatic selection, and the active `豆包 2.1 Turbo` model with `高` reasoning.
 - Scheduler, skills/connectors/partners, cloud drive, mobile remote control, and API service surfaces were present.
 - Privacy setting `帮助模型改进效果` initially showed text conversations, uploaded images/videos/files, and real-time-call/voice-input audio enabled. After explicit user confirmation, each category was switched off and read back as `已关闭`. Evidence: `artifacts/doubao-audit-screenshots/DB-040-model-improvement-disabled.png`.
 

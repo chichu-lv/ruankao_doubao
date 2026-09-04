@@ -2,10 +2,11 @@
 
 ## Phase 0 — 豆包真实能力审计
 
-- Status: IN_PROGRESS
+- Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
 - Started: 2026-09-03 (Asia/Shanghai)
+- Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: inspect the real 豆包客户端 and signed-in account, then execute all DB-001—DB-040 checks with evidence.
+- Current activity: Phase 0 closed; prepare Phase 1 state-model and private-skill implementation under the accepted constraints.
 
 ### Repository initialization
 
@@ -33,9 +34,12 @@
 - After explicit user confirmation, all three Doubao model-improvement data categories were disabled and read back as closed.
 - Capability matrix updated and ADR-001 accepted for the Phase 0 architecture decision.
 
-### Current gate blockers
+### Accepted residual limitations
 
-- Close residual skill lifecycle, trusted-HTTPS/authentication, Feishu calendar client-visibility, limit, and cross-device rows or record final constrained fallbacks.
+- Native partner configuration and skill rollback/version history are unavailable on the observed account.
+- Trusted HTTPS was not deployed because Feishu is the selected cloud state path.
+- Feishu calendar client visibility, mobile continuation, and hard platform ceilings remain unproven.
+- Scheduled writes remain prohibited until Phase 1 idempotency/retry tests pass.
 
 ### Exit criteria
 
@@ -44,3 +48,5 @@
 - Obtain a minimal skill sample from the current UI; do not invent platform syntax.
 - Record runtime/storage/connector decisions in ADR-001.
 - Demonstrate a feasible path for every decision gate in specification section 7.3.
+
+All Phase 0 exit criteria are satisfied with the limitations and fallbacks recorded in `docs/phase-0-closeout.md`.

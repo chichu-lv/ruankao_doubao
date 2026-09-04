@@ -2,7 +2,7 @@
 
 - Dates: 2026-09-03 to 2026-09-04
 - Environment: user's real Mac, real 豆包 account, real installed/browser surfaces
-- Status: IN_PROGRESS
+- Status: COMPLETE WITH DOCUMENTED LIMITATIONS
 
 ## Completed test results
 

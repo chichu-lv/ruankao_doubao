@@ -1,6 +1,6 @@
 # ADR-001: Phase 0 runtime, persistence, and integration choice
 
-- Status: ACCEPTED FOR PHASE 0 - residual capability checks remain
+- Status: ACCEPTED - PHASE 1 ENTRY APPROVED
 - Date: 2026-09-04
 - Decision owners: Codex + user
 
@@ -22,7 +22,7 @@ The product baseline requires Doubao to remain the sole user-facing controller. 
 ## Consequences
 
 - Doubao remains the only conversational controller.
-- Section 7.3 decision gates have evidence-backed paths, but Phase 0 closeout still requires residual audit checks. The user's privacy decision has been applied and all three model-improvement data categories are disabled.
+- Section 7.3 decision gates have evidence-backed paths. Phase 0 is complete with the accepted limitations in `docs/phase-0-closeout.md`. The user's privacy decision has been applied and all three model-improvement data categories are disabled.
 - The lack of a native custom partner is handled by an equivalent private Project rather than by replacing Doubao.
 - Authoritative learning state will not live only in chat history or local SQLite.
 - All platform gaps retain manual, screenshot, or restricted-service fallbacks.
@@ -35,8 +35,8 @@ The product baseline requires Doubao to remain the sole user-facing controller. 
 - `artifacts/doubao-audit-screenshots/`
 - `output/pdf/phase0-local-file-probe.pdf`
 
-## Remaining Phase 0 checks
+## Accepted Phase 1 constraints
 
-- Characterize scheduled failure/retry behavior and enforce write deduplication during implementation.
-- Resolve or accept a constrained fallback for Feishu calendar client visibility: connector create/search/read passed, but the local weekly view did not visibly render the probe event.
-- Close the remaining skill update/rollback/remove, trusted-HTTPS/authentication, file-limit, and cross-device audit rows or record their final constrained fallbacks.
+- Characterize scheduled failure/retry behavior and enforce write deduplication before enabling scheduled writes.
+- Use native Doubao schedules as the reminder path until Feishu calendar client visibility is proven.
+- Keep Git-backed skill versioning, private Feishu state, bounded inputs, checkpoints, and desktop/manual fallbacks mandatory.

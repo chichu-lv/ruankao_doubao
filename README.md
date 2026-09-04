@@ -4,9 +4,9 @@
 
 ## 当前阶段
 
-`Phase 0 — 豆包真实能力审计`
+`Phase 0 — 豆包真实能力审计：已完成（含已记录限制）`
 
-本阶段只确认当前电脑、当前豆包账号和当前客户端的真实能力，不根据公开宣传或既有知识假设技能、连接器、浏览器、定时任务等能力存在。
+真实账号审计已经完成，六项第 7.3 节决策门槛均有证据支持。Phase 1 可在 `docs/phase-0-closeout.md` 记录的强制约束下开始。
 
 ## 权威基线
 
@@ -21,6 +21,7 @@
 - `docs/architecture-decision-records/ADR-001-runtime-choice.md`
 - `docs/risk-register.md`
 - `docs/test-results/phase-0.md`
+- `docs/phase-0-closeout.md`
 - `artifacts/doubao-audit-screenshots/`
 - `artifacts/doubao-audit-logs/`
 
