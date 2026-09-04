@@ -47,6 +47,12 @@ The user clarified that they have already taken the exam and do not need exam-in
 
 The registered video remained at 611 seconds with `played_unchecked`; no video completion, mastery evidence/state or checkpoint was written. The 20 minutes were reassigned to practice while preserving the 90-minute cap: user-controlled Cheko practice increased from 25 to 40 minutes, and case practice from 15 to 20 minutes. The revised next gate is a user-authored Cheko aggregate result after submission; Doubao may register only aggregate result fields, never question, option, answer or explanation content.
 
+### Step D — Doubao-browser handoff path
+
+The user chose Doubao Browser, rather than Edge or manual transcription, for the Cheko practice handoff. Doubao merged `cheko_browser_preference` into the allowlisted `user_profile.constraints` under `req-phase7-j1-cheko-browser-pref-v1`, updated profile record `recvueHtVtAe7a`, and appended audit record `recvuf5Ell3wE9` under `audit-phase7-j1-cheko-browser-pref-v1`. Independent read-back verified `browser=doubao_browser`, the pause/user-submit boundary, fallback, preservation of prior constraints and recomputed hashes (`72350b15…b203bd` profile; `0bb0312c…fe45b` audit).
+
+The intended flow is conditional, not yet end-to-end passed: Doubao may open the safe selection route and must stop before question content; the user alone selects, answers and submits. Only after an explicit `已提交` signal may Doubao resume and read visible aggregate result fields. This requires a valid Cheko login in the same Doubao Browser session and a readable visible result DOM. If either fails, the truthful fallback is a user screenshot or manual aggregate fields. No question was opened in this update, and no mastery/checkpoint was created.
+
 ## Zero-write safety probes
 
 | Probe | Actual result | Writes | Result |
