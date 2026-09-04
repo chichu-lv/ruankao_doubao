@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "bootstrap_protocol": "deployment/doubao/bootstrap-v1.md",
+  "delivery_source": "https://github.com/chichu-lv/ruankao_doubao.git#main",
+  "target_project": "架构上岸教练",
+  "user_facing_role": "架构上岸教练",
+  "visibility": "private",
+  "custom_partner_available": false,
+  "equivalent_container": "new isolated private Doubao Project",
+  "preserve_projects": [
+    "系统架构设计师 AI Tutor",
+    "pass_ai"
+  ],
+  "local_folder_binding": {
+    "status": "resolve_at_bootstrap",
+    "path_strategy": "current_git_checkout_root",
+    "required_branch": "main",
+    "safety": "Allowlist only the exact resolved checkout root; never use a historical absolute path or its parent directory."
+  },
+  "state": {
+    "connector": "built-in Feishu tools",
+    "base_name": "ArchitectPass State v1",
+    "authoritative": true
+  },
+  "materials": {
+    "local_root": "materials/",
+    "authorized_baidu_scopes": [
+      "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "5、【2026年05月】芝士架构系统架构设计师"
+    ]
+  },
+  "system_instructions": "deployment/doubao/system-instructions-v1.md",
+  "skill_manifest": "deployment/doubao/skills-v1.json",
+  "onboarding": {
+    "past_exam_attempts_required": false,
+    "past_exam_scores_required": false,
+    "missing_history_behavior": "continue with current diagnostic evidence; do not ask unless the user volunteers it"
+  },
+  "phase6": {
+    "healthcheck": "scripts/phase6_healthcheck.py",
+    "initialization_plan": "deployment/phase6/initialization-write-plan-v1.json",
+    "private_segment_builder": "scripts/build_phase6_private_segments.py",
+    "private_segment_output": "dist/phase6-initialization/private-segments-v1.json"
+  },
+  "scheduled_writes_enabled": false,
+  "system_instruction_fallback": "If no persistent instruction field is available, attach the rendered instruction file as private project context and adopt it in the initialization message."
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0.0",
+  "contract_version": "cheko-ui-2026-09-04.2",
+  "observed_at": "2026-09-04T18:41:27+08:00",
+  "privacy": "private_session_metadata_only",
+  "selector_type": "accessible_semantics",
+  "targets": {
+    "practice_log": {
+      "route": "/test_log?subject=0",
+      "ready_when": [
+        {"role": "text", "name": "练习日志"},
+        {"role": "button", "name_any": ["继续练习", "查看报告", "查看回顾"]}
+      ]
+    },
+    "error_book": {
+      "route": "/error_book?subject=0",
+      "ready_when": [
+        {"role": "text", "name": "错题记录"},
+        {"role": "text", "name": "答错次数"},
+        {"role": "text", "name": "导出PDF"}
+      ]
+    },
+    "past_exam": {
+      "route": "/past_exam?subject=0",
+      "ready_when": [
+        {"role": "link", "name": "历年真题"}
+      ]
+    },
+    "chapter_bank": {
+      "route": "/?subject=0",
+      "ready_when": [
+        {"role": "text", "name": "选择题"},
+        {"role": "button", "name_any": ["开始练习", "继续练习"]}
+      ]
+    },
+    "custom_paper": {
+      "route": "/?subject=0",
+      "ready_when": [
+        {"role": "text", "name": "自定义组卷"}
+      ],
+      "count_semantics": {
+        "main_question_count": "组卷规则中的大题数；一个题干可以包含多个待填空或作答项。",
+        "answer_item_count": "结果页的计分作答项数；可大于大题数。"
+      }
+    },
+    "submitted_report": {
+      "route_pattern": "/test/select?test_id={visible_test_id}",
+      "entry": {"role": "button", "name_any": ["查看报告", "查看回顾"]},
+      "post_submit_markers": ["题目解析", "正确答案"],
+      "import_allowlist": ["result_id", "practice_type", "topic", "question_count", "main_question_count", "answer_item_count", "correct_answer_item_count", "accuracy_percent", "score_display", "elapsed_display", "visible_item_id", "correct", "confidence", "duration_seconds", "error_type"]
+    }
+  },
+  "fallbacks": [
+    {
+      "method": "official_export",
+      "instruction": "由用户在错题本或结果页触发官方导出，再导入明确选择的结果文件。"
+    },
+    {
+      "method": "screenshot",
+      "instruction": "用户提交后截取结果摘要或答题卡；不要截取或保存完整题库。"
+    },
+    {
+      "method": "manual_summary",
+      "instruction": "记录结果ID、题号、正误、置信度、错误类型和用时；不记录题干、选项、答案或解析。"
+    }
+  ],
+  "forbidden_actions": [
+    "select_answer",
+    "submit_answer",
+    "open_explanation_before_submission",
+    "restart_or_close_existing_practice_without_confirmation",
+    "private_api_reverse_engineering",
+    "bulk_question_copy"
+  ]
+}

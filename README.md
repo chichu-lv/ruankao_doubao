@@ -1,0 +1,48 @@
+# ArchitectPass / 架构上岸教练
+
+这是供豆包从 Git 自动部署的正式交付分支。日常学习主控固定为豆包；芝士架构继续负责做题，百度网盘继续提供用户有权使用的资料，长期状态保存在用户私有的飞书多维表格中。
+
+## 豆包一键初始化
+
+Git 仓库：
+
+```text
+https://github.com/chichu-lv/ruankao_doubao.git
+```
+
+把上面的链接和下面整段提示词发送给已登录的豆包，后续由豆包完成部署：
+
+```text
+请从私有 Git 仓库 https://github.com/chichu-lv/ruankao_doubao.git 的 main 分支部署“架构上岸教练”。完整读取根目录 README.md，并严格执行 deployment/doubao/bootstrap-v1.md。使用本地电脑，在一个全新的私有豆包项目中完成仓库校验、九个私有技能构建与安装、系统指令绑定、私有飞书状态层连接、已有初始化数据幂等核对、已确认的每周六 20:00 只读复盘任务配置和最终健康检查。不要修改任何已有豆包项目，不要索取或记录密码、Cookie、验证码、令牌；遇到登录、权限、删除、发布或敏感导出确认时暂停并让我通过官方界面处理。最后只报告部署结果、健康状态、明确限制和需要我完成的动作，不要复述开发过程。
+```
+
+## 豆包必须执行的入口
+
+[deployment/doubao/bootstrap-v1.md](deployment/doubao/bootstrap-v1.md) 是唯一安装状态机。豆包必须从当前克隆目录解析仓库根路径，不得使用开发电脑的历史绝对路径，也不得把父目录、用户主目录或磁盘根目录加入权限范围。
+
+正式安装会：
+
+1. 校验 `main`、`VERSION`、必需文件和敏感信息边界；
+2. 运行 `python3 scripts/phase5_healthcheck.py`，构建九个私有豆包技能包；
+3. 新建私有项目 `架构上岸教练`，不复用或修改已有项目；
+4. 绑定 `deployment/doubao/system-instructions-v1.md`；
+5. 按 `schemas/feishu-bitable-v1.json` 连接或初始化私有 `ArchitectPass State v1`；
+6. 幂等核对初始化数据，保留本地资料和芝士架构的安全边界；
+7. 配置用户已确认的每周六 20:00 只读复盘任务；每日提醒仍需用户另行确认时间；
+8. 调用 `ruankao-healthcheck-v1` 并按 `PASS/PARTIAL/FAIL` 如实报告。
+
+## 交付内容
+
+- `skills/doubao/`：九个版本化私有技能；
+- `deployment/doubao/`：豆包项目、自举、系统指令和只读任务配置；
+- `deployment/feishu/` 与 `schemas/`：私有状态层定位和数据契约；
+- `backend/`：状态、资料、芝士结果、学习控制与初始化逻辑；
+- `materials/manifests/`：用户已授权资料的私有清单；
+- `scripts/`：构建、初始化与健康检查入口；
+- `tests/`：部署前本地安全和回归检查。
+
+产品和验收基线 `01_豆包软考私教系统_Codex开发说明书.md`、`02_交给Codex的总执行指令.md`、`03_豆包工作伙伴_最终系统指令模板.md`、`04_验收清单.md` 必须保留并在自举时读取。开发过程、审计截图、阶段日志和历史测试报告仅保存在 `development` 分支，不属于正式部署输入。
+
+## 更新与维护
+
+正式版本见 `VERSION`。更新时重新拉取 `main`，按 `deployment/update/README.md` 执行；任何删除、发布、权限变化、批量覆盖或敏感数据导出仍需用户对精确目标单独确认。

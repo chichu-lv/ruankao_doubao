@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "sha256": "39cbc84f111b789a8feeed4fb2f43531f66ddd3850ae9ab900e7e11732d9e477",
+  "data": {
+    "audit_log": [
+      {
+        "_adapter_record_id": "recvudHUFL2uCk",
+        "audit_id": "audit-phase1-schema-001",
+        "request_id": "req-phase1-schema-001",
+        "actor": "codex",
+        "created_at": null,
+        "payload_json": {"operation": "bootstrap_schema", "success": true},
+        "content_sha256": null
+      },
+      {
+        "_adapter_record_id": "recvudIQKnwFrw",
+        "audit_id": "audit-phase1-bootstrap-002",
+        "request_id": "req-phase1-bootstrap-002",
+        "actor": "codex",
+        "created_at": "2026-09-04T11:55:00.000+08:00",
+        "payload_json": {"operation": "bootstrap_schema_correction", "success": true, "supersedes": "audit-phase1-schema-001"},
+        "content_sha256": "1c6750e442f80718068e9bae0defe8ea60fe77c9e1d811b76d7f5ea7230dd724"
+      },
+      {
+        "_adapter_record_id": "recvudK6xSWgdw",
+        "audit_id": "audit-phase1-profile-update-001",
+        "request_id": "req-phase1-profile-audit-001",
+        "actor": "codex",
+        "created_at": "2026-09-04T12:00:01.000+08:00",
+        "payload_json": {
+          "operation": "update_profile",
+          "table": "user_profile",
+          "record_id": "phase1-test-user",
+          "success": true,
+          "before_hash": "c1031b09be1bca9cee134ea5bfa1b646a162482bac2080c2b87225b88204c8af",
+          "after_hash": "43539ddfe21e6b9752a0fa67caedec02c296797fc479c3f3286a8e8845ef76a0",
+          "rollback_ref": "phase1-profile-create-001"
+        },
+        "content_sha256": "c94420f67c51186f61193001237011086e4e199443cdafa3fb639523b9c26ef0"
+      }
+    ],
+    "case_attempts": [],
+    "essay_attempts": [],
+    "exam_config": [],
+    "mastery_evidence": [],
+    "mastery_state": [],
+    "practice_attempts": [],
+    "resources": [],
+    "resource_segments": [],
+    "review_queue": [],
+    "study_events": [
+      {
+        "_adapter_record_id": "recvudHVq3jWaL",
+        "event_id": "phase1-canary-001",
+        "request_id": "req-phase1-canary-001",
+        "audit_id": "audit-phase1-canary-001",
+        "actor": "codex",
+        "created_at": null,
+        "payload_json": {"event_type": "schema_canary", "source_ref": {"resource_id": "phase1-spec", "pdf_page": 1}},
+        "content_sha256": null
+      },
+      {
+        "_adapter_record_id": "recvudIRnoXXcW",
+        "event_id": "phase1-canary-002",
+        "request_id": "req-phase1-canary-002",
+        "audit_id": "audit-phase1-canary-002",
+        "actor": "codex",
+        "created_at": "2026-09-04T11:55:01.000+08:00",
+        "payload_json": {"event_type": "schema_canary", "source_ref": {"resource_id": "phase1-spec", "pdf_page": 1}, "supersedes": "phase1-canary-001"},
+        "content_sha256": "5e5cb9bf4ab22bb56463efe5142ad6d2bd2095fdffb8131cee11aed683bb359f"
+      }
+    ],
+    "study_sessions": [],
+    "topics": [],
+    "user_profile": [
+      {
+        "_adapter_record_id": "recvudK4T5mXHC",
+        "user_id": "phase1-test-user",
+        "request_id": "req-phase1-profile-update-001",
+        "audit_id": "audit-phase1-profile-update-001",
+        "actor": "codex",
+        "created_at": "2026-09-04T12:00:00.000+08:00",
+        "payload_json": {"test_only": true, "timezone": "Asia/Shanghai", "weekday_minutes": 90},
+        "content_sha256": "43539ddfe21e6b9752a0fa67caedec02c296797fc479c3f3286a8e8845ef76a0"
+      }
+    ],
+    "video_progress": []
+  }
+}

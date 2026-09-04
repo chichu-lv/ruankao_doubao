@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "write_context": {
+    "request_id": "phase3-real-report-import-001",
+    "audit_id": "phase3-real-report-import-audit-001",
+    "actor": "codex"
+  },
+  "task": {
+    "task_id": "phase3-historical-database-report",
+    "subject": "系统架构设计师",
+    "paper_type": "choice",
+    "practice_mode": "manual",
+    "target": "数据库系统历史已提交练习",
+    "question_count": 55,
+    "time_limit_minutes": 30,
+    "completion_standard": "仅导入已提交报告摘要，不读取或保存题干、选项、答案和解析。",
+    "confidence_capture": "per_group",
+    "navigation_target": {
+      "name": "practice_log",
+      "route": "/test_log?subject=0"
+    }
+  },
+  "result": {
+    "submission_state": "submitted",
+    "import_method": "visible_submitted_report",
+    "cheko_result_id": "710358",
+    "observed_at": "2026-09-04T05:05:00Z",
+    "ui_contract_version": "cheko-ui-2026-09-04.1",
+    "summary": {
+      "practice_type": "普通练习",
+      "topic": "数据库系统",
+      "created_at_display": "2026-03-17 20:44:53",
+      "question_count": 55,
+      "score_display": "42",
+      "elapsed_display": "00:19"
+    }
+  }
+}

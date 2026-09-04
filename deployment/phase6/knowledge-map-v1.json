@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "status": "provisional_pending_official_syllabus_verification",
+  "mastery_initialization": "no_mastery_inference",
+  "nodes": [
+    {"topic_id": "subject-choice", "parent_id": null, "name": "综合知识", "syllabus_weight": null, "choice_relevance": 1.0, "case_relevance": 0.5, "essay_relevance": 0.3, "prerequisites": [], "source_refs": ["product-spec:01#section=3.2"]},
+    {"topic_id": "subject-case", "parent_id": null, "name": "案例分析", "syllabus_weight": null, "choice_relevance": 0.4, "case_relevance": 1.0, "essay_relevance": 0.6, "prerequisites": [], "source_refs": ["product-spec:01#section=3.2"]},
+    {"topic_id": "subject-essay", "parent_id": null, "name": "论文", "syllabus_weight": null, "choice_relevance": 0.2, "case_relevance": 0.5, "essay_relevance": 1.0, "prerequisites": [], "source_refs": ["product-spec:01#section=3.2"]},
+    {"topic_id": "choice-computer-systems", "parent_id": "subject-choice", "name": "计算机系统基础", "syllabus_weight": null, "choice_relevance": 1.0, "case_relevance": 0.3, "essay_relevance": 0.1, "prerequisites": [], "source_refs": ["baidunetdisk:visible-row:2026-09-04#202605-1"]},
+    {"topic_id": "choice-operating-systems", "parent_id": "subject-choice", "name": "操作系统", "syllabus_weight": null, "choice_relevance": 1.0, "case_relevance": 0.5, "essay_relevance": 0.2, "prerequisites": ["choice-computer-systems"], "source_refs": ["baidunetdisk:visible-row:2026-09-04#202605-2"]},
+    {"topic_id": "choice-databases", "parent_id": "subject-choice", "name": "数据库技术", "syllabus_weight": null, "choice_relevance": 1.0, "case_relevance": 0.8, "essay_relevance": 0.5, "prerequisites": [], "source_refs": ["baidunetdisk:visible-row:2026-09-04#202605-3", "cheko:submitted-report:710358"]},
+    {"topic_id": "choice-embedded", "parent_id": "subject-choice", "name": "嵌入式技术", "syllabus_weight": null, "choice_relevance": 0.8, "case_relevance": 0.4, "essay_relevance": 0.2, "prerequisites": ["choice-computer-systems"], "source_refs": ["baidunetdisk:visible-row:2026-09-04#202605-4"]},
+    {"topic_id": "choice-network", "parent_id": "subject-choice", "name": "计算机网络", "syllabus_weight": null, "choice_relevance": 1.0, "case_relevance": 0.8, "essay_relevance": 0.5, "prerequisites": ["choice-computer-systems"], "source_refs": ["baidunetdisk:visible-row:2026-09-04#202605-5"]},
+    {"topic_id": "choice-system-performance", "parent_id": "subject-choice", "name": "系统性能", "syllabus_weight": null, "choice_relevance": 0.9, "case_relevance": 0.9, "essay_relevance": 0.7, "prerequisites": ["choice-computer-systems"], "source_refs": ["baidunetdisk:visible-row:2026-09-04#202605-7"]},
+    {"topic_id": "choice-information-systems", "parent_id": "subject-choice", "name": "信息系统基础", "syllabus_weight": null, "choice_relevance": 0.9, "case_relevance": 0.7, "essay_relevance": 0.6, "prerequisites": [], "source_refs": ["baidunetdisk:visible-row:2026-09-04#202605-8"]}
+  ]
+}

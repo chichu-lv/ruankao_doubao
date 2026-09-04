@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "visibility": "private_only",
+  "package_format": "zip_with_named_skill_directory",
+  "release_contract": {
+    "minimum_verified_client": "Doubao macOS 2.27.11",
+    "revalidate_current_ui": true,
+    "source_branch": "main"
+  },
+  "skills": [
+    {"name": "ruankao-controller-v1", "writes": ["study_sessions", "audit_log"], "network": false},
+    {"name": "ruankao-materials-v1", "writes": ["video_progress", "study_events", "audit_log"], "network": false},
+    {"name": "cheko-practice-v1", "writes": ["practice_attempts", "mastery_evidence", "review_queue", "audit_log"], "network": false},
+    {"name": "ruankao-assessment-v1", "writes": ["mastery_evidence", "mastery_state", "review_queue", "audit_log"], "network": false},
+    {"name": "ruankao-case-coach-v1", "writes": ["case_attempts", "audit_log"], "network": false},
+    {"name": "ruankao-essay-coach-v1", "writes": ["essay_attempts", "audit_log"], "network": false},
+    {"name": "ruankao-review-scheduler-v1", "writes": ["review_queue", "audit_log"], "scheduled_mode": "read_only_until_retry_gate", "network": false},
+    {"name": "ruankao-research-verifier-v1", "writes": ["exam_config", "resources", "audit_log"], "network": true, "network_scope": "official_and_original_sources"},
+    {"name": "ruankao-healthcheck-v1", "writes": [], "scheduled_mode": "read_only", "network": false}
+  ],
+  "forbidden_capabilities": [
+    "arbitrary_sql",
+    "arbitrary_shell",
+    "arbitrary_filesystem_path",
+    "cheko_select_answer",
+    "cheko_submit_answer",
+    "pre_submission_answer_read",
+    "private_api_reverse_engineering",
+    "public_publish",
+    "unconfirmed_delete",
+    "unconfirmed_permission_change",
+    "unconfirmed_sensitive_export"
+  ],
+  "rollback": "disable the installed -v1 skill and re-enable the prior version; ZIP artifacts are reproducible from this release source"
+}

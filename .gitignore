@@ -1,0 +1,22 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+dist/
+build/
+tmp/
+
+# Local/private runtime data never belongs in the release branch.
+materials/raw/
+materials/inbox/
+materials/index/
+materials/models/
+materials/parsed/
+materials/quarantine/
+backups/
+secrets/

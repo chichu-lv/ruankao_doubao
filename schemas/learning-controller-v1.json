@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://architectpass.local/schemas/learning-controller-v1.json",
+  "title": "ArchitectPass Learning Controller v1",
+  "contract_version": "learning-controller-v1",
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "required": [
+        "observed_at",
+        "profile",
+        "target_exam_date",
+        "due_reviews",
+        "score_windows",
+        "video_progress",
+        "subject_ratios_14d",
+        "prior_incomplete"
+      ],
+      "properties": {
+        "observed_at": {"type": "string", "format": "date-time"},
+        "profile": {"type": "object"},
+        "target_exam_date": {"type": "string", "format": "date"},
+        "due_reviews": {"type": "array"},
+        "score_windows": {"type": "object"},
+        "video_progress": {"type": "object"},
+        "subject_ratios_14d": {"type": "object"},
+        "days_since_subject": {"type": "object"},
+        "prior_incomplete": {"type": "array"},
+        "recent_error_types": {
+          "type": "array",
+          "items": {"enum": ["K", "C", "M", "A", "Q", "T", "E", "G"]}
+        },
+        "essay_fact_gaps": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "candidate": {
+      "type": "object",
+      "required": [
+        "candidate_id",
+        "subject",
+        "estimated_minutes",
+        "action",
+        "completion_standard",
+        "syllabus_importance",
+        "weakness",
+        "due_factor",
+        "forgetting_risk",
+        "cross_subject_value",
+        "recent_error_severity"
+      ],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "subject": {"enum": ["综合知识", "案例分析", "论文"]},
+        "estimated_minutes": {"type": "integer", "minimum": 1},
+        "action": {"type": "string", "minLength": 1},
+        "completion_standard": {"type": "string", "minLength": 1},
+        "syllabus_importance": {"type": "number", "minimum": 0, "maximum": 1},
+        "weakness": {"type": "number", "minimum": 0, "maximum": 1},
+        "due_factor": {"type": "number", "minimum": 0, "maximum": 1},
+        "forgetting_risk": {"type": "number", "minimum": 0, "maximum": 1},
+        "cross_subject_value": {"type": "number", "minimum": 0, "maximum": 1},
+        "recent_error_severity": {"type": "number", "minimum": 0, "maximum": 1},
+        "cognitive_load": {"enum": ["low", "medium", "high"]}
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "required": ["session_id", "phase", "status", "state_snapshot", "available_minutes", "energy"],
+  "properties": {
+    "session_id": {"type": "string", "minLength": 1},
+    "phase": {"enum": ["OBSERVE", "DIAGNOSE", "PLAN", "EXECUTE", "TEST", "UPDATE", "SCHEDULE", "CHECKPOINT"]},
+    "status": {"enum": ["ACTIVE", "AWAITING_HUMAN", "FINISHED"]},
+    "state_snapshot": {"$ref": "#/$defs/observation"},
+    "available_minutes": {"type": "integer", "minimum": 10},
+    "energy": {"enum": ["low", "medium", "high"]}
+  },
+  "additionalProperties": true,
+  "state_order": ["OBSERVE", "DIAGNOSE", "PLAN", "EXECUTE", "TEST", "UPDATE", "SCHEDULE", "CHECKPOINT"],
+  "human_boundary": "EXECUTE may wait in AWAITING_HUMAN; no answer or submit operation exists",
+  "priority_formula": "syllabus_importance * weakness * due_factor * forgetting_risk * cross_subject_value * recent_error_severity / estimated_minutes",
+  "review_baseline_days": [1, 3, 7, 14, 30]
+}

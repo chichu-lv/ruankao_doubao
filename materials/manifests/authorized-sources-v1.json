@@ -1,0 +1,286 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-09-04T04:45:00Z",
+  "write_context": {
+    "request_id": "phase7-authorized-material-inventory-001",
+    "audit_id": "phase7-authorized-material-inventory-audit-001",
+    "actor": "codex"
+  },
+  "authorization": {
+    "purpose": "personal_exam_study",
+    "privacy": "private",
+    "allowed_remote_roots": [
+      "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "5、【2026年05月】芝士架构系统架构设计师"
+    ]
+  },
+  "resources": [
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/课件",
+      "kind": "folder",
+      "size_bytes": null,
+      "visible_size": null,
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-folder:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-0.架构第二版考试介绍考点分析学习方法.mp4",
+      "kind": "video",
+      "size_bytes": 197443594,
+      "visible_size": "188.30 MB",
+      "checksum": "sha256:d5d747e7c83c9275538e6c2d60c3d568d1203402f4e8282d35c433f3dd8f0cd7",
+      "status": "partially_indexed",
+      "indexed_ranges": [
+        {
+          "start_seconds": 600,
+          "end_seconds": 675,
+          "source_anchor": "local-asr:phase2-real-video-asr-audit-001"
+        }
+      ],
+      "source_anchor": "baidunetdisk:normal-ui-download:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/课件/202605-0.架构导学课.pdf",
+      "kind": "pdf",
+      "size_bytes": 5803051,
+      "visible_size": "5.53 MB",
+      "checksum": "sha256:4a474dd400868889702dcf7105360ba42526161fc72b340935f15d942ad8de2e",
+      "status": "indexed",
+      "source_anchor": "baidunetdisk:download-history:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-1.计算机系统基础知识.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "154.63 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-2.1操作系统1.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "142.06 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-2.2操作系统2.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "154.52 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-2.3操作系统3.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "117.41 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-3.1数据库技术1.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "191.74 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-3.2数据库技术2.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "154.83 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-3.3数据库技术3_enc.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "152.50 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-3.4数据库技术.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "144.85 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-4.嵌入式技术.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "185.19 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-5.1计算机网络1.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "204.53 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-5.2计算机网络2.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "133.97 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-6.其他计算机系统基础知识.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "189.70 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-7.系统性能.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "506.61 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "relative_path": "01.26年最新基础精讲/202605-8.1信息系统基础知识1.mp4",
+      "kind": "video",
+      "size_bytes": null,
+      "visible_size": "145.60 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": ".",
+      "kind": "folder",
+      "size_bytes": null,
+      "visible_size": null,
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "user-authorized-scope:2026-09-03"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师案例冲刺宝典.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "8.12 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师案例真题分类解析.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "7.26 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师红宝书一本全 .pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "6.17 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师考前指南.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "1.09 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师论文必背.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "3.03 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师论文写作宝典.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "2.12 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师论文押题.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "1.16 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    },
+    {
+      "remote_root": "5、【2026年05月】芝士架构系统架构设计师",
+      "relative_path": "系统架构设计师选择真题分类解析.pdf",
+      "kind": "pdf",
+      "size_bytes": null,
+      "visible_size": "4.50 MB",
+      "checksum": null,
+      "status": "remote_inventory_only",
+      "source_anchor": "baidunetdisk:visible-row:2026-09-04"
+    }
+  ]
+}

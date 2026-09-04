@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "timezone": "Asia/Shanghai",
+  "state_source": "ArchitectPass State v1",
+  "scheduled_writes_enabled": false,
+  "jobs": [
+    {
+      "name": "架构上岸教练-每日只读提醒-v1",
+      "status": "template_pending_user_time",
+      "prompt_file": "deployment/doubao/schedule-prompts/daily-readonly.md",
+      "write_operations": []
+    },
+    {
+      "name": "架构上岸教练-每周只读复盘-v1",
+      "status": "desired_active_user_confirmed",
+      "prompt_file": "deployment/doubao/schedule-prompts/weekly-readonly.md",
+      "schedule": {
+        "repeat": "weekly",
+        "weekday": "saturday",
+        "time": "20:00",
+        "timezone": "Asia/Shanghai"
+      },
+      "write_operations": []
+    }
+  ],
+  "activation_gate": "weekly time confirmed and active; daily time still requires user confirmation",
+  "write_gate": "failure/retry/idempotency behavior must pass before any scheduled write is enabled"
+}

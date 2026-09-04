@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "awaiting_user_confirmed_redacted_facts",
+  "fabrication_allowed": false,
+  "required_categories": [
+    "project_background",
+    "business_goal",
+    "role",
+    "responsibilities",
+    "scale_constraints_metrics",
+    "overall_architecture",
+    "quality_attributes",
+    "technical_decisions",
+    "alternatives_tradeoffs",
+    "costs_risks_failures",
+    "implementation",
+    "result",
+    "applicable_topics"
+  ],
+  "facts": []
+}

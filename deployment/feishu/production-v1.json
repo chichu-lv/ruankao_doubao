@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "base_name": "ArchitectPass State v1",
+  "visibility": "private_unshared",
+  "locator": {
+    "method": "authorized_account_exact_name_and_schema",
+    "on_zero_matches": "create_from_schema_after_user_confirms_private_destination",
+    "on_multiple_matches": "stop_and_ask_user_to_select; never guess by an internal identifier"
+  },
+  "tables": {
+    "user_profile": "user_id",
+    "exam_config": "exam_name",
+    "topics": "topic_id",
+    "resources": "resource_id",
+    "resource_segments": "segment_id",
+    "video_progress": "video_id",
+    "study_sessions": "session_id",
+    "practice_attempts": "attempt_id",
+    "study_events": "event_id",
+    "mastery_evidence": "evidence_id",
+    "mastery_state": "topic_id",
+    "review_queue": "review_id",
+    "case_attempts": "case_id",
+    "essay_attempts": "essay_id",
+    "audit_log": "audit_id"
+  },
+  "table_contract": "schemas/feishu-bitable-v1.json",
+  "migration_chain": "schemas/migrations/",
+  "scheduled_writes_enabled": false,
+  "secret_policy": "No base URL, object ID, token, cookie or credential is stored in the release branch."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "runtime_budgeted",
+  "history_required": false,
+  "budget_policy": "Each day asks only for available minutes and energy; task fractions plus checkpoint reserve never exceed 1.0.",
+  "days": [
+    {"day": 1, "focus": "综合诊断", "tasks": [{"kind": "closed_book_diagnostic", "budget_fraction": 0.55}, {"kind": "targeted_material_review", "budget_fraction": 0.35}], "checkpoint_reserve_fraction": 0.10},
+    {"day": 2, "focus": "案例基线", "tasks": [{"kind": "user_first_case_attempt", "budget_fraction": 0.60}, {"kind": "source_bound_feedback", "budget_fraction": 0.30}], "checkpoint_reserve_fraction": 0.10},
+    {"day": 3, "focus": "论文事实缺口", "tasks": [{"kind": "redacted_fact_gap_review", "budget_fraction": 0.45}, {"kind": "fact_free_structure_drill", "budget_fraction": 0.45}], "checkpoint_reserve_fraction": 0.10},
+    {"day": 4, "focus": "综合定点强化", "tasks": [{"kind": "due_review", "budget_fraction": 0.35}, {"kind": "cheko_user_answered_practice", "budget_fraction": 0.55}], "checkpoint_reserve_fraction": 0.10},
+    {"day": 5, "focus": "案例迁移", "tasks": [{"kind": "case_transfer_attempt", "budget_fraction": 0.60}, {"kind": "concise_rewrite", "budget_fraction": 0.30}], "checkpoint_reserve_fraction": 0.10},
+    {"day": 6, "focus": "论文提纲", "tasks": [{"kind": "confirmed_fact_matching", "budget_fraction": 0.35}, {"kind": "user_written_outline", "budget_fraction": 0.55}], "checkpoint_reserve_fraction": 0.10},
+    {"day": 7, "focus": "混合复习与周报", "tasks": [{"kind": "three_subject_due_review", "budget_fraction": 0.45}, {"kind": "read_only_weekly_report", "budget_fraction": 0.45}], "checkpoint_reserve_fraction": 0.10}
+  ]
+}
