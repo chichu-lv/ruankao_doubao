@@ -112,6 +112,43 @@ class StateServiceTests(unittest.TestCase):
         self.assertTrue(result["data"]["deduplicated"])
         self.assertEqual(1, len(self.store.list("review_queue")))
 
+    def test_review_can_be_completed_and_same_topic_rescheduled(self) -> None:
+        first = {
+            "review_id": "rv-complete-1", "topic_id": "t1", "due_at": "2026-09-05T00:00:00Z",
+            "review_type": "recall", "priority": 2, "reason": "decay", "status": "pending",
+        }
+        self.assertEqual("ok", self.service.invoke("schedule_review", review=first, context=ctx(130))["status"])
+        completed = self.service.invoke(
+            "complete_review",
+            review_id="rv-complete-1",
+            completed_at="2026-09-08T00:00:00Z",
+            completion_evidence_ref="simulation:closed-book-recall-1",
+            context=ctx(131),
+        )
+        self.assertEqual("completed", completed["data"]["record"]["status"])
+        self.assertEqual([], self.service.invoke("get_due_reviews", now="2026-09-09T00:00:00Z")["data"])
+        repeated = self.service.invoke(
+            "complete_review",
+            review_id="rv-complete-1",
+            completed_at="2026-09-08T00:00:00Z",
+            completion_evidence_ref="simulation:closed-book-recall-1",
+            context=ctx(133),
+        )
+        self.assertTrue(repeated["data"]["deduplicated"])
+        changed = self.service.invoke(
+            "complete_review",
+            review_id="rv-complete-1",
+            completed_at="2026-09-08T00:00:00Z",
+            completion_evidence_ref="simulation:changed-evidence",
+            context=ctx(134),
+        )
+        self.assertEqual("IMMUTABLE_RECORD", changed["error"]["code"])
+
+        second = {**first, "review_id": "rv-complete-2", "due_at": "2026-09-10T00:00:00Z"}
+        scheduled = self.service.invoke("schedule_review", review=second, context=ctx(132))
+        self.assertFalse(scheduled["data"]["deduplicated"])
+        self.assertEqual(2, len(self.store.list("review_queue")))
+
     def test_checkpoint_requires_all_recovery_fields(self) -> None:
         result = self.service.invoke("finish_session", session_id="s1", checkpoint={"completed": []}, context=ctx(12))
         self.assertEqual("INCOMPLETE_CHECKPOINT", result["error"]["code"])

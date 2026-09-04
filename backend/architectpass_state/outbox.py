@@ -24,6 +24,7 @@ OUTBOX_WRITE_OPERATIONS = frozenset({
     "record_mastery_evidence",
     "recompute_topic_state",
     "schedule_review",
+    "complete_review",
     "record_case_attempt",
     "record_essay_attempt",
     "finish_session",

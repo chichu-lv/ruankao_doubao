@@ -14,7 +14,7 @@
 
 ## 当前阶段
 
-`Phase 6 — 真实数据初始化：已完成（含已记录限制）`
+`Phase 7 — 压缩测试与验收：进行中（真实七天独立试运行仍待执行）`
 
 真实账号审计、状态层、本地资料管线、芝士架构安全适配、学习决策引擎、豆包私有部署和真实数据初始化已经完成。九个正式技能已启用；授权资料、页码/时间戳索引、视频进度、暂定知识图和已提交芝士聚合基线已写入同一私人状态层。豆包仍是唯一日常对话主控。
 
@@ -115,3 +115,12 @@ Run `python3 scripts/phase5_healthcheck.py` to render the instruction baseline, 
 - `artifacts/doubao-audit-logs/phase6-initialization-2026-09-04.md`
 
 Run `python3 scripts/phase6_healthcheck.py` to build the deterministic initialization plan and validate Phase 6. Private segment payloads are generated only under ignored `dist/`; course text is never a Git artifact. Prior exam attempts and scores are optional.
+
+## Phase 7 输出
+
+- `backend/architectpass_acceptance/`
+- `scripts/phase7_accelerated_pilot.py`
+- `docs/test-results/phase-7.md`
+- `artifacts/simulations/phase7-accelerated-pilot-2026-09-04.md`
+
+Run `python3 scripts/phase7_accelerated_pilot.py` for the isolated seven-logical-day functional simulation. It uses in-memory state and a temporary persistent outbox, performs no production write or external-service call, and never answers or submits a Cheko question. A `PASS` here does not satisfy the separate real seven-day independent-pilot gate.

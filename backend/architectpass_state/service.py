@@ -33,7 +33,8 @@ class StateService:
             "get_system_health", "get_profile", "update_profile", "record_study_event",
             "upsert_topic", "upsert_resource", "upsert_resource_segment", "update_video_progress",
             "record_practice_attempt", "record_mastery_evidence", "recompute_topic_state", "get_topic_state",
-            "schedule_review", "get_due_reviews", "record_case_attempt", "record_essay_attempt", "finish_session",
+            "schedule_review", "complete_review", "get_due_reviews", "record_case_attempt", "record_essay_attempt",
+            "finish_session",
         }
         if operation not in allowed:
             error = StateError("OPERATION_NOT_ALLOWED", f"operation is not allowlisted: {operation}")
@@ -144,6 +145,8 @@ class StateService:
         return response(data=self.store.read("mastery_state", topic_id))
 
     def schedule_review(self, review: dict[str, Any], context: WriteContext) -> dict[str, Any]:
+        if review.get("status") != "pending":
+            raise StateError("VALIDATION_ERROR", "schedule_review requires pending status")
         for existing in self.store.list("review_queue"):
             if (
                 existing["topic_id"] == review.get("topic_id")
@@ -166,6 +169,42 @@ class StateService:
         ]
         due.sort(key=lambda item: (-float(item["priority"]), item["due_at"], item["review_id"]))
         return response(data=due)
+
+    def complete_review(
+        self,
+        review_id: str,
+        completed_at: str,
+        completion_evidence_ref: str,
+        context: WriteContext,
+    ) -> dict[str, Any]:
+        current = self.store.read("review_queue", review_id)
+        if current is None:
+            raise StateError("NOT_FOUND", f"review_queue/{review_id} not found")
+        if current.get("status") == "completed":
+            if (
+                current.get("completed_at") != completed_at
+                or current.get("completion_evidence_ref") != completion_evidence_ref
+            ):
+                raise StateError("IMMUTABLE_RECORD", "review completion evidence cannot be changed")
+            return response(data={"record": current, "deduplicated": True}, audit_id=None)
+        if not isinstance(completion_evidence_ref, str) or not completion_evidence_ref.strip():
+            raise StateError("UNTRACEABLE_SOURCE", "review completion requires a traceable evidence reference")
+        updated = {
+            **current,
+            "status": "completed",
+            "completed_at": completed_at,
+            "completion_evidence_ref": completion_evidence_ref,
+        }
+        result, duplicate = self.store.write(
+            table="review_queue",
+            record_id=review_id,
+            record=updated,
+            operation="complete_review",
+            context=context,
+            validate=validate_review,
+        )
+        result["deduplicated"] = duplicate
+        return response(data=result, audit_id=result["audit_id"])
 
     def record_case_attempt(self, attempt: dict[str, Any], context: WriteContext) -> dict[str, Any]:
         result, duplicate = self.store.write(

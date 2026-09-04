@@ -50,7 +50,7 @@
     },
     "review_queue": {
       "primary_key": "review_id", "mutable": true,
-      "payload_fields": ["topic_id", "due_at", "review_type", "priority", "reason", "status"]
+      "payload_fields": ["topic_id", "due_at", "review_type", "priority", "reason", "status", "completed_at", "completion_evidence_ref"]
     },
     "case_attempts": {
       "primary_key": "case_id", "mutable": false,

@@ -105,5 +105,6 @@ OBSERVE -> DIAGNOSE -> PLAN -> EXECUTE -> TEST -> UPDATE -> SCHEDULE -> CHECKPOI
 - Candidate ranking retains the exact six-factor base formula and logs distinct balance/energy multipliers. Plans reserve checkpoint time and cannot exceed the available budget.
 - The controller holds no browser answer or submit operation. It accepts only a post-action user-output reference before assessment.
 - Review dates start from 1/3/7/14/30 days and move according to evidence strength, confidence, importance, error severity and exam date.
+- A pending review is closed only through allowlisted `complete_review`, with an ISO completion time and traceable evidence reference; the completed item no longer blocks a later review for the same topic and type.
 - Case grading is post-submission and source-bound. Essay organization is limited to confirmed, redacted fact IDs; missing or unknown facts cannot be fabricated.
 - Weekly reports are derived read models. Sprint activation is a function of exam date and syllabus progress, not a hard-coded calendar threshold.

@@ -15,7 +15,7 @@ All production tables are private Feishu Bitable tables. Every written record al
 | `study_events` | `event_id` | Raw learning facts | immutable append-only |
 | `mastery_evidence` | `evidence_id` | Scored, typed evidence | immutable append-only |
 | `mastery_state` | `topic_id` | Recomputable 0–5 projection | derived only |
-| `review_queue` | `review_id` | Due work | one pending topic+type pair |
+| `review_queue` | `review_id` | Due work | one pending topic+type pair; completion requires `completed_at` and a traceable `completion_evidence_ref` |
 | `case_attempts` | `case_id` | User answer and rubric coverage | append revisions as new facts |
 | `essay_attempts` | `essay_id` | Outline/full essay tied to real project facts | append revisions; no invented facts |
 | `audit_log` | `audit_id` | Who/what/before-after hashes/result/confirmation/rollback | immutable append-only |

@@ -2,6 +2,15 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.8.4] - 2026-09-04
+
+- Added a deterministic seven-logical-day accelerated pilot that exercises checkpoints, restart recovery, overdue review recovery, three-subject work, case/essay safety gates, weekly reporting, offline replay and verified backups without production writes or external-service calls.
+- Found and fixed `P7-SIM-001`: pending reviews had no allowlisted completion transition and could accumulate forever. `complete_review` now requires a timestamp and traceable completion evidence, is audited/idempotent, and permits later rescheduling.
+- Found and fixed `P7-SIM-002` during the real Doubao local-computer run: the lightweight pilot unnecessarily imported the optional PDF runtime. Material-package exports are now lazy and covered by a no-`pdfplumber` regression.
+- Ran the corrected script through the real `架构上岸教练` Doubao project in local-computer mode. It independently reported `PASS`, seven logical days, 19/19 checks, and zero production writes, external calls or Cheko answer/submission actions.
+- Passed all 85 repository unit tests plus Phase 1, Phase 4 and Phase 5 health checks; the Phase 1 live-Feishu line remains intentionally `PARTIAL` because the local command does not authenticate.
+- Kept the mandatory real seven-day independent pilot explicitly `DEFERRED / NOT_RUN`; accelerated simulation is functional evidence, not unattended-duration evidence.
+
 ## [0.8.3] - 2026-09-04
 
 - Created and visibly read back the production Doubao task `架构上岸教练-每周只读复盘-v1`, scheduled every Saturday at 20:00 Asia/Shanghai.

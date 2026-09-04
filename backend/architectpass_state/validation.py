@@ -199,10 +199,24 @@ def validate_practice_attempt(record: dict[str, Any]) -> None:
 
 
 def validate_review(record: dict[str, Any]) -> None:
+    allowed = {
+        "review_id", "topic_id", "due_at", "review_type", "priority", "reason", "status",
+        "completed_at", "completion_evidence_ref",
+    }
+    unknown = sorted(set(record) - allowed)
+    if unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"review fields are not allowlisted: {', '.join(unknown)}")
     require_fields(record, ("review_id", "topic_id", "due_at", "review_type", "priority", "reason", "status"))
     require_iso_datetime(record["due_at"], "due_at")
     if not isinstance(record["priority"], (int, float)) or record["priority"] < 0:
         raise StateError("VALIDATION_ERROR", "priority must be non-negative")
+    if record["status"] not in {"pending", "completed"}:
+        raise StateError("VALIDATION_ERROR", "review status must be pending or completed")
+    if record["status"] == "completed":
+        require_fields(record, ("completed_at", "completion_evidence_ref"))
+        require_iso_datetime(record["completed_at"], "completed_at")
+    elif record.get("completed_at") is not None or record.get("completion_evidence_ref") is not None:
+        raise StateError("VALIDATION_ERROR", "pending reviews cannot contain completion evidence")
 
 
 def validate_case_attempt(record: dict[str, Any]) -> None:

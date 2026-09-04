@@ -9,6 +9,8 @@ description: 软考复习队列、每日提醒、周报和冲刺技能。用于�
 
 以 1/3/7/14/30 天为起点，根据 score、confidence、考点权重、错误严重度、考试日期和跨科价值调整。错误、低置信度和高权重提前；多种稳定证据可延后；考试后的日期不创建。每个排期返回信号、规则和 reason。
 
+复习实际完成后，用 allowlisted `complete_review` 更新原记录，必须提供 ISO-8601 `completed_at`、可追溯的 `completion_evidence_ref`、唯一 `request_id` 和 `audit_id`，并写后回读。不得直接覆盖为完成、不得把打开提醒当作完成。完成记录不再阻止同一考点和类型的后续排期；仍为 pending 时继续去重，避免队列膨胀。
+
 ## 每日提醒
 
 只读取同一私人 `ArchitectPass State v1`。仅提醒到期/逾期复习和当日计划；已完成不重复催促；无计划时只询问可用时间与精力。

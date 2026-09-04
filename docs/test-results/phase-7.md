@@ -1,7 +1,7 @@
 # Phase 7 test record
 
 - Date: 2026-09-04 (Asia/Shanghai)
-- Version under test: 0.8.3
+- Version under test: 0.8.4
 - Real environment: Doubao project `架构上岸教练`, chat `38440213023143426`, private Feishu Base `ArchitectPass State v1`
 - Product baseline: `01_豆包软考私教系统_Codex开发说明书.md`, sections 21–22
 - Acceptance baseline: `04_验收清单.md`, sections J–K
@@ -132,6 +132,20 @@ The authorized Baidu Netdisk material root was also enumerated through its ordin
 | P7-S15 health check with missing-skill sentinel | Existing system `PARTIAL`; sentinel `FAIL / NOT_FOUND`, `SKILL_MISSING`; no real skill was changed | 0 | PASS |
 
 The health check independently reported nine expected repository skills, a readable 15-table Base, 49 page/time anchors, and active read-only daily/weekly probe tasks. Later direct schedule inventory established that those tasks belong only to Phase 0 and do not target the production Base. Other retained limitations were that Cheko login was not reopened during that earlier probe and no first learning checkpoint/full production backup exists.
+
+## Accelerated seven-logical-day functional pilot
+
+Version 0.8.4 adds `scripts/phase7_accelerated_pilot.py`, a deterministic isolated simulation for seven logical dates from 2026-09-04 through 2026-09-10. It uses only `InMemoryStore` and a temporary checksum-protected outbox. It does not authenticate to or write Doubao, Feishu or Cheko, does not answer or submit external questions, and marks all generated evidence as non-authoritative simulation data.
+
+The local run completed 19/19 checks in 0.0306 seconds: seven complete checkpoints; controller restart recovery; G handling; a three-day-overdue review; review completion and rescheduling without queue growth; targeted video rewatch; post-submission case gating; essay missing-fact refusal and confirmed/redacted fact flow; all three subjects; a three-priority weekly report; persistent-outbox restart/failure/single replay; forbidden-answer-field exclusion; reproducible mastery; unique request/audit IDs; and verified JSON/CSV/Markdown backups. The isolated state contained seven sessions, four practice attempts, four mastery-evidence facts, two review rows, one case attempt, one essay attempt, eight study events and 87 audits.
+
+The first real Doubao local-computer attempt truthfully failed before execution because a lightweight import eagerly pulled in the absent optional `pdfplumber` package. This became `P7-SIM-002`; lazy material exports and a no-`pdfplumber` regression fixed it without installing anything. Doubao then reran the same repository script, observed exit code 0 and independently reported seven logical days, all 19 checks true, `production_writes=0`, `external_service_calls=0`, `cheko_answers_or_submissions=0`, and `authoritative_learning_state=false`.
+
+The scenario also exposed `P7-SIM-001`: `review_queue` had scheduling and due reads but no completion transition. The added allowlisted `complete_review` requires a completion timestamp and traceable evidence, writes an audit, remains idempotent, removes completed rows from due reads and allows a later same-topic/type review. Both issues are `FIXED_AND_REGRESSION_TESTED`.
+
+All 85 repository unit tests pass. Phase 1, Phase 4 and Phase 5 health checks pass; Phase 1's live-Feishu line remains intentionally `PARTIAL` because that local command verifies captured evidence and does not authenticate to the service.
+
+Result: `ACCELERATED_SEVEN_LOGICAL_DAY_FUNCTIONAL_PILOT=PASS`. This does not establish seven days of real unattended reliability, so acceptance section K remains `DEFERRED / NOT_RUN` and final Phase 7 sign-off is still conditional.
 
 ## Still required before Phase 7 closes
 
