@@ -234,6 +234,111 @@ class ChekoPracticeTests(unittest.TestCase):
         for forbidden in ("question_text", "correct_answer", "options"):
             self.assertNotIn(forbidden, serialized)
 
+    def test_custom_paper_distinguishes_main_questions_from_answer_items(self) -> None:
+        fixture = json.loads(
+            (ROOT / "tests" / "fixtures" / "cheko-custom-paper-test-sanitized.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        service = ChekoPracticeService()
+        service.invoke("create_task", task=fixture["task"], context=context(74))
+        service.invoke(
+            "prepare_navigation",
+            task_id=fixture["task"]["task_id"],
+            observed_route="/?subject=0",
+            ui_contract_version=fixture["result"]["ui_contract_version"],
+            context=context(75),
+        )
+        service.invoke("enter_awaiting_human", task_id=fixture["task"]["task_id"], context=context(76))
+        imported = service.invoke(
+            "import_submitted_result",
+            task_id=fixture["task"]["task_id"],
+            result=fixture["result"],
+            context=context(77),
+        )
+        imported_task = imported["data"]["task"]
+        summary = imported_task["imported_result"]["summary"]
+        self.assertEqual(20, summary["main_question_count"])
+        self.assertEqual(21, summary["answer_item_count"])
+        self.assertEqual(6, summary["correct_answer_item_count"])
+        self.assertEqual("aggregate_only", imported_task["imported_result"]["detail_completeness"])
+        self.assertEqual([], build_state_writes(imported_task, review_due_at="2026-09-05T18:41:27+08:00"))
+
+    def test_custom_paper_rejects_inconsistent_count_or_accuracy(self) -> None:
+        fixture = json.loads(
+            (ROOT / "tests" / "fixtures" / "cheko-custom-paper-test-sanitized.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        for number, mutation in enumerate(("main_count", "accuracy"), start=90):
+            with self.subTest(mutation=mutation):
+                service = ChekoPracticeService()
+                service.invoke("create_task", task=fixture["task"], context=context(number * 10))
+                service.invoke(
+                    "prepare_navigation",
+                    task_id=fixture["task"]["task_id"],
+                    observed_route="/?subject=0",
+                    ui_contract_version=fixture["result"]["ui_contract_version"],
+                    context=context(number * 10 + 1),
+                )
+                service.invoke(
+                    "enter_awaiting_human",
+                    task_id=fixture["task"]["task_id"],
+                    context=context(number * 10 + 2),
+                )
+                invalid = json.loads(json.dumps(fixture["result"]))
+                if mutation == "main_count":
+                    invalid["summary"]["main_question_count"] = 19
+                    expected_code = "RESULT_TASK_MISMATCH"
+                else:
+                    invalid["summary"]["accuracy_percent"] = 29.0
+                    expected_code = "INVALID_RESULT"
+                response = service.invoke(
+                    "import_submitted_result",
+                    task_id=fixture["task"]["task_id"],
+                    result=invalid,
+                    context=context(number * 10 + 3),
+                )
+                self.assertEqual(expected_code, response["error"]["code"])
+
+    def test_workflow_test_blocks_state_writes_even_with_item_details(self) -> None:
+        fixture = json.loads(
+            (ROOT / "tests" / "fixtures" / "cheko-custom-paper-test-sanitized.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        fixture["result"]["items"] = [
+            {
+                "visible_item_id": "test-only-item-1",
+                "topic_id": "computer-network",
+                "correct": False,
+                "confidence": 0.5,
+                "duration_seconds": 10,
+                "error_type": "K",
+            }
+        ]
+        service = ChekoPracticeService()
+        service.invoke("create_task", task=fixture["task"], context=context(780))
+        service.invoke(
+            "prepare_navigation",
+            task_id=fixture["task"]["task_id"],
+            observed_route="/?subject=0",
+            ui_contract_version=fixture["result"]["ui_contract_version"],
+            context=context(781),
+        )
+        service.invoke("enter_awaiting_human", task_id=fixture["task"]["task_id"], context=context(782))
+        imported = service.invoke(
+            "import_submitted_result",
+            task_id=fixture["task"]["task_id"],
+            result=fixture["result"],
+            context=context(783),
+        )
+        self.assertEqual("workflow_test", imported["data"]["task"]["data_purpose"])
+        self.assertEqual(
+            [],
+            build_state_writes(imported["data"]["task"], review_due_at="2026-09-05T18:41:27+08:00"),
+        )
+
     def test_idempotent_result_replay_and_operation_allowlist(self) -> None:
         service = ChekoPracticeService()
         create_context = context(80)
@@ -265,7 +370,7 @@ class ChekoPracticeTests(unittest.TestCase):
         contract = ChekoUiContract.load(ROOT / "deployment" / "cheko" / "ui-contract-v1.json")
         error_book = contract.target("error_book")
         self.assertEqual("/error_book?subject=0", error_book["target"]["route"])
-        self.assertEqual("cheko-ui-2026-09-04.1", error_book["contract_version"])
+        self.assertEqual("cheko-ui-2026-09-04.2", error_book["contract_version"])
         fallback = contract.fallback("dom_changed")
         methods = [item["method"] for item in fallback["steps"]]
         self.assertEqual(["official_export", "screenshot", "manual_summary"], methods)

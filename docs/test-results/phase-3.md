@@ -8,9 +8,11 @@
 
 ## Automated verification
 
-- Phase 3 Cheko tests: 10/10 PASS.
+- Phase 3 Cheko tests: 13/13 PASS.
 - Full repository regression: 43/43 PASS.
-- `scripts/phase3_healthcheck.py`: JSON contracts, contract/fixture version match, forbidden actions, sanitized fixture, post-submission requirement, DOM fallbacks, absence of a private network client, and Phase 3 tests PASS.
+- `scripts/phase3_healthcheck.py`: JSON contracts, current and historical UI-contract handling, forbidden actions, both sanitized fixtures, post-submission requirement, distinct main-question/answer-item counts, DOM fallbacks, absence of a private network client, and Phase 3 tests PASS.
+
+The custom-paper regression fixture records 20 configured main questions and 21 scored answer items because one stem may contain multiple blanks. It is explicit `workflow_test` data from a user-randomized submission and produces zero practice-attempt, mastery-evidence, mastery-state, wrong-question or review writes, even if item-level metadata is later present.
 - Python compile and Git whitespace checks: PASS at closeout.
 
 ## Acceptance E trace

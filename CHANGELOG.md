@@ -2,6 +2,12 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.8.1] - 2026-09-04
+
+- Added custom-paper result support that distinguishes configured main questions from the larger number of answer items produced by multi-blank stems.
+- Captured submitted test result `1094788` as an explicit `workflow_test` sanitized regression fixture and proved it generates zero mastery, practice-attempt or review writes even if item details are present.
+- Expanded count and accuracy validation while retaining backward compatibility with historical aggregate reports.
+
 ## [0.8.0] - 2026-09-04
 
 - Added the deterministic Phase 6 initialization builder, rendered write plan, provisional sourced knowledge map, empty anti-fabrication project-fact store, and runtime-budgeted seven-day plan.

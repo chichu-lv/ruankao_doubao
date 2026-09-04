@@ -27,6 +27,7 @@ ALLOWED_ROUTES = frozenset({
 })
 ROUTE_BY_TARGET = {
     "chapter_bank": "/?subject=0",
+    "custom_paper": "/?subject=0",
     "past_exam": "/past_exam?subject=0",
     "error_book": "/error_book?subject=0",
     "practice_log": "/test_log?subject=0",
@@ -76,7 +77,11 @@ class ChekoPracticeService:
         task_id = task["task_id"]
         if task_id in self.tasks:
             raise ChekoError("TASK_ALREADY_EXISTS", "task ID already exists")
-        record = {**copy.deepcopy(task), "status": "CREATED"}
+        record = {
+            **copy.deepcopy(task),
+            "data_purpose": task.get("data_purpose", "learning"),
+            "status": "CREATED",
+        }
         return self._commit("create_task", task_id, None, record, {"task": task}, context)
 
     def prepare_navigation(
@@ -231,9 +236,10 @@ class ChekoPracticeService:
             "completion_standard",
             "confidence_capture",
             "navigation_target",
+            "data_purpose",
         }
         _reject_unknown_fields(task, allowed, "practice task")
-        required = allowed
+        required = allowed - {"data_purpose"}
         missing = sorted(name for name in required if task.get(name) in (None, ""))
         if missing:
             raise ChekoError("INVALID_PRACTICE_TASK", f"missing task fields: {', '.join(missing)}")
@@ -241,7 +247,7 @@ class ChekoPracticeService:
             raise ChekoError("INVALID_PRACTICE_TASK", "paper_type is not supported")
         if task["subject"] != "系统架构设计师":
             raise ChekoError("INVALID_PRACTICE_TASK", "subject must be 系统架构设计师")
-        if task["practice_mode"] not in {"chapter", "past_exam", "wrong_questions", "daily", "manual"}:
+        if task["practice_mode"] not in {"chapter", "past_exam", "wrong_questions", "daily", "manual", "custom"}:
             raise ChekoError("INVALID_PRACTICE_TASK", "practice_mode is not supported")
         if not isinstance(task["question_count"], int) or not 1 <= task["question_count"] <= 100:
             raise ChekoError("INVALID_PRACTICE_TASK", "question_count must be between 1 and 100")
@@ -249,6 +255,8 @@ class ChekoPracticeService:
             raise ChekoError("INVALID_PRACTICE_TASK", "time_limit_minutes must be between 1 and 180")
         if task["confidence_capture"] not in {"per_item", "per_group"}:
             raise ChekoError("INVALID_PRACTICE_TASK", "confidence capture must be per_item or per_group")
+        if task.get("data_purpose", "learning") not in {"learning", "workflow_test"}:
+            raise ChekoError("INVALID_PRACTICE_TASK", "data_purpose must be learning or workflow_test")
         navigation = task["navigation_target"]
         if not isinstance(navigation, dict) or navigation.get("route") not in ALLOWED_ROUTES:
             raise ChekoError("NAVIGATION_NOT_ALLOWED", "navigation route is not allowlisted")
@@ -284,12 +292,47 @@ class ChekoPracticeService:
                 raise ChekoError("INVALID_RESULT", "summary must be an object")
             _reject_unknown_fields(
                 result["summary"],
-                {"practice_type", "topic", "created_at_display", "question_count", "score_display", "elapsed_display"},
+                {
+                    "practice_type",
+                    "topic",
+                    "created_at_display",
+                    "question_count",
+                    "main_question_count",
+                    "answer_item_count",
+                    "correct_answer_item_count",
+                    "accuracy_percent",
+                    "score_display",
+                    "elapsed_display",
+                },
                 "result summary",
             )
-            reported_count = result["summary"].get("question_count")
-            if reported_count is not None and reported_count != expected_question_count:
+            summary = result["summary"]
+            legacy_count = _optional_integer(summary, "question_count", minimum=1, maximum=100)
+            main_count = _optional_integer(summary, "main_question_count", minimum=1, maximum=100)
+            answer_item_count = _optional_integer(summary, "answer_item_count", minimum=1, maximum=200)
+            correct_answer_item_count = _optional_integer(
+                summary, "correct_answer_item_count", minimum=0, maximum=200
+            )
+            reported_main_count = main_count if main_count is not None else legacy_count
+            if legacy_count is not None and main_count is not None and legacy_count != main_count:
+                raise ChekoError("INVALID_RESULT", "legacy and main question counts disagree")
+            if reported_main_count is not None and reported_main_count != expected_question_count:
                 raise ChekoError("RESULT_TASK_MISMATCH", "result question count does not match the practice task")
+            if answer_item_count is not None and answer_item_count < (reported_main_count or expected_question_count):
+                raise ChekoError("INVALID_RESULT", "answer item count cannot be lower than main question count")
+            if correct_answer_item_count is not None:
+                if answer_item_count is None:
+                    raise ChekoError("INVALID_RESULT", "correct answer item count requires answer item count")
+                if correct_answer_item_count > answer_item_count:
+                    raise ChekoError("INVALID_RESULT", "correct answer item count exceeds answer item count")
+            accuracy = summary.get("accuracy_percent")
+            if accuracy is not None:
+                if isinstance(accuracy, bool) or not isinstance(accuracy, (int, float)) or not 0 <= accuracy <= 100:
+                    raise ChekoError("INVALID_RESULT", "accuracy_percent must be between 0 and 100")
+                if correct_answer_item_count is not None and answer_item_count is not None:
+                    expected_accuracy = round(100 * correct_answer_item_count / answer_item_count, 2)
+                    if abs(float(accuracy) - expected_accuracy) > 0.01:
+                        raise ChekoError("INVALID_RESULT", "accuracy percent does not match answer item counts")
         normalized = copy.deepcopy(result)
         normalized_items: list[dict[str, Any]] = []
         for item in result.get("items", []):
@@ -297,7 +340,10 @@ class ChekoPracticeService:
         item_ids = [item["visible_item_id"] for item in normalized_items]
         if len(item_ids) != len(set(item_ids)):
             raise ChekoError("INVALID_RESULT", "visible item IDs must be unique")
-        if len(normalized_items) > expected_question_count:
+        expected_item_count = expected_question_count
+        if result.get("summary"):
+            expected_item_count = result["summary"].get("answer_item_count", expected_question_count)
+        if len(normalized_items) > expected_item_count:
             raise ChekoError("RESULT_TASK_MISMATCH", "result contains more items than the practice task")
         normalized["items"] = normalized_items
         normalized["review_items"] = [
@@ -305,7 +351,7 @@ class ChekoPracticeService:
         ]
         if not normalized_items:
             normalized["detail_completeness"] = "aggregate_only"
-        elif len(normalized_items) == expected_question_count:
+        elif len(normalized_items) == expected_item_count:
             normalized["detail_completeness"] = "item_level_complete"
         else:
             normalized["detail_completeness"] = "item_level_partial"
@@ -376,6 +422,17 @@ def _reject_unknown_fields(value: dict[str, Any], allowed: set[str], label: str)
     unknown = sorted(set(value) - allowed)
     if unknown:
         raise ChekoError("FIELD_NOT_ALLOWED", f"{label} fields are not allowlisted: {', '.join(unknown)}")
+
+
+def _optional_integer(
+    value: dict[str, Any], name: str, *, minimum: int, maximum: int
+) -> int | None:
+    candidate = value.get(name)
+    if candidate is None:
+        return None
+    if isinstance(candidate, bool) or not isinstance(candidate, int) or not minimum <= candidate <= maximum:
+        raise ChekoError("INVALID_RESULT", f"{name} must be between {minimum} and {maximum}")
+    return candidate
 
 
 def _hash(value: Any) -> str:

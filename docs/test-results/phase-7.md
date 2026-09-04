@@ -1,7 +1,7 @@
 # Phase 7 test record
 
 - Date: 2026-09-04 (Asia/Shanghai)
-- Version under test: 0.8.0
+- Version under test: 0.8.1
 - Real environment: Doubao project `架构上岸教练`, chat `38440213023143426`, private Feishu Base `ArchitectPass State v1`
 - Product baseline: `01_豆包软考私教系统_Codex开发说明书.md`, sections 21–22
 - Acceptance baseline: `04_验收清单.md`, sections J–K
@@ -71,6 +71,16 @@ Codex then refreshed the accessibility state between dependent actions, selected
 
 Under `request_id=phase7-cheko-generate-001` and `audit_id=phase7-cheko-generate-audit-001`, the next `出题` action displayed `生成练习成功，正在跳转` and visibly loaded the practice page. The page reported 20 main questions and 21 small-question positions. No answer was selected and no submission was performed; the run is now `AWAITING_HUMAN`.
 
+#### Submitted custom-paper flow test
+
+The user later stated that they had randomly selected answers and submitted the paper using the test account, explicitly directing that this run must not count as real learning data. Codex then read only the visible post-submission aggregate at `/test/select?test_id=1094788`: submitted at `2026-09-04 18:41:27`, score `6 / 21`, accuracy `28.57%`, and practice type `自定义组卷`. No question stem, blank, option, answer or explanation was captured.
+
+The result clarifies the platform's count semantics: the configured paper contains 20 main questions, while a main stem may contain multiple blanks or answer items, yielding 21 scored answer items. Contract `cheko-ui-2026-09-04.2` therefore records `main_question_count=20` separately from `answer_item_count=21`; it does not treat the extra answer item as an extra generated question.
+
+Sanitized fixture `cheko-custom-paper-test-sanitized.json` is marked aggregate-only and test-only. Its dry-run IDs are `request_id=phase7-cheko-custom-result-dryrun-001` and `audit_id=phase7-cheko-custom-result-dryrun-audit-001`. Regression verification produced zero practice-attempt, mastery-evidence, mastery-state, wrong-question, review-queue or checkpoint writes. The browser/generation/submission/result-reading path is now proven, but this randomized run does not satisfy the J1 learning gate.
+
+Automated verification after the adapter correction: Phase 3 health check PASS, Cheko suite 13/13 PASS, complete repository suite 78/78 PASS, Python compilation PASS, and Git whitespace validation PASS.
+
 The authorized Baidu Netdisk material root was also enumerated through its ordinary UI. It contains eight visible PDFs, including `系统架构设计师选择真题分类解析.pdf` and `系统架构设计师案例真题分类解析.pdf`. Their existence and visible sizes are now recorded as remote inventory only; years, completeness, checksums and content quality remain unverified because no PDF was opened or downloaded.
 
 ## Zero-write safety probes
@@ -86,7 +96,7 @@ The health check independently reported nine expected repository skills, a reada
 ## Still required before Phase 7 closes
 
 - Complete the real J1 learning session and verified checkpoint.
-- Have the user answer and submit the generated `AP-J1-计算机网络基线-v1` paper, then verify aggregate-only result import and the post-submission result DOM.
+- Complete a non-random, user-authored learning attempt; the submitted test-account random run verifies only the browser/generation/submission/result-reading path and is excluded from learning state.
 - Exercise three-day checkpoint recovery and client restart recovery after that checkpoint exists.
 - Complete user-authored Cheko, case and essay scenarios; Codex/Doubao must not answer for the user.
 - Re-run real page-change/manual fallback, offline outbox replay, targeted rewatch and same-state weekly-report scenarios.

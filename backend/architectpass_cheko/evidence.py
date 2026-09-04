@@ -11,6 +11,8 @@ def build_state_writes(imported_task: dict[str, Any], *, review_due_at: str) -> 
         raise ChekoError("RESULT_NOT_IMPORTED", "state writes require an imported result")
     if imported_task.get("paper_type") != "choice":
         raise ChekoError("UNSUPPORTED_RESULT_MAPPING", "case and essay results require their dedicated coaches")
+    if imported_task.get("data_purpose", "learning") == "workflow_test":
+        return []
     result = imported_task["imported_result"]
     writes: list[dict[str, Any]] = []
     for item in result.get("items", []):

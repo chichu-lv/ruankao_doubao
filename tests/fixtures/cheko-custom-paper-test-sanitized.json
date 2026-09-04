@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "write_context": {
+    "request_id": "phase7-cheko-custom-result-dryrun-001",
+    "audit_id": "phase7-cheko-custom-result-dryrun-audit-001",
+    "actor": "codex"
+  },
+  "task": {
+    "task_id": "phase7-cheko-custom-test-1094788",
+    "subject": "系统架构设计师",
+    "paper_type": "choice",
+    "practice_mode": "custom",
+    "target": "计算机网络自定义组卷流程测试",
+    "question_count": 20,
+    "time_limit_minutes": 40,
+    "completion_standard": "测试账号随机作答并由用户提交；仅验证结果读取，不得生成学习证据。",
+    "confidence_capture": "per_group",
+    "data_purpose": "workflow_test",
+    "navigation_target": {
+      "name": "custom_paper",
+      "route": "/?subject=0"
+    }
+  },
+  "result": {
+    "submission_state": "submitted",
+    "import_method": "visible_submitted_report",
+    "cheko_result_id": "1094788",
+    "observed_at": "2026-09-04T18:41:27+08:00",
+    "ui_contract_version": "cheko-ui-2026-09-04.2",
+    "summary": {
+      "practice_type": "自定义组卷",
+      "topic": "计算机网络",
+      "created_at_display": "2026-09-04 18:41:27",
+      "main_question_count": 20,
+      "answer_item_count": 21,
+      "correct_answer_item_count": 6,
+      "accuracy_percent": 28.57,
+      "score_display": "6 / 21"
+    }
+  }
+}

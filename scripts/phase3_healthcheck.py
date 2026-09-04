@@ -61,6 +61,7 @@ def main() -> int:
         ROOT / "schemas" / "state-contract.schema.json",
         ROOT / "deployment" / "cheko" / "ui-contract-v1.json",
         ROOT / "tests" / "fixtures" / "cheko-submitted-report-sanitized.json",
+        ROOT / "tests" / "fixtures" / "cheko-custom-paper-test-sanitized.json",
     )
     loaded: dict[str, Any] = {}
     for path in paths:
@@ -74,10 +75,31 @@ def main() -> int:
         return 1
     contract = loaded["ui-contract-v1.json"]
     fixture = loaded["cheko-submitted-report-sanitized.json"]
-    passed.append(check(contract["contract_version"] == fixture["result"]["ui_contract_version"], "fixture UI contract version"))
+    custom_fixture = loaded["cheko-custom-paper-test-sanitized.json"]
+    passed.append(
+        check(
+            contract["contract_version"] == custom_fixture["result"]["ui_contract_version"],
+            "current fixture UI contract version",
+        )
+    )
+    passed.append(
+        check(
+            fixture["result"]["ui_contract_version"] == "cheko-ui-2026-09-04.1",
+            "historical fixture preserves observed UI contract version",
+        )
+    )
     passed.append(check(set(contract["forbidden_actions"]) >= {"select_answer", "submit_answer"}, "answer and submit actions forbidden"))
     passed.append(check(not (keys(fixture) & FORBIDDEN_CAPTURE_KEYS), "sanitized fixture contains no question or answer fields"))
+    passed.append(check(not (keys(custom_fixture) & FORBIDDEN_CAPTURE_KEYS), "custom-paper fixture contains no question or answer fields"))
     passed.append(check(fixture["result"]["submission_state"] == "submitted", "fixture is post-submission only"))
+    passed.append(check(custom_fixture["result"]["submission_state"] == "submitted", "custom-paper fixture is post-submission only"))
+    summary = custom_fixture["result"]["summary"]
+    passed.append(
+        check(
+            summary["main_question_count"] == 20 and summary["answer_item_count"] == 21,
+            "custom-paper main-question and answer-item counts stay distinct",
+        )
+    )
     passed.append(check([item["method"] for item in contract["fallbacks"]] == ["official_export", "screenshot", "manual_summary"], "ordered DOM fallbacks"))
 
     cheko_source = "\n".join(

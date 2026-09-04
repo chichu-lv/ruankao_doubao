@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "contract_version": "cheko-ui-2026-09-04.1",
-  "observed_at": "2026-09-04T05:05:00Z",
+  "contract_version": "cheko-ui-2026-09-04.2",
+  "observed_at": "2026-09-04T18:41:27+08:00",
   "privacy": "private_session_metadata_only",
   "selector_type": "accessible_semantics",
   "targets": {
@@ -33,11 +33,21 @@
         {"role": "button", "name_any": ["开始练习", "继续练习"]}
       ]
     },
+    "custom_paper": {
+      "route": "/?subject=0",
+      "ready_when": [
+        {"role": "text", "name": "自定义组卷"}
+      ],
+      "count_semantics": {
+        "main_question_count": "组卷规则中的大题数；一个题干可以包含多个待填空或作答项。",
+        "answer_item_count": "结果页的计分作答项数；可大于大题数。"
+      }
+    },
     "submitted_report": {
       "route_pattern": "/test/select?test_id={visible_test_id}",
       "entry": {"role": "button", "name_any": ["查看报告", "查看回顾"]},
       "post_submit_markers": ["题目解析", "正确答案"],
-      "import_allowlist": ["result_id", "practice_type", "topic", "question_count", "score_display", "elapsed_display", "visible_item_id", "correct", "confidence", "duration_seconds", "error_type"]
+      "import_allowlist": ["result_id", "practice_type", "topic", "question_count", "main_question_count", "answer_item_count", "correct_answer_item_count", "accuracy_percent", "score_display", "elapsed_display", "visible_item_id", "correct", "confidence", "duration_seconds", "error_type"]
     }
   },
   "fallbacks": [

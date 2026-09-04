@@ -21,17 +21,18 @@
         "task_id": {"type": "string", "minLength": 1},
         "subject": {"const": "系统架构设计师"},
         "paper_type": {"enum": ["choice", "case", "essay"]},
-        "practice_mode": {"enum": ["chapter", "past_exam", "wrong_questions", "daily", "manual"]},
+        "practice_mode": {"enum": ["chapter", "past_exam", "wrong_questions", "daily", "manual", "custom"]},
         "target": {"type": "string", "minLength": 1},
         "question_count": {"type": "integer", "minimum": 1, "maximum": 100},
         "time_limit_minutes": {"type": "integer", "minimum": 1, "maximum": 180},
         "completion_standard": {"type": "string", "minLength": 1},
         "confidence_capture": {"enum": ["per_item", "per_group"]},
+        "data_purpose": {"enum": ["learning", "workflow_test"], "default": "learning"},
         "navigation_target": {
           "type": "object",
           "required": ["name", "route"],
           "properties": {
-            "name": {"enum": ["chapter_bank", "past_exam", "error_book", "practice_log"]},
+            "name": {"enum": ["chapter_bank", "custom_paper", "past_exam", "error_book", "practice_log"]},
             "route": {"enum": ["/?subject=0", "/past_exam?subject=0", "/error_book?subject=0", "/test_log?subject=0"]}
           },
           "additionalProperties": false
@@ -68,6 +69,10 @@
             "topic": {"type": "string"},
             "created_at_display": {"type": "string"},
             "question_count": {"type": "integer", "minimum": 1},
+            "main_question_count": {"type": "integer", "minimum": 1, "maximum": 100},
+            "answer_item_count": {"type": "integer", "minimum": 1, "maximum": 200},
+            "correct_answer_item_count": {"type": "integer", "minimum": 0, "maximum": 200},
+            "accuracy_percent": {"type": "number", "minimum": 0, "maximum": 100},
             "score_display": {"type": "string"},
             "elapsed_display": {"type": "string"}
           },
