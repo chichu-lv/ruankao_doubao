@@ -2,11 +2,21 @@
 
 一个由 Codex 开发和部署、以豆包工作私有工作伙伴为最终主控的“系统架构设计师”备考系统。
 
+## 豆包一键初始化
+
+最终交付入口是本 Git 仓库，不依赖开发电脑上预先配置的豆包状态。把私有仓库链接发给已登录的豆包，并发送这一条启动提示词：
+
+```text
+请从这个私有 Git 仓库部署“架构上岸教练”：<你的私有 Git 仓库链接>。完整阅读根目录 README.md，并严格执行“豆包一键初始化”所引用的自举协议；创建全新的私有项目，不修改任何已有项目。完成后运行只读健康检查，按 PASS/PARTIAL/FAIL 报告证据和降级路径。
+```
+
+豆包必须继续执行 [Git 驱动自举协议](deployment/doubao/bootstrap-v1.md)：读取不可省略的产品与验收基线，构建九个技能包，创建隔离的私有项目，安装技能，接入私有状态层，在用户确认执行时刻后配置只读任务，并运行真实健康检查。仓库不可读取时，只应要求用户通过官方界面登录，不能索取密码、Cookie 或令牌。
+
 ## 当前阶段
 
-`Phase 4 — 学习决策引擎：已完成（含已记录限制）`
+`Phase 5 — 豆包私有技能与项目部署：已完成（含已记录限制）`
 
-真实账号审计、状态层、本地资料管线、芝士架构安全适配和学习决策引擎已经完成。豆包仍是唯一对话主控；新增控制器强制先读状态，生成不超时且三科平衡的计划，并只从可追溯证据更新掌握度。
+真实账号审计、状态层、本地资料管线、芝士架构安全适配、学习决策引擎和豆包私有部署已经完成。九个正式技能已在真实豆包账号中启用，并由隔离的私有项目 `架构上岸教练` 调用；豆包仍是唯一日常对话主控。
 
 ## 权威基线
 
@@ -76,3 +86,17 @@ Run `python3 scripts/phase3_healthcheck.py` to verify the post-submission gate, 
 - `docs/test-results/phase-4.md`
 
 Run `python3 scripts/phase4_healthcheck.py` to verify the fixed lifecycle, state-read gate, dynamic review baseline, anti-answer/submit boundary, essay anti-fabrication guard and Phase 4 tests.
+
+## Phase 5 输出
+
+- `skills/doubao/`
+- `deployment/doubao/`
+- `deployment/doubao/bootstrap-v1.md`
+- `scripts/build_doubao_skills.py`
+- `scripts/render_doubao_system_instructions.py`
+- `scripts/phase5_healthcheck.py`
+- `docs/phase-5-closeout.md`
+- `docs/test-results/phase-5.md`
+- `artifacts/doubao-audit-logs/phase5-installation-2026-09-04.md`
+
+Run `python3 scripts/phase5_healthcheck.py` to render the instruction baseline, rebuild deterministic private skill packages, enforce the minimum-permission manifest, and run Phase 5 package tests. Build archives and hashes are generated under ignored `dist/doubao-skills/`.

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "bootstrap_protocol": "deployment/doubao/bootstrap-v1.md",
+  "delivery_source": "user-supplied private Git repository URL",
+  "target_project": "架构上岸教练",
+  "user_facing_role": "架构上岸教练",
+  "visibility": "private",
+  "custom_partner_available": false,
+  "equivalent_container": "new isolated private Doubao Project",
+  "preserve_projects": [
+    "系统架构设计师 AI Tutor",
+    "pass_ai"
+  ],
+  "local_folder_binding": {
+    "status": "PARTIAL",
+    "path": "/Users/lvnianjiang/git-projects/doubao_ruankao_codex_spec",
+    "reason": "The macOS native picker did not preserve the exact child-folder selection; the accidentally surfaced parent row was removed before save.",
+    "fallback": "Use the exact allowlisted absolute repository path in a Doubao local-computer task and verify every accessed file."
+  },
+  "state": {
+    "connector": "built-in Feishu tools",
+    "base_name": "ArchitectPass State v1",
+    "authoritative": true
+  },
+  "materials": {
+    "local_root": "materials/",
+    "authorized_baidu_scopes": [
+      "00、【推荐】【26年10月】wen老师架构课程（第二版）",
+      "5、【2026年05月】芝士架构系统架构设计师"
+    ]
+  },
+  "system_instructions": "deployment/doubao/system-instructions-v1.md",
+  "skill_manifest": "deployment/doubao/skills-v1.json",
+  "scheduled_writes_enabled": false,
+  "persistent_project_instruction_field_observed": false
+}

@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 through Phase 4 closed; prepare Phase 5 private Doubao skill/partner installation.
+- Current activity: Phase 0 through Phase 5 closed; prepare Phase 6 real-data initialization.
 
 ### Repository initialization
 
@@ -109,6 +109,19 @@ Delivered the audited fixed lifecycle, mandatory state-read gate, explainable ti
 
 The Phase 4-specific suite passes 14/14 and the complete repository suite passes 57/57. See `docs/phase-4-closeout.md` and `docs/test-results/phase-4.md`.
 
+## Phase 5 — 豆包技能、连接器与工作伙伴安装
+
+- Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
+- Started: 2026-09-04 (Asia/Shanghai)
+- Completed: 2026-09-04 (Asia/Shanghai)
+- Version: 0.7.0
+
+Delivered nine deterministic, versioned private Doubao skill packages; minimum-permission skill/connector/project manifests; rendered system instructions; read-only daily/weekly templates; and installation, update and rollback guidance. All nine formal skills were registered READY and enabled in the user's real Doubao 2.27.11 account. A new isolated private Project named `架构上岸教练` was created, while the older `系统架构设计师 AI Tutor` / `pass_ai` project remained untouched.
+
+The project initialization chat read the final instruction baseline and deployment manifests from exact allowlisted paths. Its detailed real read-only health matrix returned `PASS × 5`, `PARTIAL × 2`, `FAIL × 0`; the generated headline's four-PASS count was recorded as an internal reporting mismatch. Formal skills, Feishu state, local source anchors, Browser/Baidu fallback and existing same-state read-only schedules were feasible. Cheko login was intentionally not re-probed, no first learning checkpoint exists, and exact native folder binding remains unverified. Production task names/times await user confirmation; scheduled writes remain disabled.
+
+See `docs/phase-5-closeout.md`, `docs/test-results/phase-5.md`, and `artifacts/doubao-audit-logs/phase5-installation-2026-09-04.md`.
+
 ### Next activity
 
-Phase 5 should package these responsibilities using the real Phase 0 Doubao skill format, bind only allowlisted private state/material operations, install the private controller partner and create read-only daily/weekly schedules before any scheduled write is enabled.
+Phase 6 should initialize only user-confirmed real scores, authorized material/video progress, the first knowledge-map state, a post-submission Cheko baseline, redacted project facts, and the initial seven-day plan. Missing user facts must remain explicit, and every state write requires request/audit IDs plus read-back verification.

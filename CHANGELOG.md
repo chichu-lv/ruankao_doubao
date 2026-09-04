@@ -2,6 +2,16 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.7.0] - 2026-09-04
+
+- Added nine versioned, single-responsibility private Doubao skills and deterministic named-directory ZIP packages.
+- Added private project, minimum-permission skill, connector, rendered system-instruction, and read-only schedule deployment manifests.
+- Installed and enabled all nine skills in the real Doubao 2.27.11 account and created the isolated private `架构上岸教练` Project without changing the older `pass_ai` project.
+- Ran a real project health check against the installed skills, Feishu state, local material anchors, Browser/Baidu fallback, and existing read-only schedules.
+- Documented the unverified native folder binding, deferred Cheko login re-check, absent first checkpoint, and pending production schedule times without claiming false success.
+- Added Phase 5 package/build/health-check tests, safe update/rollback instructions, and real-account installation evidence.
+- Added the final Git-driven delivery contract: a one-prompt README entry plus an evidence-gated clean-project bootstrap protocol.
+
 ## [0.6.0] - 2026-09-04
 
 - Added the audited fixed learning lifecycle with mandatory state observation and `AWAITING_HUMAN` recovery.
