@@ -63,9 +63,75 @@ def validate_mastery_evidence(record: dict[str, Any]) -> None:
     require_iso_datetime(record["created_at"], "created_at")
 
 
+def validate_practice_attempt(record: dict[str, Any]) -> None:
+    allowed = {
+        "attempt_id",
+        "platform",
+        "question_or_set_id",
+        "topic_ids",
+        "correct",
+        "confidence",
+        "duration",
+        "error_type",
+        "source_evidence",
+        "submitted_at",
+    }
+    unknown = sorted(set(record) - allowed)
+    if unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"practice attempt fields are not allowlisted: {', '.join(unknown)}")
+    require_fields(
+        record,
+        (
+            "attempt_id",
+            "platform",
+            "question_or_set_id",
+            "topic_ids",
+            "correct",
+            "confidence",
+            "duration",
+            "source_evidence",
+            "submitted_at",
+        ),
+    )
+    if record["platform"] != "cheko":
+        raise StateError("VALIDATION_ERROR", "practice platform must be cheko")
+    if (
+        not isinstance(record["topic_ids"], list)
+        or not record["topic_ids"]
+        or not all(isinstance(item, str) and item for item in record["topic_ids"])
+        or len(record["topic_ids"]) != len(set(record["topic_ids"]))
+    ):
+        raise StateError("VALIDATION_ERROR", "topic_ids must be a non-empty list")
+    if not isinstance(record["correct"], bool):
+        raise StateError("VALIDATION_ERROR", "correct must be boolean for item-level attempts")
+    confidence = record["confidence"]
+    if not isinstance(confidence, (int, float)) or not 0 <= confidence <= 1:
+        raise StateError("VALIDATION_ERROR", "confidence must be between 0 and 1")
+    if not isinstance(record["duration"], (int, float)) or record["duration"] < 0:
+        raise StateError("VALIDATION_ERROR", "duration must be non-negative seconds")
+    error_type = record.get("error_type")
+    if error_type is not None and error_type not in ERROR_TYPES:
+        raise StateError("VALIDATION_ERROR", "error_type must be one of K/C/M/A/Q/T/E/G")
+    if not record["correct"] and error_type not in set("KCMAQTE"):
+        raise StateError("VALIDATION_ERROR", "wrong attempts require K/C/M/A/Q/T/E")
+    if record["correct"] and confidence < 0.6 and error_type != "G":
+        raise StateError("VALIDATION_ERROR", "low-confidence correct attempts require G")
+    if record["correct"] and confidence >= 0.6 and error_type is not None:
+        raise StateError("VALIDATION_ERROR", "reliable correct attempts cannot carry an error type")
+    source_evidence = record["source_evidence"]
+    if not isinstance(source_evidence, dict) or not source_evidence.get("cheko_result_id"):
+        raise StateError("UNTRACEABLE_SOURCE", "source_evidence requires a visible Cheko result ID")
+    source_allowed = {"cheko_result_id", "visible_item_id", "import_method", "ui_contract_version"}
+    source_unknown = sorted(set(source_evidence) - source_allowed)
+    if source_unknown:
+        raise StateError("FIELD_NOT_ALLOWED", f"source evidence fields are not allowlisted: {', '.join(source_unknown)}")
+    if any(not isinstance(source_evidence.get(name), str) or not source_evidence[name] for name in source_allowed):
+        raise StateError("UNTRACEABLE_SOURCE", "source evidence requires result, item, method and contract version")
+    require_iso_datetime(record["submitted_at"], "submitted_at")
+
+
 def validate_review(record: dict[str, Any]) -> None:
     require_fields(record, ("review_id", "topic_id", "due_at", "review_type", "priority", "reason", "status"))
     require_iso_datetime(record["due_at"], "due_at")
     if not isinstance(record["priority"], (int, float)) or record["priority"] < 0:
         raise StateError("VALIDATION_ERROR", "priority must be non-negative")
-

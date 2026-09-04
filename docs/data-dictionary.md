@@ -35,3 +35,9 @@ A finished session checkpoint must include `completed`, `incomplete`, `discoveri
 ## Stable error codes
 
 `INVALID_WRITE_CONTEXT`, `VALIDATION_ERROR`, `UNTRACEABLE_SOURCE`, `FIELD_NOT_ALLOWED`, `OPERATION_NOT_ALLOWED`, `IDEMPOTENCY_CONFLICT`, `AUDIT_ID_CONFLICT`, `IMMUTABLE_RECORD`, `INCOMPLETE_CHECKPOINT`, `CONFIRMATION_AND_BACKUP_REQUIRED`, `NOT_FOUND`, `PATH_NOT_ALLOWED`, `UNSUPPORTED_SCHEMA_VERSION`, `BACKUP_CHECKSUM_MISMATCH`, and `STALE_PRE_RESTORE_BACKUP`.
+
+## Phase 3 practice-attempt boundary
+
+`practice_attempts` is now enforced as immutable. Item-level Cheko attempts contain only an attempt ID, visible item/set ID, topic IDs, correctness, user confidence, duration, K/C/M/A/Q/T/E/G classification, visible submitted-result reference and timestamp. They never contain a question body, options, answer, correct answer or explanation.
+
+Aggregate-only historical reports are retained as import metadata until item-level facts are available; an aggregate score display is not silently converted into per-item correctness. Every item-level attempt produces a separate mastery-evidence fact. Wrong and G items additionally produce a pending review record.

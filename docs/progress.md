@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 through Phase 2 closed; prepare Phase 3 safe 芝士架构 adaptation.
+- Current activity: Phase 0 through Phase 3 closed; prepare Phase 4 learning decision engine.
 
 ### Repository initialization
 
@@ -81,4 +81,21 @@ The complete repository suite passes 33/33 tests. See `docs/phase-2-closeout.md`
 
 ### Next activity
 
-Phase 3 should implement the safe 芝士架构 workflow around user-authored answers: explicit practice tasks, `AWAITING_HUMAN`, post-submission result import, confidence/error capture and DOM-change fallbacks. It must not answer or submit questions.
+Phase 3 now implements the safe 芝士架构 workflow around user-authored answers: explicit practice tasks, `AWAITING_HUMAN`, post-submission result import, confidence/error capture and DOM-change fallbacks. It never answers or submits questions.
+
+## Phase 3 — 芝士架构安全适配
+
+- Status: COMPLETE_WITH_DOCUMENTED_LIMITATIONS
+- Started: 2026-09-04 (Asia/Shanghai)
+- Completed: 2026-09-04 (Asia/Shanghai)
+- Version: 0.5.0
+
+Delivered the bounded practice-task contract, audited lifecycle, verified-route gate, `AWAITING_HUMAN`, post-submission-only import, strict content allowlists, immutable practice attempts, wrong/G review creation, versioned Cheko UI semantics and official-export/screenshot/manual fallbacks.
+
+Real logged-in navigation passed in 豆包浏览器 for practice logs and the error book. One already-submitted historical report was imported as sanitized aggregate metadata with zero captured question bodies. Edge showed a blank practice-log content surface and is retained as a documented failure/fallback trigger.
+
+The Phase 3 suite passes 10/10 and the complete repository suite passes 43/43. See `docs/phase-3-closeout.md` and `docs/test-results/phase-3.md`.
+
+### Next activity
+
+Phase 4 should compose state reading, diagnosis, time-budgeted plans, three-subject balancing, evidence-derived mastery and review scheduling into the fixed `OBSERVE → DIAGNOSE → PLAN → EXECUTE → TEST → UPDATE → SCHEDULE → CHECKPOINT` controller.

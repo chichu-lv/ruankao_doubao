@@ -66,3 +66,26 @@ Private ignored catalog --> bounded snippet + filename/page-or-time/confidence
 - Raw text is stored in the private catalog; search responses contain bounded snippets rather than the full document or transcript.
 - Baidu automation failure does not block study: filename plus page/timestamp is the stable fallback.
 - `played_unchecked` is a progress fact, not mastery evidence. Review planning starts with diagnosis and can only create bounded weak-range rewatch targets.
+
+## Phase 3 Cheko human boundary
+
+```text
+Doubao creates bounded practice task
+        |
+        v
+verify allowlisted Cheko route
+        |
+        v
+AWAITING_HUMAN  -- user answers and submits --> post-submit result
+        |                                          |
+        | no answer/submit operation                v
+        +------------------------------> allowlisted metadata import
+                                                   |
+                         immutable attempt + evidence + review queue
+```
+
+- Browser selectors are versioned accessible semantics plus route assertions, not persisted transient node IDs.
+- Import sources are limited to visible submitted report, official export, post-submit screenshot and manual summary.
+- Unknown fields, raw HTML, question text, options, answers and explanations are rejected recursively.
+- Wrong answers require K/C/M/A/Q/T/E; low-confidence correct answers are normalized to G.
+- The Cheko adapter returns state-layer write intents; authoritative persistence continues through the Phase 1 Feishu contract.

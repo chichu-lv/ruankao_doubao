@@ -7,7 +7,12 @@ from .errors import StateError
 from .mastery import derive_mastery
 from .models import WriteContext, response, utc_now
 from .store import InMemoryStore
-from .validation import validate_mastery_evidence, validate_review, validate_study_event
+from .validation import (
+    validate_mastery_evidence,
+    validate_practice_attempt,
+    validate_review,
+    validate_study_event,
+)
 
 
 class StateService:
@@ -20,7 +25,7 @@ class StateService:
         """External boundary: only named operations are callable and errors are truthful."""
         allowed = {
             "get_system_health", "get_profile", "update_profile", "record_study_event",
-            "record_mastery_evidence", "recompute_topic_state", "get_topic_state",
+            "record_practice_attempt", "record_mastery_evidence", "recompute_topic_state", "get_topic_state",
             "schedule_review", "get_due_reviews", "finish_session",
         }
         if operation not in allowed:
@@ -69,6 +74,18 @@ class StateService:
         result, duplicate = self.store.write(
             table="mastery_evidence", record_id=evidence.get("evidence_id", ""), record=evidence,
             operation="record_mastery_evidence", context=context, validate=validate_mastery_evidence,
+        )
+        result["deduplicated"] = duplicate
+        return response(data=result, audit_id=result["audit_id"])
+
+    def record_practice_attempt(self, attempt: dict[str, Any], context: WriteContext) -> dict[str, Any]:
+        result, duplicate = self.store.write(
+            table="practice_attempts",
+            record_id=attempt.get("attempt_id", ""),
+            record=attempt,
+            operation="record_practice_attempt",
+            context=context,
+            validate=validate_practice_attempt,
         )
         result["deduplicated"] = duplicate
         return response(data=result, audit_id=result["audit_id"])

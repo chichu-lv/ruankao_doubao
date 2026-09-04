@@ -30,3 +30,16 @@
 ## Phase 2 data boundary
 
 Local model binaries, course PDFs/videos, extracted audio, transcripts and private indexes are excluded from Git. The tracked material manifest contains filenames, sizes, checksums, bounded indexed ranges and source anchors but no account token, cookie, private download URL or device identifier. Search is designed to return only a bounded snippet with a page/time citation. Cheko content is outside this pipeline and no question or answer content was imported.
+
+## Phase 3 Cheko boundary
+
+| Threat | Control |
+|---|---|
+| Automated answering/submission | operations do not exist in the allowlist; user remains `AWAITING_HUMAN` |
+| Pre-submit answer leakage | submitted-state gate plus recursive forbidden-content keys |
+| Whole-page/question-bank capture | exact field allowlists reject raw HTML, question text, options and unknown fields |
+| Private API reverse engineering | no HTTP client; visible UI and user-provided artifacts only |
+| DOM drift | versioned route/semantic contract with official export, screenshot and manual fallback |
+| Lost weak-signal evidence | wrong items and G-classified low-confidence correct items both schedule review |
+
+The real Phase 3 fixture stores only an already-visible submitted result ID and aggregate display metadata. It contains no question, option, answer, explanation, cookie, account credential or private endpoint.

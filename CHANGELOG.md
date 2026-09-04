@@ -2,6 +2,15 @@
 
 All notable changes to this private project are recorded here.
 
+## [0.5.0] - 2026-09-04
+
+- Added the audited Cheko practice lifecycle with verified navigation and `AWAITING_HUMAN`.
+- Added post-submission-only visible-report/export/screenshot/manual imports with strict field allowlists.
+- Blocked question bodies, options, answers, explanations, raw HTML, private API clients and answer/submit operations.
+- Made practice attempts immutable and routed wrong plus G-classified low-confidence correct items into review.
+- Added the versioned accessible UI contract and observed Edge-to-豆包浏览器 fallback behavior.
+- Verified a real historical aggregate report without capturing question content; added 10 tests and a Phase 3 health check.
+
 ## [0.4.0] - 2026-09-04
 
 - Added the private, allowlisted Phase 2 PDF/video material pipeline with SHA-256 deduplication and audited writes.

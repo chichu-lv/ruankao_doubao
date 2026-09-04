@@ -9,7 +9,14 @@ from .errors import StateError
 from .models import WriteContext, utc_now
 
 
-IMMUTABLE_TABLES = frozenset({"study_events", "mastery_evidence", "audit_log"})
+IMMUTABLE_TABLES = frozenset({
+    "practice_attempts",
+    "study_events",
+    "mastery_evidence",
+    "case_attempts",
+    "essay_attempts",
+    "audit_log",
+})
 TABLES = (
     "user_profile",
     "exam_config",
