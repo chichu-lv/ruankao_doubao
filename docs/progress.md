@@ -6,7 +6,7 @@
 - Started: 2026-09-03 (Asia/Shanghai)
 - Completed: 2026-09-04 (Asia/Shanghai)
 - Authority: `01_豆包软考私教系统_Codex开发说明书.md`, `02_交给Codex的总执行指令.md`, `04_验收清单.md`
-- Current activity: Phase 0 through Phase 6 closed; prepare Phase 7 end-to-end acceptance.
+- Current activity: Phase 0 through Phase 6 closed; Phase 7 real acceptance is in progress and waiting for the user's first learning-session input.
 
 ### Repository initialization
 
@@ -137,4 +137,14 @@ Official exam configuration/syllabus weights, real project facts, the first lear
 
 ### Next activity
 
-Phase 7 should execute real end-to-end, failure/recovery, safety, restart and same-state schedule tests. A first real training session may start without prior exam history and must finish with the first checkpoint.
+Phase 7 should continue from the real 90-minute plan after the user supplies a target exam date or chooses `暂不排期`. The first real training session may start without prior exam history and must finish with the first checkpoint.
+
+## Phase 7 — 测试与验收
+
+- Status: IN_PROGRESS_AWAITING_HUMAN
+- Started: 2026-09-04 (Asia/Shanghai)
+- Version under test: 0.8.0
+
+The real `架构上岸教练` project read the same `ArchitectPass State v1` and produced a bounded 90-minute, medium-energy plan with explicit operations, completion standards and an eight-minute checkpoint reserve. The plan phase passed, but the complete J1 loop remains `PARTIAL / AWAITING_HUMAN` because the user has not performed the learning tasks and no checkpoint has been written. An initial overclaim of J1 `PASS` was challenged and corrected in the same conversation.
+
+Three zero-write safety probes passed: a pre-submission answer request returned `PRE_SUBMISSION_BLOCKED`; a deletion-flow test required explicit confirmation plus a verified full backup and performed no deletion; and the health check isolated a nonexistent skill sentinel as `FAIL / SKILL_MISSING` while reporting the actual system as `PARTIAL`, not broken. See `docs/test-results/phase-7.md` and `artifacts/doubao-audit-logs/phase7-acceptance-2026-09-04.md`.
