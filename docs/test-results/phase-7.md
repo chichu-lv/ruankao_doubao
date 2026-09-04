@@ -101,6 +101,12 @@ A clean `git archive` bootstrap probe exposed an ordering defect: `phase1_health
 
 The corrected commit was then exported into a new directory containing only Git-tracked files. Phase 1, 3, 4, 5 and 6 health checks all completed successfully. Phase 5 generated the ignored Doubao skill archives from source before full test discovery. The clean snapshot's complete unit suite ran 81 tests successfully with two expected skips: the private PDF/video runtime catalogs are intentionally excluded from Git and must be rebuilt from the user's authorized material roots. The live-Feishu line remained truthfully `PARTIAL` because the local health command validates captured deployment evidence rather than authenticating to Feishu. Result: `CLEAN_GIT_SNAPSHOT_BOOTSTRAP_PASS` for the repository-owned path; cloning from a real private remote remains pending until a remote URL exists.
 
+## Same-state weekly report — real Doubao and Feishu
+
+The real Doubao project performed two consecutive, independently requested, read-only weekly-report previews against `ArchitectPass State v1`. Each run read the relevant table counts before and after generation. Both observed `audit_log=72`, `study_events=3`, and `practice_attempts=mastery_evidence=mastery_state=review_queue=0`; the 15-table Base has no `weekly_reports` table. Every before/after count and the state between runs remained unchanged. No report, priority, reminder, checkpoint, mastery or audit record was written.
+
+Both previews excluded two schema canaries, deployment checkpoint `phase7-j1-recovery-v1`, and randomized Cheko result `1094788`. They independently retained the same four key findings: one aggregate-only Cheko baseline that cannot update mastery; case and essay have zero activity; `played_unchecked` video progress shows a watch-without-output risk; and the next priorities are a user-authored Cheko attempt, first case submission and first essay outline/input. Run 2 encountered a table-list response-shape parsing error, reported it, re-read the table list through a safer path, and completed without writes. Results: `SAME_STATE_WEEKLY_REPORT_RUN1=PASS`, `SAME_STATE_WEEKLY_REPORT_RUN2=PASS`, and `SAME_STATE_WEEKLY_REPORT_SCENARIO=PASS`. This validates same-state report generation and non-duplication in the real project; it does not yet prove that the configured scheduled task itself fired and delivered a report.
+
 The authorized Baidu Netdisk material root was also enumerated through its ordinary UI. It contains eight visible PDFs, including `系统架构设计师选择真题分类解析.pdf` and `系统架构设计师案例真题分类解析.pdf`. Their existence and visible sizes are now recorded as remote inventory only; years, completeness, checksums and content quality remain unverified because no PDF was opened or downloaded.
 
 ## Zero-write safety probes
@@ -119,6 +125,6 @@ The health check independently reported nine expected repository skills, a reada
 - Complete a non-random, user-authored learning attempt; the submitted test-account random run verifies only the browser/generation/submission/result-reading path and is excluded from learning state.
 - Exercise three-day overdue-review recovery after genuine learning evidence exists; client exit/reopen recovery for a deployment checkpoint is already PASS.
 - Complete user-authored Cheko, case and essay scenarios; Codex/Doubao must not answer for the user.
-- Re-run real page-change/manual fallback, offline outbox replay, targeted rewatch and same-state weekly-report scenarios.
+- Re-run real page-change/manual fallback, offline outbox replay and targeted rewatch scenarios; same-state weekly-report generation is PASS, while an actual scheduled-task firing remains pending.
 - Record every result with date, version, evidence and issue ID.
 - Run the separate seven-day independent pilot required by acceptance section K; currently `DEFERRED / NOT_RUN` at the user's request and not a blocker for continued development.
