@@ -22,7 +22,7 @@ The product baseline requires Doubao to remain the sole user-facing controller. 
 ## Consequences
 
 - Doubao remains the only conversational controller.
-- Section 7.3 decision gates have evidence-backed paths, but Phase 0 closeout still requires the residual audit checks and the user's privacy decision.
+- Section 7.3 decision gates have evidence-backed paths, but Phase 0 closeout still requires residual audit checks. The user's privacy decision has been applied and all three model-improvement data categories are disabled.
 - The lack of a native custom partner is handled by an equivalent private Project rather than by replacing Doubao.
 - Authoritative learning state will not live only in chat history or local SQLite.
 - All platform gaps retain manual, screenshot, or restricted-service fallbacks.
@@ -39,6 +39,5 @@ The product baseline requires Doubao to remain the sole user-facing controller. 
 
 - Characterize scheduled failure/retry behavior and enforce write deduplication during implementation.
 - Complete a post-submission 芝士架构 result-page or official-export import test without answering questions.
-- Record the user's privacy-setting choice before any sensitive material is transmitted.
 - Resolve or accept a constrained fallback for Feishu calendar client visibility: connector create/search/read passed, but the local weekly view did not visibly render the probe event.
 - Close the remaining skill update/rollback/remove, trusted-HTTPS/authentication, file-limit, and cross-device audit rows or record their final constrained fallbacks.

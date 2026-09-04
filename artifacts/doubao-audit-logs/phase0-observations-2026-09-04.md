@@ -9,7 +9,7 @@ This log intentionally omits account IDs, device IDs, browser history, cookies, 
 - Identity type: personal Doubao account; subscription surface displayed `标准套餐`.
 - Work-task composer exposed local-computer mode, project selection, confirmation mode, skills, connectors, and an automatic/high model selector.
 - Scheduler, skills/connectors/partners, cloud drive, mobile remote control, and API service surfaces were present.
-- Privacy setting `帮助模型改进效果` showed text conversations, uploaded images/videos/files, and voice inputs enabled.
+- Privacy setting `帮助模型改进效果` initially showed text conversations, uploaded images/videos/files, and real-time-call/voice-input audio enabled. After explicit user confirmation, each category was switched off and read back as `已关闭`. Evidence: `artifacts/doubao-audit-screenshots/DB-040-model-improvement-disabled.png`.
 
 ## Minimal skill
 

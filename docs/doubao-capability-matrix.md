@@ -48,7 +48,7 @@ Status meanings: PASS = native requirement demonstrated; PARTIAL = usable with a
 | DB-037 | Task duration/frequency limits | UNKNOWN | No boundary test performed. | Design resumable checkpoints and backoff. | P0-037 |
 | DB-038 | Context and long-term history | PARTIAL | Tasks persist in history; long-term retention and context boundaries are unmeasured. | Store authoritative state outside chat history. | P0-038 |
 | DB-039 | Failure information and task history | PASS | Step status, history, approval prompts, and explicit errors were visible during the audit. | Record audit IDs and surface failures truthfully. | - |
-| DB-040 | Model-improvement privacy setting | PARTIAL | All three improvement categories were observed enabled; user choice has not yet been applied. Evidence: `DB-040-model-improvement-settings.png`. | Do not upload sensitive material until the user chooses the desired setting. | P0-040 |
+| DB-040 | Model-improvement privacy setting | PASS | After explicit user confirmation, all three `帮助模型改进效果` categories were switched off and independently read back as `已关闭`: text conversations; uploaded images/videos/files; and real-time-call/voice-input audio. Evidence: `DB-040-model-improvement-settings.png` (before) and `DB-040-model-improvement-disabled.png` (after). | Keep these settings disabled while private course and learning material is processed; re-audit after account/client changes. | - |
 
 ## Section 7.3 decision-gate status
 
@@ -61,4 +61,4 @@ Status meanings: PASS = native requirement demonstrated; PARTIAL = usable with a
 | 芝士架构 result import | Screenshot/manual visible-stat extraction works; official export/result page incomplete | FEASIBLE, constrained |
 | Scheduled reminder | Native one-time, daily, and weekly tasks executed and read shared Feishu state | PASS |
 
-All section 7.3 decision gates now have evidence-backed feasible paths. Phase 0 remains in progress until the broader audit checklist, privacy decision, and residual limitation records are closed; Phase 1 must not start before that phase closeout. The localhost connector remains installed in the user's private Doubao account, but the temporary probe process was stopped after the successful call. The two DB-018 Feishu probe objects were deleted after separate explicit confirmation and post-delete verification.
+All section 7.3 decision gates now have evidence-backed feasible paths. Phase 0 remains in progress until the broader audit checklist and residual limitation records are closed; Phase 1 must not start before that phase closeout. The user's privacy decision has been applied: all three model-improvement data categories are disabled. The localhost connector remains installed in the user's private Doubao account, but the temporary probe process was stopped after the successful call. The two DB-018 Feishu probe objects were deleted after separate explicit confirmation and post-delete verification.

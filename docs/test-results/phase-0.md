@@ -36,6 +36,7 @@
 | Daily schedule reads shared state | PASS | Executed 2026-09-04 09:53:23 Asia/Shanghai; sanitized observation log |
 | Weekly schedule reads shared state | PASS | Executed 2026-09-04 09:54:15 Asia/Shanghai; sanitized observation log |
 | Scheduled failure/retry and write deduplication | INCOMPLETE | DB-034 matrix row |
+| Model-improvement privacy controls | PASS | After explicit confirmation, text conversations, uploaded images/videos/files, and real-time-call/voice-input audio were each switched off and read back as `已关闭`. Evidence: `artifacts/doubao-audit-screenshots/DB-040-model-improvement-disabled.png`. |
 
 ## Safety assertions
 
@@ -47,5 +48,6 @@
 - The three test schedules were created only after explicit user confirmation. Their prompts were read-only; no scheduled write or sharing occurred.
 - The persistent localhost connector was installed only after explicit user confirmation. It used no secret, was called once read-only, and the temporary localhost server was stopped afterward; the connector itself was not deleted.
 - The Feishu calendar event and task were created only after explicit user confirmation, remained private and unshared, and were deleted only after a separate explicit confirmation. Exact IDs and titles were checked before deletion; post-delete reads were recorded.
+- The three model-improvement data permissions were changed only after explicit user confirmation; the final UI showed all three disabled.
 
 See `docs/doubao-capability-matrix.md` for all DB-001 through DB-040 statuses and open issue IDs.

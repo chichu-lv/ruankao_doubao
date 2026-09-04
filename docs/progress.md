@@ -30,13 +30,13 @@
 - Logged-in 芝士架构 progress and navigation entries read without answering or submitting questions.
 - Native one-time, daily, and weekly tasks executed and each read the same Feishu state record.
 - Scheduler, partner, cross-device, privacy, and diagnostic surfaces inspected.
+- After explicit user confirmation, all three Doubao model-improvement data categories were disabled and read back as closed.
 - Capability matrix updated and ADR-001 accepted for the Phase 0 architecture decision.
 
 ### Current gate blockers
 
 - Close residual skill lifecycle, trusted-HTTPS/authentication, Feishu calendar client-visibility, limit, and cross-device rows or record final constrained fallbacks.
 - Complete a post-submission result or official export import from 芝士架构.
-- Obtain the user's privacy-setting choice before sensitive uploads.
 
 ### Exit criteria
 
