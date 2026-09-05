@@ -51,6 +51,12 @@ class FolderSkillInstallTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "official workspace"):
             module.install(self.project, self.project, "wrong-root")
 
+    def test_refuse_ephemeral_doubao_session_root(self):
+        ephemeral = self.project.parent / ".sessions/chat/scratch/project"
+        shutil.copytree(self.project, ephemeral)
+        with self.assertRaisesRegex(ValueError, "not a persistent project root"):
+            module.install(ephemeral, self.skill_root, "temporary")
+
     def test_other_project_binding_cannot_be_overwritten(self):
         module.install(self.project, self.skill_root, "first")
         another = self.project.parent / "other-project"

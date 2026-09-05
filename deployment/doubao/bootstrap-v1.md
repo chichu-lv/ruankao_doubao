@@ -56,6 +56,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 
 - 下载结果会输出 `PROJECT_ROOT` 和 `SOURCE_RECEIPT`。保存并使用实际路径，然后完整读取前述基线文件。成功下载不是豆包部署完成。
 - 非 Windows 也可从官方 `https://github.com/chichu-lv/ruankao_doubao/archive/refs/heads/main.zip` 下载解压，无需 Git；记录来源 URL、main、实际版本和获取时间，提交 ID 未取得则保持未知。Mac/Linux 环境准备仍按 BUILD，未宣称具备本次 Windows 的无 Python 下载器。
+- Mac 在当前用户 `Documents/ArchitectPass` 下创建独立的新子目录作为持久安装根；只检查该目标是否存在，不扫描 Documents 内容。临时下载可以在当前任务 scratch 中，但 BUILD 与技能绑定前必须将源码解压到上述持久目录；不得把豆包 `.sessions/.../scratch` 作为运行根，否则删除对话后可能失去项目。
 - 把实际解压项目根目录作为代码 allowlist。源码 ZIP 没有 `.git` 是正常状态，不运行 git status/branch 等检查。若用户明确选择既有 Git 克隆，再只读检查 main 和改动，发现脏工作树不覆盖。
 - GitHub 无法访问时报告网络问题并提供完整离线包入口，不把公开仓库下载失败误诊为“需要 GitHub 登录”。
 - 请求失败先逐字比较工具实际使用的 URL 与用户原始链接，不能把自己拼错仓库名归因给用户。Mac 源码 ZIP 优先用 Python 标准库 `zipfile` 解压到新目录，避免系统 unzip 的中文文件名问题；不要先删除旧目录再尝试，使用新目录重试并保留失败证据。

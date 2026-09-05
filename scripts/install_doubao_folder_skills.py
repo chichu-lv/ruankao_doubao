@@ -51,6 +51,8 @@ def planned_files(project: Path, name: str) -> dict[Path, bytes]:
 
 def install(project: Path, skill_root: Path, request_id: str) -> dict:
     project = project.resolve(strict=True)
+    if ".sessions" in project.parts:
+        raise ValueError("session scratch is not a persistent project root; extract source to an independent durable directory first")
     if skill_root.is_symlink():
         raise ValueError("skill root must be the actual documented directory, not a symlink")
     skill_root = skill_root.resolve(strict=True)
