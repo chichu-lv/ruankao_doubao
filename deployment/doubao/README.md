@@ -2,9 +2,9 @@
 
 This directory is the production install source. Its skill package contract is a ZIP containing one same-name top-level skill directory, with `SKILL.md` inside that directory. The current Doubao UI must still be checked before installation.
 
-The delivery path is Git-driven: the user gives Doubao the private repository link plus the root-README prompt. Doubao must follow `bootstrap-v1.md` from a clean project context. No prior local project, installed skill or development artifact is a prerequisite.
+The delivery path is a public repository link plus the root-README prompt. Prefer an anonymous main source ZIP, not Git installation. On Windows, `scripts/install_public_windows.ps1 -FetchOnly` retrieves the source without Git, Python, SSH or a GitHub account; read the baselines, then resume the same entry without FetchOnly to provision the local runtime. Doubao must follow `bootstrap-v1.md`. No prior project, skill or development artifact is a prerequisite.
 
-The two Baidu Netdisk course folders are runtime-private sources, not Git payloads. During bootstrap, Doubao must use the user's authenticated official Baidu interface to verify only the exact roots listed in `project-v1.json`, then incrementally index files needed for the current study unit. Raw courses, extracted text, transcripts and indexes remain local and ignored by Git. Missing local OCR/transcription tooling is a truthful `PARTIAL` with an official-UI/manual page-or-timestamp fallback, not an installation failure.
+The two Baidu Netdisk course folders are runtime-private sources, not Git payloads. Prefer the installed, logged-in Windows official client and verify only the roots in `project-v1.json`, then download and index files needed for the current unit. Client login does not imply browser login or existing local downloads. A shared material account does not authorize inheriting the owner's learning state. If client automation is unavailable, guide the user through the exact download and resume from the local file. Raw courses, text, transcripts and indexes remain local. Missing OCR/ASR tooling is a truthful `PARTIAL` with manual page/timestamp fallback.
 
 ## Build and static verification
 
@@ -22,7 +22,7 @@ If GitHub or Baidu Netdisk may be unavailable later, build the private local arc
 6. Bind the skills to the isolated private project `架构上岸教练`. Do not modify or reuse the older `系统架构设计师 AI Tutor` project or its `pass_ai` workspace.
 7. Install the rendered system instructions. If the project surface has no persistent instruction field, attach the file as private project context and record the limitation truthfully.
 
-Resolve the repository root from the current `main` checkout. Bind it only after the exact child folder is visibly verified. If the picker exposes a parent folder or cannot prove the selection, cancel the binding and use the exact resolved checkout path only in the current local-computer task.
+Resolve the project root from the actual source ZIP directory (or existing main checkout). Source ZIPs have no .git and must not be subjected to Git working-tree checks. Verify the exact child folder before binding; never select a parent. If project-level file binding is unavailable, use the local configuration and directory-based recovery prompt, not a claim that chat history is persistent project configuration.
 
 ## Scheduling
 

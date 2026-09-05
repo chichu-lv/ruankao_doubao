@@ -32,7 +32,7 @@ python3 scripts/bootstrap_local.py --prepare-only
 生成后立即校验压缩包内的资料哈希、路径和九个预构建技能：
 
 ```text
-python3 scripts/verify_offline_bundle.py "dist/offline/architectpass-offline-1.1.1.zip"
+python3 scripts/verify_offline_bundle.py "dist/offline/architectpass-offline-1.1.2.zip"
 ```
 
 ## 使用

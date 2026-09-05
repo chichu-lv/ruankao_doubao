@@ -1,6 +1,6 @@
-# 架构上岸教练 — Git 驱动自举协议 v1
+# 架构上岸教练 — 公开链接自举协议 v1
 
-本文是豆包从私有 Git 仓库执行安装的正式入口。仓库是唯一交付源；本机已有配置只能作为验证证据，不能成为安装前提。
+本文是豆包从公开仓库 main 源码 ZIP 执行安装的正式入口。无需 Git、SSH、GitHub 登录或预装 Python。仓库是代码交付源；本机旧配置只能作为验证证据，不能成为新用户的安装前提。
 
 ## 离线包与新用户
 
@@ -10,8 +10,8 @@
 
 ## 输入
 
-- 用户提供的私有 Git 仓库链接；
-- 用户已登录且有权读取该仓库的 Git 网页或客户端；
+- 用户提供的公开仓库链接；能访问 GitHub、Python 官方与 PyPI 下载源，不能访问时改用完整离线资料包；
+- Windows 百度网盘客户端已安装并登录；同一资料账号可用于核对授权目录，但不代表本机文件已下载、浏览器也已登录或学习状态可继承；
 - 用户真实豆包账号和当前电脑；
 - 需要逐次确认时由用户提供的确认（删除、发布、权限变更、敏感导出，以及定时任务的最终执行时刻）。
 
@@ -43,20 +43,30 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 ### 1. FETCH
 
 - 仅获取用户给出的这个仓库，不搜索或修改其他项目。
-- 必须使用 `main` 分支；若当前不是 `main` 或工作树包含非仓库改动，停止并如实报告。
-- 优先使用用户已登录的官方 Git 客户端/网页；需要本地副本时，放入用户明确选择的独立目录。
-- 把实际仓库根目录作为唯一项目文件 allowlist。不得把父目录、用户主目录或磁盘根目录授权给控制器。
-- 若私有仓库不可读，停在 `PARTIAL` 并请用户完成官方登录；不得索取或记录令牌。
+- Windows 由豆包执行以下 PowerShell，先匿名获取启动脚本，再下载 main 源码 ZIP；不要要求用户手输命令、安装 Git、配置 SSH 或注册 GitHub。用户另选目录时为最后一行附加 `-Destination "实际独立目录"`；默认 `%LOCALAPPDATA%\ArchitectPass`。如果该目录已有未知文件，保留原目录，使用新的带后缀目录，不覆盖、不要求用户先清空。
+
+```powershell
+$apLauncher = Join-Path ([IO.Path]::GetTempPath()) ('architectpass-install-' + [guid]::NewGuid().ToString('N') + '.ps1')
+Invoke-WebRequest -UseBasicParsing -Uri 'https://raw.githubusercontent.com/chichu-lv/ruankao_doubao/main/scripts/install_public_windows.ps1' -OutFile $apLauncher
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
+```
+
+- 下载结果会输出 `PROJECT_ROOT` 和 `SOURCE_RECEIPT`。保存并使用实际路径，然后完整读取前述基线文件。成功下载不是豆包部署完成。
+- 非 Windows 也可从官方 `https://github.com/chichu-lv/ruankao_doubao/archive/refs/heads/main.zip` 下载解压，无需 Git；记录来源 URL、main、实际版本和获取时间，提交 ID 未取得则保持未知。Mac/Linux 环境准备仍按 BUILD，未宣称具备本次 Windows 的无 Python 下载器。
+- 把实际解压项目根目录作为代码 allowlist。源码 ZIP 没有 `.git` 是正常状态，不运行 git status/branch 等检查。若用户明确选择既有 Git 克隆，再只读检查 main 和改动，发现脏工作树不覆盖。
+- GitHub 无法访问时报告网络问题并提供完整离线包入口，不把公开仓库下载失败误诊为“需要 GitHub 登录”。
 
 ### 2. VERIFY
 
-- 核对 `VERSION` 与 `pyproject.toml` 一致、`main` 分支、Git 提交 ID、工作树状态和上述权威文件存在性。
+- 核对 `VERSION` 与 `pyproject.toml` 一致、上述权威文件存在，以及 `dist/bootstrap/public-source.json` 的官方来源与 main 引用。按 main 下载时 `source_commit=null` 是诚实的未知值，不伪造提交 ID；按固定提交下载时记录其真实 ID。该记录不是签名或在线部署完成证据。
+- 源码 ZIP 不检查 .git 或工作树。只有实际 Git 克隆才检查分支/提交/工作树。缺少来源记录时核对本次官方 ZIP 下载动作并补记，不转成离线资料包（源码 ZIP 没有课程原文件）。
 - 运行敏感信息检查；发现疑似秘密时停止安装并报告文件路径，不展示秘密值。
 - 不得仅凭清单假定当前豆包仍支持某个技能、连接器或项目格式；先在当前真实账号与界面只读复核。若界面变化，使用手工导入/私有项目上下文等已写明的降级路径，不得猜测成功。
 
 ### 3. BUILD
 
-- Windows 10/11 x64：在仓库根目录先运行 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/download_windows_runtime.ps1`，从 Python 官方与 PyPI 获取项目私有运行环境，再运行 `scripts\start_windows.cmd`；无需先安装系统 Python、pip 或 uv。需要能访问上述官方源；已有完整离线包时跳过下载。PowerShell 参数只用于这一次脚本进程，不修改系统执行策略。
+- Windows 10/11 x64：读取完基线后，运行 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "实际项目根目录\scripts\install_public_windows.ps1" -Destination "实际项目根目录"`。它恢复已下载快照，调用 `scripts/download_windows_runtime.ps1` 自动获取 Python 官方/PyPI 的项目私有环境，再调用启动器跑六项健康检查。重复运行保留原源码、资料和用户状态，不自动升级；下载失败保留错误，不能直接报告成功。已有完整离线资料包使用其离线启动协议。
+- 若已有 Git 克隆、没有 public-source.json，不用此公开下载入口覆盖它；在该根目录单独运行 `scripts/download_windows_runtime.ps1` 和 `scripts\start_windows.cmd`。PowerShell 参数只用于这一次脚本进程，不修改系统执行策略；不设置系统 PATH 或安装全局 Python。
 - Mac/Linux：在仓库根目录运行 `python3 scripts/bootstrap_local.py`。此入口保持兼容系统 Python 3.9，并自动发现 Python 3.11+；没有兼容解释器但已有 `uv` 时，只在仓库私有 `.runtime/` 和 `.venv/` 中配置 Python 3.12 与依赖。
 - 该命令必须生成 `dist/bootstrap/local-bootstrap-result.json`、`dist/doubao-skills/build-manifest.json` 和九个同名目录结构的 ZIP。
 - 只有专项测试通过、九个哈希齐全且没有未解析占位符时才继续。
@@ -89,7 +99,9 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 - 读取 `project-v1.json` 的 `materials.authorized_baidu_scopes` 和 `materials/manifests/authorized-sources-v1.json`；只允许以下两个精确目录：
   - `00、【推荐】【26年10月】wen老师架构课程（第二版）`
   - `5、【2026年05月】芝士架构系统架构设计师`
-- 使用用户当前已登录的百度网盘官方网页或客户端核对目录。未登录时暂停，让用户在官方界面完成登录；不得索取密码、Cookie、验证码或令牌。
+- 优先通过已安装、已登录的 Windows 百度网盘官方客户端核对目录。先看客户端真实状态，不因浏览器未登录而要求重复登录；客户端会话与浏览器会话不视为共享。已登录也必须核对两个精确目录是否可见，不搜索或下载其它资料。
+- 通过客户端将当天所需文件下载到当前项目 `materials/inbox/` 或用户选定的独立资料目录；等待下载完成，验证本机文件可读，再建页码/时间戳索引。已有本机下载可复用，不重复下载。账号相同不代表跨设备文件路径相同，也不代表可以继承原用户观看进度、答题记录或飞书状态。
+- 如果豆包当前不能操作 Windows 网盘客户端，明确标为该操作未完成，引导用户在客户端完成具体文件下载并告知路径，然后自动继续索引；仅有可用浏览器会话时再采用官方网页兜底。需登录/验证码时由本人在官方界面完成，不索取密码或令牌，不声称已验证当前尚未实测的 Windows UI 能力。
 - Git 只保存授权范围、文件元数据和索引程序，不保存课程原文件、课程正文、完整转写或私有检索索引。运行时数据仅写入被 `.gitignore` 排除的 `materials/inbox/`、`materials/index/`、`materials/parsed/` 和 `materials/models/`，或用户另行明确授权的本机目录。
 - 不做两个目录的整库下载。先核对远端清单；开始某个学习单元时，才通过官方界面获取所需 PDF、视频或字幕，并按文件哈希增量处理。不得绕过网盘会员、下载、播放、DRM 或分享限制。
 - PDF 索引必须保留文件名和页码；视频转写必须保留原视频开始/结束时间与置信度。观看记录只能写成 `played_unchecked`，不能直接提升掌握度。
@@ -123,7 +135,7 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 最终只报告：
 
 - 项目名称和隐私状态；
-- Git 提交 ID 与版本；
+- 代码来源 URL、main/固定提交引用、版本、实际项目路径；提交 ID 未取得时明确未知，不要求新用户理解 Git；
 - 九个技能的安装/启用状态；
 - 状态库和定时任务状态；
 - 两个百度网盘授权目录的连接状态、清单核对结果、已索引范围和未索引范围；

@@ -92,6 +92,36 @@ class OfflineBundleTests(unittest.TestCase):
 
 
 class BootstrapContractTests(unittest.TestCase):
+    def test_public_windows_source_entry_needs_no_git_or_python(self):
+        launcher = (ROOT / "scripts/install_public_windows.ps1").read_text(encoding="utf-8")
+        self.assertIn("https://codeload.github.com/chichu-lv/ruankao_doubao/zip/refs/heads/main", launcher)
+        self.assertIn("$FetchOnly", launcher)
+        self.assertIn("public-source.json", launcher)
+        self.assertIn("does not overwrite or upgrade", launcher)
+        self.assertNotIn("git clone", launcher)
+        self.assertNotIn("Set-ExecutionPolicy", launcher)
+        self.assertIn("download_windows_runtime.ps1", launcher)
+        self.assertIn("start_windows.ps1", launcher)
+
+    def test_public_bootstrap_keeps_source_and_material_archives_distinct(self):
+        guide = (ROOT / "deployment/doubao/bootstrap-v1.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertNotIn("私有 Git 仓库", readme)
+        self.assertIn("源码 ZIP 没有课程原文件", guide)
+        self.assertIn("源码 ZIP 不检查 .git", guide)
+        self.assertIn("客户端会话与浏览器会话不视为共享", guide)
+        self.assertIn("不代表可以继承原用户观看进度", guide)
+
+    def test_public_windows_acceptance_retains_readonly_actions(self):
+        workflow = (ROOT / ".github/workflows/windows-acceptance.yml").read_text(encoding="utf-8")
+        probe = (ROOT / "scripts/test_windows_public_install.ps1").read_text(encoding="utf-8")
+        self.assertIn("contents: read", workflow)
+        self.assertNotIn("contents: write", workflow)
+        self.assertIn("test_windows_public_install.ps1", workflow)
+        self.assertIn("raw.githubusercontent.com", probe)
+        self.assertIn("Unexpected preinstalled tool", probe)
+        self.assertIn("repeat_preserves_source_and_user_file", probe)
+
     def test_windows_download_contract_pins_the_complete_wheelhouse(self):
         manifest = json.loads((ROOT / "deployment/offline/windows-runtime-v1.json").read_text(encoding="utf-8"))
         self.assertEqual(8, len(manifest["wheels"]))

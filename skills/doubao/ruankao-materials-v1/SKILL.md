@@ -21,6 +21,8 @@ description: 私有软考资料检索与进度技能。用户要求查 PDF 页�
 
 当前用户已学过的视频先诊断再定点回看；未知进度保持未知。OCR 仅用于普通提取失败的必要页；转写保留原视频时间轴。离线包从解压目录读取资料，使用 project/scripts/prepare_offline_materials.py 建立清单和页级索引；不要求登录百度网盘。
 
+公开源码安装没有课程原文件。Windows 优先核对已安装并登录的百度网盘官方客户端，不因浏览器未登录而要求重复登录。只在两个授权目录下载当前所需资料，确认文件已下载完成且可读，再增量索引。客户端无法操作时引导用户完成精确文件下载，获得本机路径后继续；不得把客户端登录等同于已建立资料索引。共用网盘账号不代表共用学习档案，不继承其他用户进度。
+
 ## 输出与错误
 
 统一返回 `status/data/error/audit_id`。常见错误：`PATH_NOT_ALLOWED`、`RESOURCE_NOT_FOUND`、`PARSE_FAILED`、`OPEN_FALLBACK_REQUIRED`、`LOW_TRANSCRIPT_CONFIDENCE`。

@@ -2,6 +2,8 @@
   "schema_version": 1,
   "bootstrap_protocol": "deployment/doubao/bootstrap-v1.md",
   "delivery_source": "https://github.com/chichu-lv/ruankao_doubao.git#main",
+  "source_mode": "public_source_zip_preferred",
+  "git_required": false,
   "target_project": "架构上岸教练",
   "user_facing_role": "架构上岸教练",
   "visibility": "private",
@@ -13,9 +15,9 @@
   ],
   "local_folder_binding": {
     "status": "resolve_at_bootstrap",
-    "path_strategy": "current_git_checkout_root",
+    "path_strategy": "current_project_root",
     "required_branch": "main",
-    "safety": "Allowlist only the exact resolved checkout root; never use a historical absolute path or its parent directory."
+    "safety": "Allowlist only the actual extracted source or checkout root. A source ZIP needs no .git directory; never use a historical path or parent directory."
   },
   "state": {
     "connector": "built-in Feishu tools",
@@ -25,6 +27,8 @@
   "materials": {
     "local_root": "materials/",
     "connection_method": "authenticated_official_baidu_ui",
+    "preferred_windows_surface": "installed_logged_in_official_client",
+    "shared_material_account_is_not_shared_learning_state": true,
     "bootstrap_mode": "verify_inventory_then_incremental_local_index",
     "full_library_download": false,
     "git_payload": "metadata_and_code_only",

@@ -38,6 +38,17 @@ jobs:
         run: |
           & .runtime/python/python.exe -X utf8 scripts/test_windows_clean_install.py 2>&1 | Tee-Object dist/acceptance/windows-clean.log
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Public source installation without Git or Python
+        id: public
+        shell: pwsh
+        run: |
+          try {
+            & scripts/test_windows_public_install.ps1 2>&1 | Tee-Object dist/acceptance/windows-public-install.log
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          } catch {
+            Write-Output "::error title=Public source installation::$($_.Exception.Message)"
+            exit 1
+          }
       - name: Record acceptance outcomes for artifact
         if: always()
         shell: pwsh
@@ -45,9 +56,10 @@ jobs:
           INSTALL_OUTCOME: ${{ steps.install.outcome }}
           UNIT_OUTCOME: ${{ steps.unit.outcome }}
           CLEAN_OUTCOME: ${{ steps.clean.outcome }}
+          PUBLIC_OUTCOME: ${{ steps.public.outcome }}
         run: |
           New-Item -ItemType Directory -Force dist/acceptance | Out-Null
-          @{source_commit=$env:GITHUB_SHA; run_id=$env:GITHUB_RUN_ID; install=$env:INSTALL_OUTCOME; unit=$env:UNIT_OUTCOME; clean=$env:CLEAN_OUTCOME} | ConvertTo-Json | Set-Content -Encoding utf8 dist/acceptance/windows-outcome.json
+          @{source_commit=$env:GITHUB_SHA; run_id=$env:GITHUB_RUN_ID; install=$env:INSTALL_OUTCOME; unit=$env:UNIT_OUTCOME; clean=$env:CLEAN_OUTCOME; public=$env:PUBLIC_OUTCOME} | ConvertTo-Json | Set-Content -Encoding utf8 dist/acceptance/windows-outcome.json
       - name: Test report
         if: always()
         uses: actions/upload-artifact@v4

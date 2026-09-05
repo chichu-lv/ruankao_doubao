@@ -13,6 +13,7 @@ build/
 tmp/
 .runtime/
 vendor/
+.install-download/
 
 # Local/private runtime data never belongs in the release branch.
 materials/raw/

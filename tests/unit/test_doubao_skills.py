@@ -36,7 +36,9 @@ class DoubaoSkillPackageTests(unittest.TestCase):
             "https://github.com/chichu-lv/ruankao_doubao.git#main",
             project["delivery_source"],
         )
-        self.assertEqual("current_git_checkout_root", project["local_folder_binding"]["path_strategy"])
+        self.assertEqual("current_project_root", project["local_folder_binding"]["path_strategy"])
+        self.assertFalse(project["git_required"])
+        self.assertEqual("public_source_zip_preferred", project["source_mode"])
         self.assertNotIn("/Users/", json.dumps(project))
 
     def test_exact_nine_versioned_single_responsibility_skills(self) -> None:
