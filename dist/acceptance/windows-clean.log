@@ -1,8 +1,383 @@
+PASS schemas/state-contract.schema.json: valid JSON
+PASS schemas/feishu-bitable-v1.json: valid JSON
+PASS schemas/migrations/0001-initial.json: valid JSON
+PASS feishu_release_contract: 15 table mappings
+PASS unit_tests: OK
+PARTIAL live_feishu_probe: this local command verifies the release contract; live authentication runs during bootstrap
+PARTIAL: binary ffmpeg
+PARTIAL: binary ffprobe
+PARTIAL: binary whisper-cli
+PARTIAL: binary pdftoppm
+PARTIAL: binary tesseract
+PARTIAL: local model zh_timestamped_transcription
+PARTIAL: local model simplified_chinese_page_ocr
+PASS: authorized material roots are non-empty
+PASS: manifest resources stay in authorized roots
+PASS: manifest write context
+PASS: video progress policy
+PASS: watching does not imply mastery
+PASS: Phase 2 unit tests
+SUMMARY: PARTIAL — local OCR/ASR is incomplete; official UI with manual page/timestamp fallback remains available
+test_catalog_export_replay_is_idempotent_and_conflicts_fail_closed (tests.unit.test_materials.MaterialPipelineTests.test_catalog_export_replay_is_idempotent_and_conflicts_fail_closed) ... ok
+test_chinese_extraction_quality_selects_only_unusable_pages_for_ocr (tests.unit.test_materials.MaterialPipelineTests.test_chinese_extraction_quality_selects_only_unusable_pages_for_ocr) ... ok
+test_clip_subtitle_offset_preserves_original_video_timeline (tests.unit.test_materials.MaterialPipelineTests.test_clip_subtitle_offset_preserves_original_video_timeline) ... ok
+test_hash_deduplicates_same_pdf_across_requests (tests.unit.test_materials.MaterialPipelineTests.test_hash_deduplicates_same_pdf_across_requests) ... ok
+test_identical_request_replay_is_idempotent (tests.unit.test_materials.MaterialPipelineTests.test_identical_request_replay_is_idempotent) ... ok
+test_invalid_pdf_gets_receipt_without_moving_source (tests.unit.test_materials.MaterialPipelineTests.test_invalid_pdf_gets_receipt_without_moving_source) ... ok
+test_path_outside_authorized_root_is_blocked (tests.unit.test_materials.MaterialPipelineTests.test_path_outside_authorized_root_is_blocked) ... ok
+test_pdf_page_extraction_search_and_source_anchor (tests.unit.test_materials.MaterialPipelineTests.test_pdf_page_extraction_search_and_source_anchor) ... ok
+test_timestamped_subtitle_search (tests.unit.test_materials.MaterialPipelineTests.test_timestamped_subtitle_search) ... ok
+test_transcription_uses_fixed_arguments_and_audited_idempotency (tests.unit.test_materials.MaterialPipelineTests.test_transcription_uses_fixed_arguments_and_audited_idempotency) ... ok
+test_video_probe_and_audio_extraction (tests.unit.test_materials.MaterialPipelineTests.test_video_probe_and_audio_extraction) ... skipped 'ffmpeg is required'
+test_watched_progress_requires_diagnosis_then_only_targeted_rewatch (tests.unit.test_materials.MaterialPipelineTests.test_watched_progress_requires_diagnosis_then_only_targeted_rewatch) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.063s
+
+OK (skipped=1)
+PASS: valid JSON schemas\cheko-practice-v1.json
+PASS: valid JSON schemas\state-contract.schema.json
+PASS: valid JSON deployment\cheko\ui-contract-v1.json
+PASS: valid JSON tests\fixtures\cheko-submitted-report-sanitized.json
+PASS: valid JSON tests\fixtures\cheko-custom-paper-test-sanitized.json
+PASS: current fixture UI contract version
+PASS: historical fixture preserves observed UI contract version
+PASS: answer and submit actions forbidden
+PASS: sanitized fixture contains no question or answer fields
+PASS: custom-paper fixture contains no question or answer fields
+PASS: fixture is post-submission only
+PASS: custom-paper fixture is post-submission only
+PASS: custom-paper main-question and answer-item counts stay distinct
+PASS: ordered DOM fallbacks
+PASS: no private network API client
+PASS: Phase 3 unit tests
+test_custom_paper_distinguishes_main_questions_from_answer_items (tests.unit.test_cheko_practice.ChekoPracticeTests.test_custom_paper_distinguishes_main_questions_from_answer_items) ... ok
+test_custom_paper_rejects_inconsistent_count_or_accuracy (tests.unit.test_cheko_practice.ChekoPracticeTests.test_custom_paper_rejects_inconsistent_count_or_accuracy) ... ok
+test_idempotent_result_replay_and_operation_allowlist (tests.unit.test_cheko_practice.ChekoPracticeTests.test_idempotent_result_replay_and_operation_allowlist) ... ok
+test_navigation_mismatch_fails_without_advancing_state (tests.unit.test_cheko_practice.ChekoPracticeTests.test_navigation_mismatch_fails_without_advancing_state) ... ok
+test_pre_submission_result_and_question_content_are_blocked (tests.unit.test_cheko_practice.ChekoPracticeTests.test_pre_submission_result_and_question_content_are_blocked) ... ok
+test_real_sanitized_aggregate_report_imports_without_question_body (tests.unit.test_cheko_practice.ChekoPracticeTests.test_real_sanitized_aggregate_report_imports_without_question_body) ... ok
+test_reliable_correct_item_does_not_schedule_review (tests.unit.test_cheko_practice.ChekoPracticeTests.test_reliable_correct_item_does_not_schedule_review) ... ok
+test_result_import_requires_awaiting_human (tests.unit.test_cheko_practice.ChekoPracticeTests.test_result_import_requires_awaiting_human) ... ok
+test_task_requires_count_limit_completion_and_allowlisted_route (tests.unit.test_cheko_practice.ChekoPracticeTests.test_task_requires_count_limit_completion_and_allowlisted_route) ... ok
+test_verified_navigation_enters_awaiting_human_without_answer_content (tests.unit.test_cheko_practice.ChekoPracticeTests.test_verified_navigation_enters_awaiting_human_without_answer_content) ... ok
+test_versioned_ui_contract_exposes_manual_fallbacks (tests.unit.test_cheko_practice.ChekoPracticeTests.test_versioned_ui_contract_exposes_manual_fallbacks) ... ok
+test_workflow_test_blocks_state_writes_even_with_item_details (tests.unit.test_cheko_practice.ChekoPracticeTests.test_workflow_test_blocks_state_writes_even_with_item_details) ... ok
+test_wrong_and_low_confidence_correct_both_schedule_review (tests.unit.test_cheko_practice.ChekoPracticeTests.test_wrong_and_low_confidence_correct_both_schedule_review) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.009s
+
+OK
+PASS: valid JSON schemas\learning-controller-v1.json
+PASS: valid JSON schemas\state-contract.schema.json
+PASS: fixed state-machine order
+PASS: review interval baseline
+PASS: no answer or submit operation
+PASS: essay anti-fabrication guard present
+PASS: Phase 4 controller and state tests
+test_case_and_essay_attempts_are_immutable_audited_writes (tests.unit.test_controller.CoachingTests.test_case_and_essay_attempts_are_immutable_audited_writes) ... ok
+test_case_feedback_has_four_dimensions_and_sources (tests.unit.test_controller.CoachingTests.test_case_feedback_has_four_dimensions_and_sources) ... ok
+test_case_grading_requires_user_submission (tests.unit.test_controller.CoachingTests.test_case_grading_requires_user_submission) ... ok
+test_essay_refuses_to_invent_missing_facts (tests.unit.test_controller.CoachingTests.test_essay_refuses_to_invent_missing_facts) ... ok
+test_essay_submission_tracks_version_time_words_and_rubric (tests.unit.test_controller.CoachingTests.test_essay_submission_tracks_version_time_words_and_rubric) ... ok
+test_low_energy_reduces_high_load_priority_without_cancelling_plan (tests.unit.test_controller.PlannerTests.test_low_energy_reduces_high_load_priority_without_cancelling_plan) ... ok
+test_neglected_subject_receives_explainable_boost (tests.unit.test_controller.PlannerTests.test_neglected_subject_receives_explainable_boost) ... ok
+test_plan_is_bounded_and_reserves_checkpoint_time (tests.unit.test_controller.PlannerTests.test_plan_is_bounded_and_reserves_checkpoint_time) ... ok
+test_state_must_be_observed_before_plan (tests.unit.test_controller.PlannerTests.test_state_must_be_observed_before_plan) ... ok
+test_full_state_flow_waits_for_human_and_finishes_with_checkpoint (tests.unit.test_controller.StateMachineTests.test_full_state_flow_waits_for_human_and_finishes_with_checkpoint) ... ok
+test_invalid_transition_is_truthfully_failed_and_audited (tests.unit.test_controller.StateMachineTests.test_invalid_transition_is_truthfully_failed_and_audited) ... ok
+test_transition_retry_is_idempotent (tests.unit.test_controller.StateMachineTests.test_transition_retry_is_idempotent) ... ok
+test_review_scheduler_advances_risk_and_delays_stable_evidence (tests.unit.test_controller.WeeklyReportTests.test_review_scheduler_advances_risk_and_delays_stable_evidence) ... ok
+test_weekly_report_detects_underinvestment_and_dynamic_sprint (tests.unit.test_controller.WeeklyReportTests.test_weekly_report_detects_underinvestment_and_dynamic_sprint) ... ok
+test_checkpoint_requires_all_recovery_fields (tests.unit.test_state_service.StateServiceTests.test_checkpoint_requires_all_recovery_fields) ... ok
+test_delete_requires_confirmation_and_backup (tests.unit.test_state_service.StateServiceTests.test_delete_requires_confirmation_and_backup) ... ok
+test_immutable_event_cannot_be_overwritten (tests.unit.test_state_service.StateServiceTests.test_immutable_event_cannot_be_overwritten) ... ok
+test_low_confidence_correct_choice_stays_a_risk (tests.unit.test_state_service.StateServiceTests.test_low_confidence_correct_choice_stays_a_risk) ... ok
+test_profile_initializes_without_prior_exam_history (tests.unit.test_state_service.StateServiceTests.test_profile_initializes_without_prior_exam_history) ... ok
+test_profile_write_is_idempotent (tests.unit.test_state_service.StateServiceTests.test_profile_write_is_idempotent) ... ok
+test_request_id_cannot_be_reused_for_different_payload (tests.unit.test_state_service.StateServiceTests.test_request_id_cannot_be_reused_for_different_payload) ... ok
+test_review_can_be_completed_and_same_topic_rescheduled (tests.unit.test_state_service.StateServiceTests.test_review_can_be_completed_and_same_topic_rescheduled) ... ok
+test_review_queue_deduplicates_pending_topic_and_type (tests.unit.test_state_service.StateServiceTests.test_review_queue_deduplicates_pending_topic_and_type) ... ok
+test_two_low_confidence_correct_choices_do_not_establish_level_three (tests.unit.test_state_service.StateServiceTests.test_two_low_confidence_correct_choices_do_not_establish_level_three) ... ok
+test_two_reliable_choice_results_can_establish_level_three (tests.unit.test_state_service.StateServiceTests.test_two_reliable_choice_results_can_establish_level_three) ... ok
+test_unknown_operation_is_blocked (tests.unit.test_state_service.StateServiceTests.test_unknown_operation_is_blocked) ... ok
+test_untraceable_event_is_rejected_and_failure_audited (tests.unit.test_state_service.StateServiceTests.test_untraceable_event_is_rejected_and_failure_audited) ... ok
+test_viewing_alone_cannot_raise_mastery_above_one (tests.unit.test_state_service.StateServiceTests.test_viewing_alone_cannot_raise_mastery_above_one) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.012s
+
+OK
+deployment\doubao\system-instructions-v1.md
+{
+  "status": "ok",
+  "format": "zip_with_named_skill_directory",
+  "visibility": "private_only",
+  "packages": [
+    {
+      "name": "cheko-practice-v1",
+      "description": "芝士架构安全练习技能。用户要求创建选择题/真题/错题任务、打开芝士架构或在用户提交后导入结果时使用。必须规定题量、限时、完成标准和置信度；用户作答时等待。绝不自动选答、提交、提前读解析或抓取题库。",
+      "files": 1,
+      "package": "cheko-practice-v1.zip",
+      "sha256": "65d5d761c62e944776359c667abc1781f3d6a55808c45b2ba522d900343a07ac"
+    },
+    {
+      "name": "ruankao-assessment-v1",
+      "description": "软考闭卷测评与掌握证据技能。用于视频/阅读后的闭卷复述、分层测试、错误分类、变式练习和 0—5 掌握度更新。必须先让用户输出，不能把看过、听懂或一次猜对当作掌握。",
+      "files": 1,
+      "package": "ruankao-assessment-v1.zip",
+      "sha256": "cc6236ed61cbf559b7917ab5897b951ee4bb33b769d753f8067b25eb719e3365"
+    },
+    {
+      "name": "ruankao-case-coach-v1",
+      "description": "系统架构设计师案例批改技能。仅在用户已完整作答案例题后使用；按有来源的得分点指出覆盖、缺失、无关/冗余、审题和表达问题，并安排迁移练习。禁止作答前泄露或用标准答案覆盖用户思考。",
+      "files": 1,
+      "package": "ruankao-case-coach-v1.zip",
+      "sha256": "bff1cb7ba30f4aa2f2dab44c6f325bb73dd8f5264088d2a324e22d445118abf2"
+    },
+    {
+      "name": "ruankao-controller-v1",
+      "description": "架构上岸教练主控。用户说“启动今日软考训练”、继续训练、恢复检查点或要求生成当日计划时使用。必须先读取 ArchitectPass State v1，再执行固定状态机和三科平衡；写入必须带 request_id/audit_id。禁止把聊天记忆当状态或越权调用。",
+      "files": 1,
+      "package": "ruankao-controller-v1.zip",
+      "sha256": "a4140537d40174700f25f6576b3777237f258d42a1c02789cd46713fe68b6417"
+    },
+    {
+      "name": "ruankao-essay-coach-v1",
+      "description": "系统架构设计师论文事实库与批改技能。用于主题匹配、提纲、局部段落、限时全文、评分、修订和间隔重写。只能使用用户确认且脱敏的真实项目事实；事实不足必须指出，绝不虚构职责、规模、指标、技术或结果。",
+      "files": 1,
+      "package": "ruankao-essay-coach-v1.zip",
+      "sha256": "1b8515cc79c904262744ff4c9db37624aa655167f76033520c440cb70a582cbf"
+    },
+    {
+      "name": "ruankao-healthcheck-v1",
+      "description": "架构上岸教练部署与恢复健康检查。首次启动、每日启动前、工具失败、升级后或用户说“检查并恢复软考系统”时使用。检查技能、飞书状态、资料索引、芝士架构、浏览器和定时任务，输出 PASS/PARTIAL/FAIL 与降级路径；禁止假装成功。",
+      "files": 1,
+      "package": "ruankao-healthcheck-v1.zip",
+      "sha256": "1d5325f20b150883f0b428f1d46543f0a10cce4596aec70ff7e225cd8a80f3c6"
+    },
+    {
+      "name": "ruankao-materials-v1",
+      "description": "私有软考资料检索与进度技能。用户要求查 PDF 页、视频时间段、打开百度网盘课程、记录已看位置或增量处理资料时使用。仅限两个授权课程范围和 ArchitectPass 私有材料目录；必须返回页码或时间戳，禁止公开上传和绕过网盘限制。",
+      "files": 1,
+      "package": "ruankao-materials-v1.zip",
+      "sha256": "2118a239a90e7861737426fdfec3ac188da37c787eb3aa803b9e61a3b2398e84"
+    },
+    {
+      "name": "ruankao-research-verifier-v1",
+      "description": "软考官方信息、标准与当前技术资料核验技能。涉及考试日期、报名、规则、教材口径、标准或可能变化的工程事实时使用。优先官方原始来源，记录核验日期，区分 exam_view 与 industry_view；不确定项标待核验。",
+      "files": 1,
+      "package": "ruankao-research-verifier-v1.zip",
+      "sha256": "e28075183b04e4b7a4864534df1445fa2a5596d98d280279a74257b4fa6ede86"
+    },
+    {
+      "name": "ruankao-review-scheduler-v1",
+      "description": "软考复习队列、每日提醒、周报和冲刺技能。用于读取到期复习、生成只读提醒/周报、根据证据排期和判断冲刺。默认 1/3/7/14/30 天并动态调整；避免重复提醒。定时任务默认只读，不得无验证地写状态。",
+      "files": 1,
+      "package": "ruankao-review-scheduler-v1.zip",
+      "sha256": "905fe885cf164eedaa39340a4f33f9b45f7143266d42d67d94e63150a3e9b8de"
+    }
+  ]
+}
+PASS: render_doubao_system_instructions.py
+PASS: build_doubao_skills.py
+PASS: skills private by default
+PASS: named-directory ZIP format
+PASS: nine required skills packaged
+PASS: scheduled writes remain disabled
+PASS: system instruction placeholders resolved
+PASS: Phase 5 package tests
+test_baidu_materials_are_connected_at_runtime_and_never_shipped_in_git (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_baidu_materials_are_connected_at_runtime_and_never_shipped_in_git) ... ok
+test_built_packages_use_named_skill_directory_format (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_built_packages_use_named_skill_directory_format) ... ok
+test_exact_nine_versioned_single_responsibility_skills (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_exact_nine_versioned_single_responsibility_skills) ... ok
+test_git_bootstrap_is_the_documented_delivery_entry (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_git_bootstrap_is_the_documented_delivery_entry) ... ok
+test_manifest_is_private_minimum_permission_and_no_scheduled_writes (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_manifest_is_private_minimum_permission_and_no_scheduled_writes) ... ok
+test_project_onboarding_does_not_require_exam_history (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_project_onboarding_does_not_require_exam_history) ... ok
+test_release_manifest_contains_no_private_feishu_identifiers (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_release_manifest_contains_no_private_feishu_identifiers) ... ok
+test_rendered_system_instructions_have_no_deployment_placeholders (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_rendered_system_instructions_have_no_deployment_placeholders) ... ok
+test_sensitive_and_cheko_operations_are_forbidden (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_sensitive_and_cheko_operations_are_forbidden) ... ok
+test_weekly_schedule_matches_release_target (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_weekly_schedule_matches_release_target) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.008s
+
+OK
+deployment\phase6\initialization-write-plan-v1.json
+PARTIAL: private PDF/video catalogs are absent; run the Phase 2 indexer on authorized files
+PASS: history is optional
+PASS: scheduled writes disabled
+PASS: seven runtime-budgeted days
+PASS: project facts truthfully empty
+PASS: traceable initialization operations
+PASS: private page/time segment plan
+PASS: Phase 6 initialization tests
+{
+  "status": "PASS",
+  "operation_count": 13,
+  "tables": [
+    "resources",
+    "topics",
+    "user_profile"
+  ]
+}
+test_every_write_has_unique_request_and_audit_id (tests.unit.test_initialization.Phase6InitializationTests.test_every_write_has_unique_request_and_audit_id) ... ok
+test_history_is_not_required_and_no_history_is_in_profile (tests.unit.test_initialization.Phase6InitializationTests.test_history_is_not_required_and_no_history_is_in_profile) ... ok
+test_knowledge_map_does_not_infer_mastery_or_weights (tests.unit.test_initialization.Phase6InitializationTests.test_knowledge_map_does_not_infer_mastery_or_weights) ... ok
+test_new_catalog_sizes_and_multiple_video_sources_are_supported (tests.unit.test_initialization.Phase6InitializationTests.test_new_catalog_sizes_and_multiple_video_sources_are_supported) ... ok
+test_only_traceable_authorized_real_evidence_is_planned (tests.unit.test_initialization.Phase6InitializationTests.test_only_traceable_authorized_real_evidence_is_planned) ... ok
+test_private_runtime_segment_plan_has_page_and_time_anchors (tests.unit.test_initialization.Phase6InitializationTests.test_private_runtime_segment_plan_has_page_and_time_anchors) ... skipped 'private runtime catalogs are intentionally absent from Git'
+test_private_segments_replay_through_allowlisted_state_api (tests.unit.test_initialization.Phase6InitializationTests.test_private_segments_replay_through_allowlisted_state_api) ... skipped 'private runtime catalogs are intentionally absent from Git'
+test_project_fact_v1_is_explicitly_empty (tests.unit.test_initialization.Phase6InitializationTests.test_project_fact_v1_is_explicitly_empty) ... ok
+test_public_plan_replays_through_allowlisted_state_api (tests.unit.test_initialization.Phase6InitializationTests.test_public_plan_replays_through_allowlisted_state_api) ... ok
+test_rendered_write_plan_matches_builder (tests.unit.test_initialization.Phase6InitializationTests.test_rendered_write_plan_matches_builder) ... ok
+test_seven_day_plan_is_bounded_at_runtime (tests.unit.test_initialization.Phase6InitializationTests.test_seven_day_plan_is_bounded_at_runtime) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.026s
+
+OK (skipped=2)
+{
+  "status": "PARTIAL",
+  "python": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\新用户 空格\\ArchitectPass-offline\\project\\.runtime\\python\\python.exe",
+  "python_version": "3.12.10",
+  "runtime_source": "existing_project_venv",
+  "installer": "bundled_windows_wheels",
+  "healthchecks": [
+    {
+      "name": "phase1_healthcheck.py",
+      "status": "PARTIAL",
+      "returncode": 0
+    },
+    {
+      "name": "phase2_healthcheck.py",
+      "status": "PARTIAL",
+      "returncode": 0
+    },
+    {
+      "name": "phase3_healthcheck.py",
+      "status": "PASS",
+      "returncode": 0
+    },
+    {
+      "name": "phase4_healthcheck.py",
+      "status": "PASS",
+      "returncode": 0
+    },
+    {
+      "name": "phase5_healthcheck.py",
+      "status": "PASS",
+      "returncode": 0
+    },
+    {
+      "name": "phase6_healthcheck.py",
+      "status": "PARTIAL",
+      "returncode": 0
+    }
+  ]
+}
+
+
+{
+  "status": "PASS",
+  "material_file_count": 2,
+  "pdf_count": 2,
+  "indexed_pdf_count": 1,
+  "newly_indexed_pdf_count": 1,
+  "page_count": 1,
+  "ocr_pending_pages": 1,
+  "unindexed_pdf_count": 1,
+  "video_transcription": "按学习片段处理；未声称已全量转写",
+  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\新用户 空格\\ArchitectPass-offline\\project\\materials\\index\\offline-catalog.json"
+}
+
+
+{
+  "status": "PASS",
+  "results": [
+    {
+      "segment_id": "35484038cfca6da3e1660ea2",
+      "resource_id": "sha256:7d11cc23e8cd5c5ae6e1ec76df41007ac326dd3eb66256e1e6ffd6f0430ead5c",
+      "filename": "新用户练习.pdf",
+      "section": "ARCHITECTPASS_MATERIAL_FIXTURE",
+      "confidence": 0.35,
+      "citation_anchor": "pdf:sha256:7d11cc23e8cd5c5ae6e1ec76df41007ac326dd3eb66256e1e6ffd6f0430ead5c#page=1",
 Traceback (most recent call last):
-  File "D:\a\ruankao_doubao\ruankao_doubao\scripts\test_windows_clean_install.py", line 89, in <module>
+      "open_target": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\新用户 空格\\ArchitectPass-offline\\private-materials\\5、【2026年05月】芝士架构系统架构设计师\\新用户练习.pdf#page=1",
+      "page": 1,
+      "start_seconds": null,
+      "end_seconds": null,
+      "ocr": false,
+      "snippet": "ARCHITECTPASS_MATERIAL_FIXTURE",
+      "match_score": 2
+    }
+  ]
+}
+
+
+{
+  "status": "PASS",
+  "material_file_count": 2,
+  "pdf_count": 2,
+  "indexed_pdf_count": 1,
+  "newly_indexed_pdf_count": 0,
+  "page_count": 1,
+  "ocr_pending_pages": 1,
+  "unindexed_pdf_count": 1,
+  "video_transcription": "按学习片段处理；未声称已全量转写",
+  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\新用户 空格\\ArchitectPass-offline\\project\\materials\\index\\offline-catalog.json"
+}
+
+
+{
+  "status": "PASS",
+  "python": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\移动后的 新目录\\project\\.runtime\\python\\python.exe",
+  "python_version": "3.12.10",
+  "runtime_source": "existing_project_venv",
+  "installer": "bundled_windows_wheels"
+}
+
+
+{
+  "status": "PASS",
+  "material_file_count": 2,
+  "pdf_count": 2,
+  "indexed_pdf_count": 1,
+  "newly_indexed_pdf_count": 0,
+  "page_count": 1,
+  "ocr_pending_pages": 1,
+  "unindexed_pdf_count": 1,
+  "video_transcription": "按学习片段处理；未声称已全量转写",
+  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\移动后的 新目录\\project\\materials\\index\\offline-catalog.json"
+}
+
+
+{
+  "status": "PASS",
+  "results": [
+    {
+      "segment_id": "35484038cfca6da3e1660ea2",
+      "resource_id": "sha256:7d11cc23e8cd5c5ae6e1ec76df41007ac326dd3eb66256e1e6ffd6f0430ead5c",
+      "filename": "新用户练习.pdf",
+      "section": "ARCHITECTPASS_MATERIAL_FIXTURE",
+      "confidence": 0.35,
+      "citation_anchor": "pdf:sha256:7d11cc23e8cd5c5ae6e1ec76df41007ac326dd3eb66256e1e6ffd6f0430ead5c#page=1",
+      "open_target": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\移动后的 新目录\\private-materials\\5、【2026年05月】芝士架构系统架构设计师\\新用户练习.pdf#page=1",
+      "page": 1,
+      "start_seconds": null,
+      "end_seconds": null,
+      "ocr": false,
+      "snippet": "ARCHITECTPASS_MATERIAL_FIXTURE",
+      "match_score": 2
+    }
+  ]
+}
+
+
+  File "D:\a\ruankao_doubao\ruankao_doubao\scripts\test_windows_clean_install.py", line 91, in <module>
     raise SystemExit(main())
                      ^^^^^^
-  File "D:\a\ruankao_doubao\ruankao_doubao\scripts\test_windows_clean_install.py", line 62, in main
-    run([environment["SystemRoot"] + r"\System32\cmd.exe", "/c", str(project / "scripts/start_windows.cmd")])
-         ~~~~~~~~~~~^^^^^^^^^^^^^^
-KeyError: 'SystemRoot'
+  File "D:\a\ruankao_doubao\ruankao_doubao\scripts\test_windows_clean_install.py", line 79, in main
+    assert str(relocated) in final["results"][0]["open_target"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
