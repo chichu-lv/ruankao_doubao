@@ -32,7 +32,7 @@ test_video_probe_and_audio_extraction (tests.unit.test_materials.MaterialPipelin
 test_watched_progress_requires_diagnosis_then_only_targeted_rewatch (tests.unit.test_materials.MaterialPipelineTests.test_watched_progress_requires_diagnosis_then_only_targeted_rewatch) ... ok
 
 ----------------------------------------------------------------------
-Ran 12 tests in 0.063s
+Ran 12 tests in 0.064s
 
 OK (skipped=1)
 PASS: valid JSON schemas\cheko-practice-v1.json
@@ -200,7 +200,7 @@ test_sensitive_and_cheko_operations_are_forbidden (tests.unit.test_doubao_skills
 test_weekly_schedule_matches_release_target (tests.unit.test_doubao_skills.DoubaoSkillPackageTests.test_weekly_schedule_matches_release_target) ... ok
 
 ----------------------------------------------------------------------
-Ran 10 tests in 0.008s
+Ran 10 tests in 0.009s
 
 OK
 deployment\phase6\initialization-write-plan-v1.json
@@ -234,12 +234,12 @@ test_rendered_write_plan_matches_builder (tests.unit.test_initialization.Phase6I
 test_seven_day_plan_is_bounded_at_runtime (tests.unit.test_initialization.Phase6InitializationTests.test_seven_day_plan_is_bounded_at_runtime) ... ok
 
 ----------------------------------------------------------------------
-Ran 11 tests in 0.026s
+Ran 11 tests in 0.021s
 
 OK (skipped=2)
 {
   "status": "PARTIAL",
-  "python": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\新用户 空格\\ArchitectPass-offline\\project\\.runtime\\python\\python.exe",
+  "python": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\新用户 空格\\ArchitectPass-offline\\project\\.runtime\\python\\python.exe",
   "python_version": "3.12.10",
   "runtime_source": "existing_project_venv",
   "installer": "bundled_windows_wheels",
@@ -288,7 +288,7 @@ OK (skipped=2)
   "ocr_pending_pages": 1,
   "unindexed_pdf_count": 1,
   "video_transcription": "按学习片段处理；未声称已全量转写",
-  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\新用户 空格\\ArchitectPass-offline\\project\\materials\\index\\offline-catalog.json"
+  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\新用户 空格\\ArchitectPass-offline\\project\\materials\\index\\offline-catalog.json"
 }
 
 
@@ -302,8 +302,7 @@ OK (skipped=2)
       "section": "ARCHITECTPASS_MATERIAL_FIXTURE",
       "confidence": 0.35,
       "citation_anchor": "pdf:sha256:7d11cc23e8cd5c5ae6e1ec76df41007ac326dd3eb66256e1e6ffd6f0430ead5c#page=1",
-Traceback (most recent call last):
-      "open_target": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\新用户 空格\\ArchitectPass-offline\\private-materials\\5、【2026年05月】芝士架构系统架构设计师\\新用户练习.pdf#page=1",
+      "open_target": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\新用户 空格\\ArchitectPass-offline\\private-materials\\5、【2026年05月】芝士架构系统架构设计师\\新用户练习.pdf#page=1",
       "page": 1,
       "start_seconds": null,
       "end_seconds": null,
@@ -325,13 +324,13 @@ Traceback (most recent call last):
   "ocr_pending_pages": 1,
   "unindexed_pdf_count": 1,
   "video_transcription": "按学习片段处理；未声称已全量转写",
-  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\新用户 空格\\ArchitectPass-offline\\project\\materials\\index\\offline-catalog.json"
+  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\新用户 空格\\ArchitectPass-offline\\project\\materials\\index\\offline-catalog.json"
 }
 
 
 {
   "status": "PASS",
-  "python": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\移动后的 新目录\\project\\.runtime\\python\\python.exe",
+  "python": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\移动后的 新目录\\project\\.runtime\\python\\python.exe",
   "python_version": "3.12.10",
   "runtime_source": "existing_project_venv",
   "installer": "bundled_windows_wheels"
@@ -348,7 +347,7 @@ Traceback (most recent call last):
   "ocr_pending_pages": 1,
   "unindexed_pdf_count": 1,
   "video_transcription": "按学习片段处理；未声称已全量转写",
-  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\移动后的 新目录\\project\\materials\\index\\offline-catalog.json"
+  "catalog": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\移动后的 新目录\\project\\materials\\index\\offline-catalog.json"
 }
 
 
@@ -362,7 +361,7 @@ Traceback (most recent call last):
       "section": "ARCHITECTPASS_MATERIAL_FIXTURE",
       "confidence": 0.35,
       "citation_anchor": "pdf:sha256:7d11cc23e8cd5c5ae6e1ec76df41007ac326dd3eb66256e1e6ffd6f0430ead5c#page=1",
-      "open_target": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-6y3kchdm\\移动后的 新目录\\private-materials\\5、【2026年05月】芝士架构系统架构设计师\\新用户练习.pdf#page=1",
+      "open_target": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\移动后的 新目录\\private-materials\\5、【2026年05月】芝士架构系统架构设计师\\新用户练习.pdf#page=1",
       "page": 1,
       "start_seconds": null,
       "end_seconds": null,
@@ -374,10 +373,57 @@ Traceback (most recent call last):
 }
 
 
-  File "D:\a\ruankao_doubao\ruankao_doubao\scripts\test_windows_clean_install.py", line 91, in <module>
-    raise SystemExit(main())
-                     ^^^^^^
-  File "D:\a\ruankao_doubao\ruankao_doubao\scripts\test_windows_clean_install.py", line 79, in main
-    assert str(relocated) in final["results"][0]["open_target"]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError
+{
+  "status": "PASS",
+  "platform": "win32",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "bootstrap": {
+    "status": "PARTIAL",
+    "python": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\新用户 空格\\ArchitectPass-offline\\project\\.runtime\\python\\python.exe",
+    "python_version": "3.12.10",
+    "runtime_source": "existing_project_venv",
+    "installer": "bundled_windows_wheels",
+    "healthchecks": [
+      {
+        "name": "phase1_healthcheck.py",
+        "status": "PARTIAL",
+        "returncode": 0
+      },
+      {
+        "name": "phase2_healthcheck.py",
+        "status": "PARTIAL",
+        "returncode": 0
+      },
+      {
+        "name": "phase3_healthcheck.py",
+        "status": "PASS",
+        "returncode": 0
+      },
+      {
+        "name": "phase4_healthcheck.py",
+        "status": "PASS",
+        "returncode": 0
+      },
+      {
+        "name": "phase5_healthcheck.py",
+        "status": "PASS",
+        "returncode": 0
+      },
+      {
+        "name": "phase6_healthcheck.py",
+        "status": "PARTIAL",
+        "returncode": 0
+      }
+    ]
+  },
+  "checks": [
+    "no_git",
+    "no_python_on_path",
+    "offline_bundled_dependencies",
+    "chinese_and_space_paths",
+    "six_healthchecks",
+    "pdf_index_and_search",
+    "repeat_install",
+    "relocated_restart"
+  ]
+}

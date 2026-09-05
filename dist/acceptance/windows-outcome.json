@@ -1,7 +1,7 @@
 {
-  "unit": "success",
+  "source_commit": "2a28bd651acce9dd7dbf9a7e800779239a59aeec",
   "install": "success",
-  "clean": "failure",
-  "source_commit": "0de9e36d45165723ea79593f9c61883e1ce034a8",
-  "run_id": "33942336264"
+  "unit": "success",
+  "run_id": "33942450273",
+  "clean": "success"
 }

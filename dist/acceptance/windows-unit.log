@@ -95,6 +95,6 @@ test_untraceable_event_is_rejected_and_failure_audited (test_state_service.State
 test_viewing_alone_cannot_raise_mastery_above_one (test_state_service.StateServiceTests.test_viewing_alone_cannot_raise_mastery_above_one) ... ok
 
 ----------------------------------------------------------------------
-Ran 95 tests in 1.001s
+Ran 95 tests in 1.004s
 
 OK (skipped=3)

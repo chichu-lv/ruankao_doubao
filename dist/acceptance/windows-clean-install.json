@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "platform": "win32",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "bootstrap": {
+    "status": "PARTIAL",
+    "python": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ap-accept-zl_n3vt8\\新用户 空格\\ArchitectPass-offline\\project\\.runtime\\python\\python.exe",
+    "python_version": "3.12.10",
+    "runtime_source": "existing_project_venv",
+    "installer": "bundled_windows_wheels",
+    "healthchecks": [
+      {
+        "name": "phase1_healthcheck.py",
+        "status": "PARTIAL",
+        "returncode": 0
+      },
+      {
+        "name": "phase2_healthcheck.py",
+        "status": "PARTIAL",
+        "returncode": 0
+      },
+      {
+        "name": "phase3_healthcheck.py",
+        "status": "PASS",
+        "returncode": 0
+      },
+      {
+        "name": "phase4_healthcheck.py",
+        "status": "PASS",
+        "returncode": 0
+      },
+      {
+        "name": "phase5_healthcheck.py",
+        "status": "PASS",
+        "returncode": 0
+      },
+      {
+        "name": "phase6_healthcheck.py",
+        "status": "PARTIAL",
+        "returncode": 0
+      }
+    ]
+  },
+  "checks": [
+    "no_git",
+    "no_python_on_path",
+    "offline_bundled_dependencies",
+    "chinese_and_space_paths",
+    "six_healthchecks",
+    "pdf_index_and_search",
+    "repeat_install",
+    "relocated_restart"
+  ]
+}
