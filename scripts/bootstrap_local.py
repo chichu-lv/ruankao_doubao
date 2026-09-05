@@ -14,6 +14,8 @@ import os
 import shutil
 import subprocess
 import sys
+import platform
+import tarfile
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -96,18 +98,35 @@ def uv_environment() -> Dict[str, str]:
     return environment
 
 
-def create_venv() -> Tuple[Path, str]:
+def bundled_python() -> Optional[Path]:
+    if platform.system() != "Darwin" or platform.machine() != "arm64":
+        return None
+    archive = ROOT / "vendor/python-macos-arm64.tar.gz"
+    if not archive.is_file():
+        return None
+    destination = RUNTIME_ROOT / "bundled-python"
+    interpreter = destination / "bin/python3"
+    if not interpreter.is_file():
+        destination.mkdir(parents=True, exist_ok=True)
+        with tarfile.open(archive) as package:
+            package.extractall(destination)
+    return interpreter if compatible(interpreter) else None
+
+
+def create_venv(offline: bool = False) -> Tuple[Path, str]:
     existing = project_python()
     if compatible(existing):
         return existing, "existing_project_venv"
 
-    source = next((path for path in candidate_pythons() if path != existing and compatible(path)), None)
+    source = bundled_python() or next((path for path in candidate_pythons() if path != existing and compatible(path)), None)
     if source is not None:
         result = subprocess.run([str(source), "-m", "venv", str(VENV)], cwd=ROOT, check=False)
         if result.returncode != 0:
             raise BootstrapError(f"compatible Python was found but could not create .venv: {source}")
         return project_python(), f"venv_from:{source}"
 
+    if offline:
+        raise BootstrapError("No compatible local Python runtime. Install Python 3.12 for this platform, then retry.")
     uv = shutil.which("uv")
     if uv is None:
         raise BootstrapError(
@@ -129,6 +148,15 @@ def create_venv() -> Tuple[Path, str]:
 def install_project(interpreter: Path, offline: bool) -> str:
     uv = shutil.which("uv")
     wheelhouse = ROOT / "vendor" / "wheels"
+    if offline:
+        if not wheelhouse.is_dir():
+            raise BootstrapError("offline dependency wheelhouse is absent from this package")
+        base = [str(interpreter), "-m", "pip", "install", "--no-index", "--find-links", str(wheelhouse)]
+        for command in (base + ["setuptools", "wheel"], base + ["--no-build-isolation", "--editable", str(ROOT)]):
+            result = subprocess.run(command, cwd=ROOT, check=False)
+            if result.returncode != 0:
+                raise BootstrapError("bundled wheels could not be installed for this Python/platform")
+        return "bundled_wheels"
     if uv:
         command = [uv, "pip", "install", "--python", str(interpreter)]
         if offline:
@@ -188,8 +216,9 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        interpreter, runtime_source = create_venv()
-        installer = install_project(interpreter, args.offline)
+        use_offline = args.offline or (ROOT / "vendor/python-macos-arm64.tar.gz").is_file() and platform.system() == "Darwin" and platform.machine() == "arm64"
+        interpreter, runtime_source = create_venv(use_offline)
+        installer = install_project(interpreter, use_offline)
         version = python_version(interpreter)
         if args.prepare_only:
             report = {

@@ -32,11 +32,15 @@ python3 scripts/bootstrap_local.py --prepare-only
 生成后立即校验压缩包内的资料哈希、路径和九个预构建技能：
 
 ```text
-python3 scripts/verify_offline_bundle.py "dist/offline/architectpass-offline-1.1.0.zip"
+python3 scripts/verify_offline_bundle.py "dist/offline/architectpass-offline-1.1.1.zip"
 ```
 
 ## 使用
 
 不要把大压缩包上传到豆包聊天。让豆包使用本地电脑解压后读取包内 `ArchitectPass-offline/README-OFFLINE.md`，这样不受聊天附件大小限制。豆包、飞书和芝士架构使用接收者自己注册并登录的账号；离线包不会复制这些账号或权限。
+
+实际安装协议是 `deployment/offline/bootstrap-v1.md`。新用户档案不带原用户观看进度或练习记录。资料清单和首批页级索引由 `scripts/prepare_offline_materials.py` 在解压位置生成，重复运行会复用已索引内容。
+
+当前完整包附带 Apple 芯片 Mac 的 Python 3.12 与依赖，使用 `bash scripts/start_macos.sh` 无网络安装本地组件。其他平台需要 Python 3.11+ 和首次安装依赖的网络；具体平台的实测结果以随交付的测试结论为准。模型文件不等于 OCR/ASR 可执行程序，缺少这些程序时使用本地文件阅读和精确页码/时间点。
 
 本包含有受授权范围约束的课程材料，只能私下保存和用于个人学习，不得发布、分享或提交到 Git。建议存放在加密磁盘或系统受保护目录；生成器不会假装普通 ZIP 自带可靠加密。

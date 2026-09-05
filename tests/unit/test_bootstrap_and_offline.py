@@ -3,6 +3,8 @@ import importlib.util
 import tempfile
 import unittest
 import zipfile
+import shutil
+import hashlib
 from pathlib import Path
 
 from architectpass_offline import BundleError, OfflineBundleBuilder
@@ -108,6 +110,40 @@ class BootstrapContractTests(unittest.TestCase):
         self.assertEqual("PASS", module.classify_healthcheck(0, '"description": "outputs PASS/PARTIAL/FAIL"'))
         self.assertEqual("PARTIAL", module.classify_healthcheck(0, "PARTIAL live connector: login deferred"))
         self.assertEqual("FAIL", module.classify_healthcheck(1, "SUMMARY: PASS"))
+
+
+class OfflineFirstUseTests(unittest.TestCase):
+    def test_relocated_package_indexes_searches_and_replays_without_duplicates(self):
+        from tests.unit.test_materials import write_minimal_pdf, MARKER
+        spec = importlib.util.spec_from_file_location("prepare_offline_materials", ROOT / "scripts/prepare_offline_materials.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as directory:
+            bundle = Path(directory) / "中文 空格 delivery"
+            project = bundle / "project"
+            project.mkdir(parents=True)
+            resources = []
+            for name in AUTHORIZED_ROOTS:
+                relative = name + "/sample.pdf"
+                path = bundle / "private-materials" / relative
+                path.parent.mkdir(parents=True)
+                write_minimal_pdf(path)
+                resources.append({"path": relative, "size_bytes": path.stat().st_size,
+                                  "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
+            (bundle / "offline-manifest.json").write_text(json.dumps({"authorized_roots": AUTHORIZED_ROOTS, "materials": resources}))
+            first = module.prepare(project)
+            self.assertEqual(2, first["material_file_count"])
+            self.assertEqual(1, first["page_count"])
+            second = module.prepare(project)
+            self.assertEqual(0, second["newly_indexed_pdf_count"])
+            renamed = bundle.with_name("移动 后")
+            shutil.move(str(bundle), renamed)
+            module.prepare(renamed / "project")
+            hits = module.search(renamed / "project", MARKER)["results"]
+            self.assertEqual(1, hits[0]["page"])
+            self.assertTrue(hits[0]["open_target"].startswith(str(renamed.resolve())))
+            catalog = module.load(renamed / "project/materials/index/offline-catalog.json")
+            self.assertEqual(1, len(catalog["audits"]))
 
 
 if __name__ == "__main__":

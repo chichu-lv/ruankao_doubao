@@ -189,6 +189,8 @@ class OfflineBundleBuilder:
             directory = self.root / "materials" / name
             if directory.is_dir():
                 files.extend(_safe_files(directory))
+        if (self.root / "vendor").is_dir():
+            files.extend(_safe_files(self.root / "vendor"))
         return sorted(files)
 
     def _build_skills(self) -> None:
@@ -240,13 +242,17 @@ class OfflineBundleBuilder:
     def _offline_readme(status: str) -> str:
         return f"""# ArchitectPass 离线私有交付包
 
-状态：`{status}`。如果状态是 `PARTIAL`，必须先阅读 `offline-manifest.json` 的 `declared_missing`，不得声称资料完整。
+资料状态：`{status}`。如果状态是 `PARTIAL`，先查看 `offline-manifest.json` 的 `declared_missing`。该状态表示包内资料完整性，豆包项目是否安装完成须以真实安装结果为准。
+
+Apple 芯片 Mac 已附带 Python 3.12 和依赖，可在 project 目录运行 `bash scripts/start_macos.sh`。其他系统需 Python 3.11+，运行 `python scripts/bootstrap_local.py`；首次安装依赖需要访问 Python 包源。豆包、飞书、芝士架构是在线服务，使用接收者自己的账号。
 
 将整个 `ArchitectPass-offline` 目录解压到用户选择的私有本机目录。不要把本压缩包或课程资料上传到公开 Git、网盘、聊天附件或公共项目。
+
+将本目录放在本地磁盘上，向已登录的豆包工作发送以下提示词并提供目录位置。安装与日常训练都由豆包继续执行。
 
 交给豆包的启动提示词：
 
 ```text
-请使用本机已解压的 ArchitectPass-offline 目录部署“架构上岸教练”。先完整读取 README-OFFLINE.md、offline-manifest.json、project/README.md 和 project/deployment/doubao/bootstrap-v1.md。不要访问 GitHub 或百度网盘；把 project/ 作为唯一项目代码根目录，把 private-materials/ 中两个精确授权目录作为只读资料源，优先安装 prebuilt-skills/ 中的九个私有技能包，并绑定 project/deployment/doubao/system-instructions-v1.md。所有课程原文件、索引和状态保持私有；不要修改既有豆包项目。豆包、飞书和芝士架构使用当前用户自行注册并登录的账号，遇到登录、权限、删除、发布或敏感导出时暂停让用户通过官方界面处理。最后执行健康检查，只报告真实的 PASS/PARTIAL/FAIL、缺失资料和需要用户完成的动作。
+请使用本机已解压的 ArchitectPass-offline 目录部署“架构上岸教练”。先读取 README-OFFLINE.md，并执行 project/deployment/offline/bootstrap-v1.md。用包内代码、资料和九个技能创建新项目，建立属于我的空学习档案，连接我自己的飞书和芝士架构账号，完成健康检查后开始今日训练。我授权本次安装所需的项目内操作；需要登录时让我在官方界面完成。
 ```
 """

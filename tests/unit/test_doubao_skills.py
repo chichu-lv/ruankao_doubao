@@ -67,7 +67,7 @@ class DoubaoSkillPackageTests(unittest.TestCase):
             item for item in schedules["jobs"]
             if item["name"] == "架构上岸教练-每周只读复盘-v1"
         )
-        self.assertEqual("desired_active_user_confirmed", weekly["status"])
+        self.assertEqual("template_pending_user_time", weekly["status"])
         self.assertEqual({
             "repeat": "weekly",
             "weekday": "saturday",

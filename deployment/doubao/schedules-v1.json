@@ -12,7 +12,7 @@
     },
     {
       "name": "架构上岸教练-每周只读复盘-v1",
-      "status": "desired_active_user_confirmed",
+      "status": "template_pending_user_time",
       "prompt_file": "deployment/doubao/schedule-prompts/weekly-readonly.md",
       "schedule": {
         "repeat": "weekly",
@@ -23,6 +23,6 @@
       "write_operations": []
     }
   ],
-  "activation_gate": "weekly time confirmed and active; daily time still requires user confirmation",
+  "activation_gate": "use the current user's confirmed time; Saturday 20:00 is a suggestion for a new user",
   "write_gate": "failure/retry/idempotency behavior must pass before any scheduled write is enabled"
 }

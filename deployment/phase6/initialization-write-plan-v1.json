@@ -2,6 +2,8 @@
   "schema_version": 1,
   "status": "ready_for_verified_write",
   "history_required": false,
+  "audience": "new_user",
+  "existing_profile_policy": "create_if_absent_else_preserve",
   "scheduled_writes_enabled": false,
   "operations": [
     {
@@ -11,12 +13,7 @@
       "record": {
         "user_id": "architectpass-user",
         "target_exam": "系统架构设计师",
-        "timezone": "Asia/Shanghai",
-        "current_video_progress": {
-          "course_scope": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
-          "reported_fraction": 0.5,
-          "confidence": "low"
-        }
+        "timezone": "Asia/Shanghai"
       },
       "request_id": "req-phase6-profile-v1",
       "audit_id": "audit-phase6-profile-v1"
@@ -263,50 +260,6 @@
       },
       "request_id": "req-phase6-resource-4a474dd400868889",
       "audit_id": "audit-phase6-resource-4a474dd400868889"
-    },
-    {
-      "operation": "update_video_progress",
-      "table": "video_progress",
-      "record_id": "video-9919eaa44c8728a664d6",
-      "record": {
-        "video_id": "video-9919eaa44c8728a664d6",
-        "watched_until": 611,
-        "status": "played_unchecked",
-        "last_watched_at": "2026-09-04T00:00:00Z",
-        "recall_checked": false,
-        "practice_checked": false,
-        "needs_rewatch": null,
-        "source_anchor": "baidunetdisk:player-resume-position:2026-09-04"
-      },
-      "request_id": "req-phase6-progress-video-9919eaa44c8728a664d6",
-      "audit_id": "audit-phase6-progress-video-9919eaa44c8728a664d6"
-    },
-    {
-      "operation": "record_study_event",
-      "table": "study_events",
-      "record_id": "phase6-cheko-baseline-710358",
-      "record": {
-        "event_id": "phase6-cheko-baseline-710358",
-        "event_type": "cheko_submitted_aggregate_baseline",
-        "topic_ids": [
-          "choice-databases"
-        ],
-        "payload": {
-          "question_count": 55,
-          "score_display": "42",
-          "elapsed_display": "00:19",
-          "aggregate_only": true,
-          "mastery_update_allowed": false
-        },
-        "source_ref": {
-          "cheko_result_id": "710358",
-          "import_method": "visible_submitted_report",
-          "ui_contract_version": "cheko-ui-2026-09-04.1"
-        },
-        "occurred_at": "2026-09-04T05:05:00Z"
-      },
-      "request_id": "req-phase6-cheko-baseline-710358",
-      "audit_id": "audit-phase6-cheko-baseline-710358"
     }
   ],
   "local_index_sources": [

@@ -19,7 +19,7 @@ description: 私有软考资料检索与进度技能。用户要求查 PDF 页�
 - `record_video_progress(...)`：保存播放事实为 `played_unchecked`，不得直接提升掌握度。
 - `process_new_material(...)`：按哈希增量处理；失败进入隔离并给出人工方案。
 
-已看约一半的视频先诊断再定点回看，禁止从头机械重学。OCR 仅用于普通提取失败的必要页；转写保留原视频时间轴。
+当前用户已学过的视频先诊断再定点回看；未知进度保持未知。OCR 仅用于普通提取失败的必要页；转写保留原视频时间轴。离线包从解压目录读取资料，使用 project/scripts/prepare_offline_materials.py 建立清单和页级索引；不要求登录百度网盘。
 
 ## 输出与错误
 

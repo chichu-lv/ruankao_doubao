@@ -7,22 +7,11 @@
   },
   "course_scope": "00、【推荐】【26年10月】wen老师架构课程（第二版）",
   "reported_progress": {
-    "approximate_fraction": 0.5,
+    "approximate_fraction": null,
     "precision": "course_scope",
-    "source": "user_statement",
-    "confidence": "low"
+    "source": "awaiting_current_user",
+    "confidence": "unknown"
   },
-  "observations": [
-    {
-      "video": "01.26年最新基础精讲/202605-0.架构第二版考试介绍考点分析学习方法.mp4",
-      "watched_until_seconds": 611,
-      "duration_seconds": 3631,
-      "status": "played_unchecked",
-      "recall_checked": false,
-      "practice_checked": false,
-      "needs_rewatch": null,
-      "source_anchor": "baidunetdisk:player-resume-position:2026-09-04"
-    }
-  ],
+  "observations": [],
   "learning_policy": "diagnose_then_targeted_rewatch_never_restart_by_default"
 }

@@ -27,8 +27,6 @@ class Phase6Builder:
 
     def build(self) -> dict[str, Any]:
         sources = _load(self.root / "materials/manifests/authorized-sources-v1.json")
-        progress = _load(self.root / "materials/manifests/video-progress-v1.json")
-        cheko = _load(self.root / "tests/fixtures/cheko-submitted-report-sanitized.json")
         knowledge = _load(self.root / "deployment/phase6/knowledge-map-v1.json")
         facts = _load(self.root / "deployment/phase6/project-facts-v1.json")
         seven_day = _load(self.root / "deployment/phase6/initial-seven-day-plan-v1.json")
@@ -44,11 +42,6 @@ class Phase6Builder:
                 "user_id": "architectpass-user",
                 "target_exam": "系统架构设计师",
                 "timezone": "Asia/Shanghai",
-                "current_video_progress": {
-                    "course_scope": progress["course_scope"],
-                    "reported_fraction": progress["reported_progress"]["approximate_fraction"],
-                    "confidence": progress["reported_progress"]["confidence"],
-                },
             },
             "phase6-profile-v1",
         ))
@@ -78,53 +71,12 @@ class Phase6Builder:
                 f"phase6-resource-{checksum[:16]}",
             ))
 
-        for observation in progress["observations"]:
-            video_key = f"{progress['course_scope']}/{observation['video']}"
-            video_id = _stable_id("video", video_key)
-            operations.append(self._operation(
-                "update_video_progress", "video_progress", video_id,
-                {
-                    "video_id": video_id,
-                    "watched_until": observation["watched_until_seconds"],
-                    "status": observation["status"],
-                    "last_watched_at": "2026-09-04T00:00:00Z",
-                    "recall_checked": observation["recall_checked"],
-                    "practice_checked": observation["practice_checked"],
-                    "needs_rewatch": observation["needs_rewatch"],
-                    "source_anchor": observation["source_anchor"],
-                },
-                f"phase6-progress-{video_id}",
-            ))
-
-        result = cheko["result"]
-        summary = result["summary"]
-        operations.append(self._operation(
-            "record_study_event", "study_events", "phase6-cheko-baseline-710358",
-            {
-                "event_id": "phase6-cheko-baseline-710358",
-                "event_type": "cheko_submitted_aggregate_baseline",
-                "topic_ids": ["choice-databases"],
-                "payload": {
-                    "question_count": summary["question_count"],
-                    "score_display": summary["score_display"],
-                    "elapsed_display": summary["elapsed_display"],
-                    "aggregate_only": True,
-                    "mastery_update_allowed": False,
-                },
-                "source_ref": {
-                    "cheko_result_id": result["cheko_result_id"],
-                    "import_method": result["import_method"],
-                    "ui_contract_version": result["ui_contract_version"],
-                },
-                "occurred_at": result["observed_at"],
-            },
-            "phase6-cheko-baseline-710358",
-        ))
-
         return {
             "schema_version": 1,
             "status": "ready_for_verified_write",
             "history_required": False,
+            "audience": "new_user",
+            "existing_profile_policy": "create_if_absent_else_preserve",
             "scheduled_writes_enabled": False,
             "operations": operations,
             "local_index_sources": [
@@ -137,24 +89,20 @@ class Phase6Builder:
         }
 
     def build_private_segments(self, pdf_catalog: Path, video_catalog: Path) -> dict[str, Any]:
-        allowed = {
-            (self.root / "materials/index/phase2-real-pdf-ocr-catalog.json").resolve(),
-            (self.root / "materials/index/phase2-real-video-catalog-v3.json").resolve(),
-        }
+        index_root = (self.root / "materials/index").resolve()
         supplied = {pdf_catalog.resolve(), video_catalog.resolve()}
-        if supplied != allowed:
-            raise InitializationError("private segment inputs must be the two exact allowlisted runtime catalogs")
+        if any(index_root not in path.parents for path in supplied):
+            raise InitializationError("private segment inputs must be inside materials/index")
         pdf = _load(pdf_catalog)
         video = _load(video_catalog)
-        video_source = next(
-            item["metadata"]["video_source_id"]
+        video_sources = {
+            item["resource_id"]: item.get("metadata", {}).get("video_source_id", item["resource_id"])
             for item in video["resources"]
-            if item.get("media_type") == "transcript"
-        )
+        }
         operations: list[dict[str, Any]] = []
         for kind, catalog in (("pdf", pdf), ("video", video)):
             for segment in catalog["segments"]:
-                resource_id = segment["resource_id"] if kind == "pdf" else video_source
+                resource_id = segment["resource_id"] if kind == "pdf" else video_sources[segment["resource_id"]]
                 record = {
                     "segment_id": segment["segment_id"],
                     "resource_id": resource_id,
@@ -172,8 +120,6 @@ class Phase6Builder:
                     "upsert_resource_segment", "resource_segments", segment["segment_id"], record,
                     f"phase6-segment-{segment['segment_id']}",
                 ))
-        if len(operations) != 49:
-            raise InitializationError(f"expected 49 private segments, got {len(operations)}")
         if len({item["record_id"] for item in operations}) != len(operations):
             raise InitializationError("private segment IDs must be unique")
         return {

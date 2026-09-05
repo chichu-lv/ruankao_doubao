@@ -26,7 +26,7 @@ Resolve the repository root from the current `main` checkout. Bind it only after
 
 ## Scheduling
 
-Daily and weekly prompt templates are read-only. The weekly target is the user-confirmed Saturday 20:00 Asia/Shanghai; the daily reminder stays unconfigured until the user separately confirms a time. Do not enable scheduled writes. Creating, changing or deleting any other external task remains a confirm-at-action operation.
+Daily and weekly prompt templates are read-only. Saturday 20:00 Asia/Shanghai is a suggested weekly time; configure reminders using the current user's preference. Existing installed schedules are retained. Scheduled writes remain disabled.
 
 ## Update and rollback
 

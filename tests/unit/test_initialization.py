@@ -1,5 +1,6 @@
 import json
 import unittest
+import tempfile
 from pathlib import Path
 
 from architectpass_initialization import Phase6Builder
@@ -17,20 +18,42 @@ class Phase6InitializationTests(unittest.TestCase):
         self.assertFalse(self.bundle["history_required"])
         profile = next(item for item in self.bundle["operations"] if item["table"] == "user_profile")
         self.assertNotIn("past_exam_scores", profile["record"])
+        self.assertNotIn("current_video_progress", profile["record"])
+        self.assertNotIn("target_exam_date", profile["record"])
 
     def test_only_traceable_authorized_real_evidence_is_planned(self) -> None:
         tables = {item["table"] for item in self.bundle["operations"]}
-        self.assertEqual({"user_profile", "topics", "resources", "video_progress", "study_events"}, tables)
+        self.assertEqual({"user_profile", "topics", "resources"}, tables)
         self.assertEqual(2, sum(item["table"] == "resources" for item in self.bundle["operations"]))
-        event = next(item for item in self.bundle["operations"] if item["table"] == "study_events")
-        self.assertEqual("710358", event["record"]["source_ref"]["cheko_result_id"])
-        self.assertFalse(event["record"]["payload"]["mastery_update_allowed"])
+        self.assertEqual("new_user", self.bundle["audience"])
+        self.assertEqual("create_if_absent_else_preserve", self.bundle["existing_profile_policy"])
 
     def test_every_write_has_unique_request_and_audit_id(self) -> None:
         requests = [item["request_id"] for item in self.bundle["operations"]]
         audits = [item["audit_id"] for item in self.bundle["operations"]]
         self.assertEqual(len(requests), len(set(requests)))
         self.assertEqual(len(audits), len(set(audits)))
+
+    def test_new_catalog_sizes_and_multiple_video_sources_are_supported(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            index = root / "materials/index"
+            index.mkdir(parents=True)
+            pdf = index / "new-user-pdf.json"
+            video = index / "new-user-video.json"
+            pdf.write_text(json.dumps({"resources": [], "segments": [
+                {"segment_id": "pdf-page", "resource_id": "pdf-a", "page": 1, "text": "sample", "citation_anchor": "pdf:a#page=1"}
+            ]}))
+            video.write_text(json.dumps({"resources": [
+                {"resource_id": "srt-a", "metadata": {"video_source_id": "video-a"}},
+                {"resource_id": "srt-b", "metadata": {"video_source_id": "video-b"}}
+            ], "segments": [
+                {"segment_id": "seg-a", "resource_id": "srt-a", "start_seconds": 600, "end_seconds": 610, "citation_anchor": "video:a#t=600"},
+                {"segment_id": "seg-b", "resource_id": "srt-b", "start_seconds": 20, "end_seconds": 30, "citation_anchor": "video:b#t=20"}
+            ]}))
+            result = Phase6Builder(root).build_private_segments(pdf, video)
+            self.assertEqual(3, len(result["operations"]))
+            self.assertEqual(["pdf-a", "video-a", "video-b"], [item["record"]["resource_id"] for item in result["operations"]])
 
     def test_knowledge_map_does_not_infer_mastery_or_weights(self) -> None:
         topic_ops = [item for item in self.bundle["operations"] if item["table"] == "topics"]
@@ -76,7 +99,7 @@ class Phase6InitializationTests(unittest.TestCase):
             else:
                 result = service.invoke("record_study_event", event=record, context=context)
             self.assertEqual("ok", result["status"], item["request_id"])
-        self.assertEqual(15, len(store.list("audit_log")))
+        self.assertEqual(13, len(store.list("audit_log")))
         self.assertEqual(10, len(store.list("topics")))
 
     def test_private_segments_replay_through_allowlisted_state_api(self) -> None:
