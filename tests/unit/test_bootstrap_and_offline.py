@@ -85,6 +85,7 @@ class OfflineBundleTests(unittest.TestCase):
             self.assertIn("ArchitectPass-offline/project/deployment/doubao/execution-context-v1.md", names)
             self.assertIn("ArchitectPass-offline/project/deployment/doubao/folder-skills-v1.md", names)
             self.assertIn("ArchitectPass-offline/project/scripts/install_doubao_folder_skills.py", names)
+            self.assertIn("ArchitectPass-offline/project/scripts/prepare_downloaded_materials.py", names)
             self.assertEqual(9, len([name for name in names if name.startswith("ArchitectPass-offline/prebuilt-skills/") and name.endswith(".zip")]))
             manifest = json.loads(archive.read("ArchitectPass-offline/offline-manifest.json"))
             self.assertEqual("private_personal_offline_backup", manifest["privacy"])

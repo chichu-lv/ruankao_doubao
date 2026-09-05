@@ -23,13 +23,13 @@ def save(path, payload):
     temporary.replace(path)
 
 
-def prepare(root, selected=()):
+def prepare(root, selected=(), *, source_root=None, source_manifest=None, index_prefix="offline"):
     from architectpass_materials import MaterialCatalog, MaterialImporter
     from architectpass_materials.models import MaterialContext, ResourceRecord, Segment
 
     bundle = root.parent
-    manifest = load(bundle / "offline-manifest.json")
-    materials = bundle / "private-materials"
+    manifest = source_manifest if source_manifest is not None else load(bundle / "offline-manifest.json")
+    materials = source_root if source_root is not None else bundle / "private-materials"
     authorized = tuple(materials / name for name in manifest["authorized_roots"])
     index = root / "materials/index"
     entries, missing = [], []
@@ -42,7 +42,7 @@ def prepare(root, selected=()):
     if missing:
         raise ValueError("资料未完整解压或大小不符：" + ", ".join(missing[:5]))
 
-    catalog_path = index / "offline-catalog.json"
+    catalog_path = index / f"{index_prefix}-catalog.json"
     catalog = MaterialCatalog()
     if catalog_path.is_file():
         old = load(catalog_path)
@@ -72,6 +72,7 @@ def prepare(root, selected=()):
     for item in chosen:
         source = Path(item["source_path"])
         digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        item["sha256"] = digest
         existing_id = catalog.by_checksum.get(digest)
         if existing_id:
             old_path = catalog.resources[existing_id].source_path
@@ -84,7 +85,7 @@ def prepare(root, selected=()):
         importer.import_file(source, context=context, copyright_scope="private_personal_exam_study")
         imported += 1
     # Relocate every persisted PDF, including files indexed in earlier sessions.
-    current_paths = {item["sha256"]: item["source_path"] for item in entries}
+    current_paths = {item["sha256"]: item["source_path"] for item in entries if item.get("sha256")}
     for resource in catalog.resources.values():
         if resource.checksum in current_paths:
             old_path = resource.source_path
@@ -94,7 +95,7 @@ def prepare(root, selected=()):
                     segment.open_target = segment.open_target.replace(old_path, resource.source_path, 1)
     generation = hashlib.sha256(json.dumps(entries, sort_keys=True).encode()).hexdigest()[:20]
     context = {"request_id": "offline-inventory-" + generation, "audit_id": "audit-offline-inventory-" + generation, "actor": "current-user-bootstrap"}
-    save(index / "offline-inventory.json", {"write_context": context, "material_file_count": len(entries), "materials": entries})
+    save(index / f"{index_prefix}-inventory.json", {"write_context": context, "material_file_count": len(entries), "materials": entries})
     save(catalog_path, {"write_context": context, "resources": [item.as_dict() for item in catalog.resources.values()],
                         "segments": [item.as_dict() for item in catalog.segments.values()], "audits": catalog.audits})
     return {"status": "PASS", "material_file_count": len(entries), "pdf_count": len(pdfs),
@@ -104,10 +105,10 @@ def prepare(root, selected=()):
             "video_transcription": "按学习片段处理；未声称已全量转写", "catalog": str(catalog_path)}
 
 
-def search(root, query):
+def search(root, query, index_prefix="offline"):
     from architectpass_materials import MaterialCatalog, MaterialSearch
     from architectpass_materials.models import ResourceRecord, Segment
-    data = load(root / "materials/index/offline-catalog.json")
+    data = load(root / f"materials/index/{index_prefix}-catalog.json")
     catalog = MaterialCatalog()
     catalog.resources = {item["resource_id"]: ResourceRecord(**item) for item in data["resources"]}
     catalog.segments = {item["segment_id"]: Segment(**item) for item in data["segments"]}

@@ -82,10 +82,10 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 ### 4. CREATE_PRIVATE_PROJECT
 
 - 先读 `folder-skills-v1.md`。核心持久入口是本次私有本机工作区及技能中的安装绑定，侧边栏项目与原生工作伙伴必须分别记状态，不混称。自身 UI 不可操作时可以继续文件夹安装和状态连接，不必阻塞在创建侧边栏容器；只有后续无路径新会话恢复实测通过，才可将其记为等价持久入口。
-- 首次创建新的、仅用户本人可见的豆包项目，名称取 `deployment/doubao/project-v1.json` 的 `target_project`。恢复时先核对用户确认属于本次部署的已创建项目，不重复创建。
+- 用户明确选择原生侧边栏导航时才创建豆包项目，名称取 `deployment/doubao/project-v1.json` 的 `target_project`；官方文件夹安装路径不以这次人工创建为前置条件，不称为“需要用户完成的唯一点击”。恢复时先核对用户确认属于本次部署的已创建项目，不重复创建。
 - 不复用、不删除、不重命名无关既有项目；特别保护清单中的 `preserve_projects`。
-- 当前账号没有独立私有工作伙伴入口时，以该私有 Project 作为等价持久容器并如实记录。
-- 已实测入口为桌面新工作任务页的「项目 → 创建新项目」。当前豆包无法操作自身菜单时，报告 `NEEDS_USER_UI`，请用户完成这一个动作并核对结果。禁止改用豆包网页或虚拟桌面创建项目、登录或启动第二个豆包会话；不使用客户端内部存储伪造项目。入口变化时请用户提供当前界面。
+- 当前账号没有独立私有工作伙伴入口时，可以使用实际已创建的私有 Project；自身 UI 不可操作时优先验证本机工作区与技能绑定作为等价持久入口，原生对象明确标为未创建。
+- 已实测入口为桌面新工作任务页的「项目 → 创建新项目」。只有用户选择此可选导航入口时，自身菜单不可操作才报告 `NEEDS_USER_UI` 并请求具体动作。禁止改用豆包网页或虚拟桌面创建项目、登录或启动第二个豆包会话；不使用客户端内部存储伪造项目。入口变化时请用户提供当前界面。
 - 需要用户创建侧边栏项目时只让其填名称并用「添加本地文件夹」选择本次实际根目录。当前 Mac 窗口没有可见性/指令/单独上下文上传字段，不能要求用户找这些不存在的选项。未创建侧边栏项目时明确标注，不能声称原生项目创建成功。
 
 ### 5. INSTALL_SKILLS
@@ -108,6 +108,9 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 
 ### 7. CONNECT_PRIVATE_MATERIALS
 
+- 遵守 `execution-context-v1.md` 的有限重试规则：同一网盘能力最多检索两次，仍无法真正调用即记录 `CONNECTOR_NOT_CALLABLE`，继续本地资料与状态层，不能反复取回 schema 冒充目录读取。
+- 先只读核对本次 `materials/inbox/`，以及当前用户 Downloads 下**以下两个精确命名的子目录**（不列举 Downloads 根、不搜索历史安装）。若两个已下载目录存在，由豆包运行 `<项目私有 Python> scripts/prepare_downloaded_materials.py --source-parent "<当前用户 Downloads>"`；或使用用户明确指定的资料父目录。该入口只遍历两个授权子目录，复用原始课程、在新项目里建立首批页级索引，不复制用户旧索引/学习状态，也不将本地可读记作网盘远端已验证。
+- 用 `scripts/prepare_downloaded_materials.py --search "系统架构"` 验证新索引返回具体文件和页码。已有本地资料时，远端连接暂不可用不得阻止本地训练；缺资料则继续后述官方客户端/浏览器获取，不伪造内容。
 - 读取 `project-v1.json` 的 `materials.authorized_baidu_scopes` 和 `materials/manifests/authorized-sources-v1.json`；只允许以下两个精确目录：
   - `00、【推荐】【26年10月】wen老师架构课程（第二版）`
   - `5、【2026年05月】芝士架构系统架构设计师`
