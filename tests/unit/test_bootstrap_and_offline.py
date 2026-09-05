@@ -106,6 +106,9 @@ class BootstrapContractTests(unittest.TestCase):
         self.assertIn("需新增 0 行", protocol)
         for name in ("deployment/offline/bootstrap-v1.md", "deployment/doubao/bootstrap-v1.md"):
             self.assertIn("write-protocol-v1.md", (ROOT / name).read_text(encoding="utf-8"))
+        health = (ROOT / "skills/doubao/ruankao-healthcheck-v1/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("不把账号下其他项目的提醒计入本项目", health)
+        self.assertIn("不因未登录网盘降低离线安装状态", health)
 
     def test_windows_vendored_dependencies_are_relocatable_and_repeatable(self):
         spec = importlib.util.spec_from_file_location("bootstrap_local", ROOT / "scripts/bootstrap_local.py")
