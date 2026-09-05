@@ -21,6 +21,41 @@ EXPECTED = {
 
 
 class DoubaoSkillPackageTests(unittest.TestCase):
+    def test_deployment_stays_in_current_doubao_and_checks_local_target(self) -> None:
+        context = (ROOT / "deployment/doubao/execution-context-v1.md").read_text(encoding="utf-8")
+        for required in (
+            "你就是用户正在对话的豆包", "你不是 Codex", "CONTEXT_CHECK",
+            "NEEDS_LOCAL_MODE", "NEEDS_USER_UI", "在虚拟桌面登录豆包",
+            "不要将打开豆包官方网站", "不重复部署", "读取失败当作不存在",
+        ):
+            self.assertIn(required, context)
+        for relative in (
+            "README.md", "02_交给Codex的总执行指令.md",
+            "deployment/doubao/bootstrap-v1.md",
+            "deployment/offline/bootstrap-v1.md",
+            "deployment/doubao/system-instructions-v1.md",
+            "deployment/doubao/README.md",
+        ):
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("execution-context-v1.md", text, relative)
+        for relative in ("deployment/doubao/bootstrap-v1.md", "deployment/offline/bootstrap-v1.md"):
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("NEEDS_LOCAL_MODE", text)
+            self.assertIn("NEEDS_USER_UI", text)
+            self.assertNotIn("可通过同账号豆包官方网页创建", text)
+            self.assertNotIn("可以使用同账号的豆包官方网页", text)
+
+    def test_copyable_prompt_blocks_nested_login_and_preserves_resume_state(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        prompt = next(block for block in re.findall(r"```text\n(.*?)\n```", readme, re.S)
+                      if "请从公开仓库" in block)
+        for required in (
+            "你就是当前执行部署的豆包", "不要打开另一个豆包",
+            "在虚拟桌面登录豆包", "先确认当前工具", "具体点击",
+            "先核对后继续", "只有首次无档案时", "不重做 Codex",
+        ):
+            self.assertIn(required, prompt)
+
     def test_git_bootstrap_is_the_documented_delivery_entry(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         bootstrap = (ROOT / "deployment" / "doubao" / "bootstrap-v1.md").read_text(encoding="utf-8")

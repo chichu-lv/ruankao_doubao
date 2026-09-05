@@ -20,6 +20,15 @@ AUTHORIZED_ROOTS = (
 
 
 class OfflineBundleTests(unittest.TestCase):
+    def test_generated_offline_prompt_prevents_nested_doubao_login(self) -> None:
+        readme = OfflineBundleBuilder._offline_readme("COMPLETE")
+        for required in (
+            "你就是当前执行部署的豆包", "不要打开另一个豆包",
+            "在虚拟桌面登录豆包", "execution-context-v1.md",
+            "具体点击", "已有本次项目和状态先核对后继续",
+        ):
+            self.assertIn(required, readme)
+
     def setUp(self) -> None:
         self.temporary = tempfile.TemporaryDirectory()
         self.base = Path(self.temporary.name)
@@ -73,6 +82,7 @@ class OfflineBundleTests(unittest.TestCase):
             self.assertIn("ArchitectPass-offline/README-OFFLINE.md", names)
             self.assertIn("ArchitectPass-offline/offline-manifest.json", names)
             self.assertIn("ArchitectPass-offline/project/README.md", names)
+            self.assertIn("ArchitectPass-offline/project/deployment/doubao/execution-context-v1.md", names)
             self.assertEqual(9, len([name for name in names if name.startswith("ArchitectPass-offline/prebuilt-skills/") and name.endswith(".zip")]))
             manifest = json.loads(archive.read("ArchitectPass-offline/offline-manifest.json"))
             self.assertEqual("private_personal_offline_backup", manifest["privacy"])

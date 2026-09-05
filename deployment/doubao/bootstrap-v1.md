@@ -2,6 +2,8 @@
 
 本文是豆包从公开仓库 main 源码 ZIP 执行安装的正式入口。无需 Git、SSH、GitHub 登录或预装 Python。仓库是代码交付源；本机旧配置只能作为验证证据，不能成为新用户的安装前提。
 
+首先完整读取并执行 [execution-context-v1.md](execution-context-v1.md)。当前执行者就是豆包，不是 Codex；必须先通过 `CONTEXT_CHECK`，不允许在虚拟桌面登录豆包或启动另一个豆包来安装本项目。只有云电脑时报告 `NEEDS_LOCAL_MODE`；无法操作自身菜单时报告 `NEEDS_USER_UI`，请求具体用户点击。
+
 ## 离线包与新用户
 
 如果项目的父目录包含 `offline-manifest.json`，改为执行 `deployment/offline/bootstrap-v1.md`。该模式使用包内项目和资料，无需 `.git`、Git 分支或百度网盘登录；不得执行下文 FETCH/Git 校验步骤。
@@ -24,7 +26,7 @@
 1. 根目录 `README.md`；
 2. `01_豆包软考私教系统_Codex开发说明书.md`；
 3. `04_验收清单.md`；
-4. `02_交给Codex的总执行指令.md`；
+4. `02_交给Codex的总执行指令.md`（保留产品职责与验收约束；其开发者角色、Phase 0 和操作另一个豆包的历史任务不在用户安装时执行）；
 5. `03_豆包工作伙伴_最终系统指令模板.md`；
 6. `deployment/doubao/README.md`、`project-v1.json`、`skills-v1.json`、`schedules-v1.json` 和 `system-instructions-v1.md`。
 
@@ -32,7 +34,7 @@
 
 ## 自举状态机
 
-严格执行并逐项留下证据：
+先完成 `CONTEXT_CHECK`，再严格执行并逐项留下证据；中断恢复先回读本次已完成步骤，不重建已确认对象：
 
 ```text
 FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
@@ -76,15 +78,16 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 
 ### 4. CREATE_PRIVATE_PROJECT
 
-- 创建新的、仅用户本人可见的豆包项目，名称取 `deployment/doubao/project-v1.json` 的 `target_project`。
-- 不复用、不删除、不重命名任何既有项目；特别保护清单中的 `preserve_projects`。
+- 首次创建新的、仅用户本人可见的豆包项目，名称取 `deployment/doubao/project-v1.json` 的 `target_project`。恢复时先核对用户确认属于本次部署的已创建项目，不重复创建。
+- 不复用、不删除、不重命名无关既有项目；特别保护清单中的 `preserve_projects`。
 - 当前账号没有独立私有工作伙伴入口时，以该私有 Project 作为等价持久容器并如实记录。
-- 已实测入口为新工作任务页的「项目 → 创建新项目」。桌面辅助功能仅显示菜单栏时，可通过同账号豆包官方网页创建，并在桌面侧边栏回读验证同步；不使用客户端内部存储伪造项目。网页默认云电脑不等于本地电脑，读取本机仓库和资料前必须在桌面任务确认选择「本地电脑」。
+- 已实测入口为桌面新工作任务页的「项目 → 创建新项目」。当前豆包无法操作自身菜单时，报告 `NEEDS_USER_UI`，请用户完成这一个动作并核对结果。禁止改用豆包网页或虚拟桌面创建项目、登录或启动第二个豆包会话；不使用客户端内部存储伪造项目。入口变化时请用户提供当前界面。
 
 ### 5. INSTALL_SKILLS
 
 - 从 `dist/doubao-skills/` 安装 `skills-v1.json` 列出的九个 ZIP，保持私有。
 - 每个技能必须显示 READY/启用，名称和版本与清单一致；安全检测未完成的技能不能算 PASS。
+- 自身技能界面不可操作时，请用户在桌面个人技能中导入已生成的本机 ZIP，再回读；不转到虚拟桌面或另一个豆包。中断恢复时同内容且已启用的技能可复用，不重复安装。
 - 不覆盖同名旧版本。升级时并行安装新版本、验证、切换；回滚时禁用新版本并重新启用旧版本。
 - 删除任何技能必须再次取得用户对精确目标的确认。
 
