@@ -1,0 +1,43 @@
+name: Windows offline acceptance
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare distributable Windows runtime
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force vendor/wheels-windows | Out-Null
+          Invoke-WebRequest https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-amd64.zip -OutFile vendor/python-windows-amd64.zip
+          python -m pip download --only-binary=:all: --dest vendor/wheels-windows pdfplumber==0.11.9
+      - name: Install from bundled files
+        shell: cmd
+        run: scripts\start_windows.cmd --prepare-only
+      - name: Full Windows regression suite
+        shell: pwsh
+        run: |
+          & .runtime/python/python.exe -X utf8 -m unittest discover -s tests/unit -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: New user without Git or Python on PATH
+        shell: pwsh
+        run: |
+          & .runtime/python/python.exe -X utf8 scripts/test_windows_clean_install.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-acceptance
+          path: dist/acceptance/windows-*.json

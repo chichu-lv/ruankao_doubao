@@ -244,7 +244,7 @@ class OfflineBundleBuilder:
 
 资料状态：`{status}`。如果状态是 `PARTIAL`，先查看 `offline-manifest.json` 的 `declared_missing`。该状态表示包内资料完整性，豆包项目是否安装完成须以真实安装结果为准。
 
-Apple 芯片 Mac 已附带 Python 3.12 和依赖，可在 project 目录运行 `bash scripts/start_macos.sh`。其他系统需 Python 3.11+，运行 `python scripts/bootstrap_local.py`；首次安装依赖需要访问 Python 包源。豆包、飞书、芝士架构是在线服务，使用接收者自己的账号。
+Windows 10/11 64 位与 Apple 芯片 Mac 已附带 Python 3.12 和依赖，无需预装 Python 或 Git，也无需访问包源。Windows 建议解压至 `C:\\AP` 等短路径，在 project 目录运行 `scripts\\start_windows.cmd`；Mac 运行 `bash scripts/start_macos.sh`。豆包、飞书、芝士架构是在线服务，使用接收者自己的账号。
 
 将整个 `ArchitectPass-offline` 目录解压到用户选择的私有本机目录。不要把本压缩包或课程资料上传到公开 Git、网盘、聊天附件或公共项目。
 

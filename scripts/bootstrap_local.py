@@ -16,6 +16,7 @@ import subprocess
 import sys
 import platform
 import tarfile
+import zipfile
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -40,6 +41,8 @@ class BootstrapError(RuntimeError):
 
 def project_python() -> Path:
     if os.name == "nt":
+        if (ROOT / "vendor/python-windows-amd64.zip").is_file():
+            return RUNTIME_ROOT / "python/python.exe"
         return VENV / "Scripts" / "python.exe"
     return VENV / "bin" / "python3"
 
@@ -99,6 +102,16 @@ def uv_environment() -> Dict[str, str]:
 
 
 def bundled_python() -> Optional[Path]:
+    if os.name == "nt":
+        archive = ROOT / "vendor/python-windows-amd64.zip"
+        if not archive.is_file():
+            return None
+        destination = RUNTIME_ROOT / "python"
+        if not (destination / "python.exe").is_file():
+            destination.mkdir(parents=True, exist_ok=True)
+            with zipfile.ZipFile(archive) as package:
+                package.extractall(destination)
+        return destination / "python.exe"
     if platform.system() != "Darwin" or platform.machine() != "arm64":
         return None
     archive = ROOT / "vendor/python-macos-arm64.tar.gz"
@@ -120,6 +133,8 @@ def create_venv(offline: bool = False) -> Tuple[Path, str]:
 
     source = bundled_python() or next((path for path in candidate_pythons() if path != existing and compatible(path)), None)
     if source is not None:
+        if os.name == "nt" and source == RUNTIME_ROOT / "python/python.exe":
+            return source, "bundled_windows_python"
         result = subprocess.run([str(source), "-m", "venv", str(VENV)], cwd=ROOT, check=False)
         if result.returncode != 0:
             raise BootstrapError(f"compatible Python was found but could not create .venv: {source}")
@@ -145,7 +160,31 @@ def create_venv(offline: bool = False) -> Tuple[Path, str]:
     return project_python(), "uv_managed_python_3.12"
 
 
+def install_windows_wheels(runtime: Path, wheelhouse: Path) -> None:
+    """Vendor dependencies for Python's embeddable distribution (no pip needed)."""
+    wheels = sorted(wheelhouse.glob("*.whl"))
+    if not wheels:
+        raise BootstrapError("Windows dependency wheels are absent from this package")
+    destination = runtime / "Lib/site-packages"
+    destination.mkdir(parents=True, exist_ok=True)
+    marker = destination / "architectpass-installed.json"
+    names = [wheel.name for wheel in wheels]
+    installed = json.loads(marker.read_text(encoding="utf-8")) if marker.is_file() else []
+    if installed != names:
+        for wheel in wheels:
+            with zipfile.ZipFile(wheel) as package:
+                package.extractall(destination)
+        marker.write_text(json.dumps(names), encoding="utf-8")
+    # Relative paths remain valid after moving the complete unpacked directory.
+    (runtime / "python312._pth").write_text(
+        "python312.zip\n.\nLib/site-packages\n../../backend\n../..\nimport site\n", encoding="utf-8"
+    )
+
+
 def install_project(interpreter: Path, offline: bool) -> str:
+    if os.name == "nt" and interpreter == RUNTIME_ROOT / "python/python.exe":
+        install_windows_wheels(interpreter.parent, ROOT / "vendor/wheels-windows")
+        return "bundled_windows_wheels"
     uv = shutil.which("uv")
     wheelhouse = ROOT / "vendor" / "wheels"
     if offline:
@@ -187,6 +226,8 @@ def run_healthchecks(interpreter: Path) -> Tuple[str, List[Dict[str, object]]]:
             cwd=ROOT,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            env={**os.environ, "PYTHONUTF8": "1"},
             check=False,
         )
         output = (result.stdout + result.stderr).strip()
@@ -216,7 +257,10 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        use_offline = args.offline or (ROOT / "vendor/python-macos-arm64.tar.gz").is_file() and platform.system() == "Darwin" and platform.machine() == "arm64"
+        use_offline = args.offline or (
+            (ROOT / "vendor/python-macos-arm64.tar.gz").is_file()
+            and platform.system() == "Darwin" and platform.machine() == "arm64"
+        ) or (os.name == "nt" and (ROOT / "vendor/python-windows-amd64.zip").is_file())
         interpreter, runtime_source = create_venv(use_offline)
         installer = install_project(interpreter, use_offline)
         version = python_version(interpreter)

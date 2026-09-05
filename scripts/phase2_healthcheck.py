@@ -75,7 +75,6 @@ def main() -> int:
 
     environment = dict(__import__("os").environ)
     environment["PYTHONPATH"] = str(ROOT / "backend")
-    environment["PYTHONPYCACHEPREFIX"] = "/private/tmp/architectpass-phase2-pycache"
     if importlib.util.find_spec("pdfplumber") is None:
         print("PARTIAL: Python dependency pdfplumber is unavailable; PDF indexing uses the official-UI/manual-page fallback")
         optional.append(False)

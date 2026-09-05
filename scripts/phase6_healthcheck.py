@@ -52,7 +52,6 @@ def main() -> int:
     checks["private page/time segment plan"] = private_result.returncode in {0, 2}
     environment = dict(os.environ)
     environment["PYTHONPATH"] = str(ROOT / "backend")
-    environment["PYTHONPYCACHEPREFIX"] = "/private/tmp/architectpass-phase6-pycache"
     tests = subprocess.run(
         [sys.executable, "-m", "unittest", "tests.unit.test_initialization", "-v"],
         cwd=ROOT,

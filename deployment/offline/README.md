@@ -41,6 +41,8 @@ python3 scripts/verify_offline_bundle.py "dist/offline/architectpass-offline-1.1
 
 实际安装协议是 `deployment/offline/bootstrap-v1.md`。新用户档案不带原用户观看进度或练习记录。资料清单和首批页级索引由 `scripts/prepare_offline_materials.py` 在解压位置生成，重复运行会复用已索引内容。
 
-当前完整包附带 Apple 芯片 Mac 的 Python 3.12 与依赖，使用 `bash scripts/start_macos.sh` 无网络安装本地组件。其他平台需要 Python 3.11+ 和首次安装依赖的网络；具体平台的实测结果以随交付的测试结论为准。模型文件不等于 OCR/ASR 可执行程序，缺少这些程序时使用本地文件阅读和精确页码/时间点。
+完整包附带 Windows 10/11 x64 与 Apple 芯片 Mac 的 Python 3.12 和依赖。Windows 在 project 中运行 `scripts\start_windows.cmd`，Mac 运行 `bash scripts/start_macos.sh`，均无需网络安装本地组件。Windows 使用官方 Python 3.12.10 嵌入式运行环境，依赖直接随应用部署，不修改系统 Python。建议解压至 `C:\AP` 等短路径。具体平台的实测结果以随交付的测试结论为准。模型文件不等于 OCR/ASR 可执行程序，缺少这些程序时使用本地文件阅读和精确页码/时间点。
+
+运行环境来源：[Python 官方 Windows 发行](https://www.python.org/downloads/release/python-31210/)。
 
 本包含有受授权范围约束的课程材料，只能私下保存和用于个人学习，不得发布、分享或提交到 Git。建议存放在加密磁盘或系统受保护目录；生成器不会假装普通 ZIP 自带可靠加密。

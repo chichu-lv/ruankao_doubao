@@ -4,8 +4,8 @@
 
 1. 读取包根的 `README-OFFLINE.md`、`offline-manifest.json`，以及 `project/` 内 README、01 产品说明、02 总执行指令、03 系统指令模板和04 验收清单。原产品背景不作为新用户档案，开发阶段审计无需重做。
 2. 以包内 `project/` 为代码目录，`private-materials/` 为资料目录；校验目录和文件数量。包中没有 `.git` 是正常的，无需连接 GitHub 或百度网盘。
-3. 在 `project/` 中，Apple 芯片 Mac 运行 `bash scripts/start_macos.sh`，自动使用包内 Python 和依赖，无需预装 Python、uv 或连接包源；其他系统运行 `python3 scripts/bootstrap_local.py`。使用 `dist/bootstrap/local-bootstrap-result.json` 判断本地安装；缺少 OCR/ASR 可用本地 PDF 阅读、页码和视频时间点继续学习。
-4. 运行 `.venv/bin/python3 scripts/prepare_offline_materials.py`（Windows 用 `.venv/Scripts/python.exe`），生成解压路径下的全量资料清单和首批 PDF 页级索引。后续使用 `--file "相对于 private-materials 的文件路径"` 增量索引所需 PDF，`--search "知识点"` 检索。运行结果会列出已索引与未索引范围，不能把目录登记当成全量全文转写。
+3. Windows 10/11 64 位建议解压至 `C:\AP` 等短路径，在 `project/` 中运行 `scripts\start_windows.cmd`；Apple 芯片 Mac 运行 `bash scripts/start_macos.sh`。二者自动使用包内 Python 和依赖，无需预装 Python、Git 或连接包源。使用 `dist/bootstrap/local-bootstrap-result.json` 判断本地安装；缺少 OCR/ASR 可用本地 PDF 阅读、页码和视频时间点继续学习。
+4. Windows 运行 `.runtime\python\python.exe -X utf8 scripts\prepare_offline_materials.py`；Mac 运行 `.venv/bin/python3 scripts/prepare_offline_materials.py`。生成解压路径下的全量资料清单和首批 PDF 页级索引。后续使用 `--file "相对于 private-materials 的文件路径"` 增量索引所需 PDF，`--search "知识点"` 检索。运行结果会列出已索引与未索引范围，不能把目录登记当成全量全文转写。
 5. 创建新的豆包私有项目 `架构上岸教练`（已有同名项目时增加后缀）。安装 `prebuilt-skills/` 中九个技能；若当前账号已存在同内容且启用的技能可复用。把 `project/deployment/doubao/system-instructions-v1.md` 绑定到项目，并告知代码与资料目录的实际位置。
 6. 使用当前账号的飞书连接器，在用户选择的私人空间创建 `ArchitectPass State v1`，按 `schemas/feishu-bitable-v1.json` 建立 15 张表。已有 Base 时先确认是本次要继续使用的学习状态。测试安装使用另名 Base，并在项目里持久记住该名称。
 7. 执行 `deployment/phase6/initialization-write-plan-v1.json` 的空档案和知识点初始化；已存在的用户画像原样保留。离线资源记录优先取 `materials/index/offline-inventory.json` 的本地路径，页级片段取 `materials/index/offline-catalog.json`。只有当前用户提供的学习结果才写入学习事件、掌握度和复习队列。

@@ -92,6 +92,23 @@ class OfflineBundleTests(unittest.TestCase):
 
 
 class BootstrapContractTests(unittest.TestCase):
+    def test_windows_vendored_dependencies_are_relocatable_and_repeatable(self):
+        spec = importlib.util.spec_from_file_location("bootstrap_local", ROOT / "scripts/bootstrap_local.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with tempfile.TemporaryDirectory() as directory:
+            runtime = Path(directory) / "project/.runtime/python"
+            wheels = Path(directory) / "wheels"
+            wheels.mkdir()
+            with zipfile.ZipFile(wheels / "fixture.whl", "w") as wheel:
+                wheel.writestr("fixture/__init__.py", "VALUE = 42\n")
+            module.install_windows_wheels(runtime, wheels)
+            module.install_windows_wheels(runtime, wheels)
+            self.assertEqual("VALUE = 42\n", (runtime / "Lib/site-packages/fixture/__init__.py").read_text())
+            paths = (runtime / "python312._pth").read_text()
+            self.assertIn("../../backend", paths)
+            self.assertNotIn(directory, paths)
+
     def test_readme_uses_the_python39_compatible_bootstrap_entry(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         bootstrap = (ROOT / "deployment/doubao/bootstrap-v1.md").read_text(encoding="utf-8")

@@ -48,7 +48,6 @@ def main() -> int:
 
     environment = dict(os.environ)
     environment["PYTHONPATH"] = str(ROOT / "backend")
-    environment["PYTHONPYCACHEPREFIX"] = "/private/tmp/architectpass-phase5-pycache"
     tests = subprocess.run(
         [sys.executable, "-m", "unittest", "tests.unit.test_doubao_skills", "-v"],
         cwd=ROOT,
