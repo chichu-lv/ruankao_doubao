@@ -218,3 +218,8 @@ Status: `PROTOCOL_REGRESSION_PASS / RECIPIENT_RECOVERY_PENDING`. The user report
 ## Clean-user deployment reset — 2026-09-06
 
 Status: `CLEANUP_PARTIAL / NEW_DEPLOYMENT_NOT_STARTED`. Following explicit reset and irreversible-deletion confirmation, real UI removal is verified for two project containers, twelve custom skills, one project connector, four scheduled tasks and eighteen project chats. Unrelated projects/chats remain. The default local binding was quarantined, not destroyed. Project keyword message searches return no recent matches. Automatic memory remains enabled pending a temporary-disable confirmation, and five exact project cloud files remain pending explicit removal confirmation after an approval rejection; no workaround was attempted. Do not count this partial reset or old environment as a new-user test. See `docs/test-results/clean-user-deployment-2026-09-06.md`.
+# 2026-09-06 clean-user attempt and official folder route
+
+Completed exact five-file cloud cleanup after confirmation and temporarily disabled memory. Attempt 1 (main 1.1.4) failed: guided binding controls absent, nine manual imports required, and review skill residue invalidated full clean-state confidence. No nested Doubao login occurred. See `docs/test-results/clean-user-deployment-2026-09-06.md`.
+
+Read current official skill-creator instructions and independently verified a folder probe in a distinct new local task. Added ADR-009 and main 1.1.5 folder installation/binding candidate; 108 regression tests pass. Full attempt 2 remains pending renewed cleanup. Automatic memory is temporarily off and must be restored when testing ends.
