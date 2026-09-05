@@ -16,7 +16,7 @@ test_windows_vendored_dependencies_are_relocatable_and_repeatable (test_bootstra
 test_complete_label_is_refused_when_declared_files_are_missing (test_bootstrap_and_offline.OfflineBundleTests.test_complete_label_is_refused_when_declared_files_are_missing) ... ok
 test_credential_like_file_is_rejected (test_bootstrap_and_offline.OfflineBundleTests.test_credential_like_file_is_rejected) ... ok
 test_partial_bundle_is_private_self_describing_and_installable (test_bootstrap_and_offline.OfflineBundleTests.test_partial_bundle_is_private_self_describing_and_installable) ... ok
-test_relocated_package_indexes_searches_and_replays_without_duplicates (test_bootstrap_and_offline.OfflineFirstUseTests.test_relocated_package_indexes_searches_and_replays_without_duplicates) ... ERROR
+test_relocated_package_indexes_searches_and_replays_without_duplicates (test_bootstrap_and_offline.OfflineFirstUseTests.test_relocated_package_indexes_searches_and_replays_without_duplicates) ... ok
 test_custom_paper_distinguishes_main_questions_from_answer_items (test_cheko_practice.ChekoPracticeTests.test_custom_paper_distinguishes_main_questions_from_answer_items) ... ok
 test_custom_paper_rejects_inconsistent_count_or_accuracy (test_cheko_practice.ChekoPracticeTests.test_custom_paper_rejects_inconsistent_count_or_accuracy) ... ok
 test_idempotent_result_replay_and_operation_allowlist (test_cheko_practice.ChekoPracticeTests.test_idempotent_result_replay_and_operation_allowlist) ... ok
@@ -94,15 +94,7 @@ test_unknown_operation_is_blocked (test_state_service.StateServiceTests.test_unk
 test_untraceable_event_is_rejected_and_failure_audited (test_state_service.StateServiceTests.test_untraceable_event_is_rejected_and_failure_audited) ... ok
 test_viewing_alone_cannot_raise_mastery_above_one (test_state_service.StateServiceTests.test_viewing_alone_cannot_raise_mastery_above_one) ... ok
 
-======================================================================
-ERROR: test_relocated_package_indexes_searches_and_replays_without_duplicates (test_bootstrap_and_offline.OfflineFirstUseTests.test_relocated_package_indexes_searches_and_replays_without_duplicates)
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "D:\a\ruankao_doubao\ruankao_doubao\tests\unit\test_bootstrap_and_offline.py", line 149, in test_relocated_package_indexes_searches_and_replays_without_duplicates
-    from tests.unit.test_materials import write_minimal_pdf, MARKER
-ModuleNotFoundError: No module named 'tests'
+Ran 95 tests in 1.001s
 
-----------------------------------------------------------------------
-Ran 95 tests in 0.990s
-
-FAILED (errors=1, skipped=3)
+OK (skipped=3)

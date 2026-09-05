@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\a\ruankao_doubao\ruankao_doubao\scripts\test_windows_clean_install.py", line 89, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\a\ruankao_doubao\ruankao_doubao\scripts\test_windows_clean_install.py", line 62, in main
+    run([environment["SystemRoot"] + r"\System32\cmd.exe", "/c", str(project / "scripts/start_windows.cmd")])
+         ~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'SystemRoot'
