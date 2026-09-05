@@ -38,8 +38,15 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Resume failed.' }
     if ((Get-Content -Raw -Encoding UTF8 -LiteralPath $receiptPath) -ne $before) { throw 'Resume replaced source receipt.' }
     if ((Get-Content -Raw -Encoding UTF8 -LiteralPath $sentinel).Trim() -ne 'preserve-user-data') { throw 'User data changed.' }
+    # Also exercise the actual user-facing default main URL, not only a pinned commit.
+    $mainDestination = Join-Path $testRoot '默认 main 来源'
+    & $powershell -NoProfile -ExecutionPolicy Bypass -File $launcher -Destination $mainDestination -FetchOnly
+    if ($LASTEXITCODE -ne 0) { throw 'Default main source download failed.' }
+    $mainReceipt = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $mainDestination 'dist\bootstrap\public-source.json') | ConvertFrom-Json
+    if ($mainReceipt.source_ref -ne 'main' -or $null -ne $mainReceipt.source_commit) { throw 'Default main provenance is incorrect.' }
+    if (Test-Path (Join-Path $mainDestination '.git')) { throw 'Default main unexpectedly requires Git.' }
     $result = [ordered]@{status='PASS'; source_commit=$revision; source_kind='public_source_zip'; git_on_path=$false; python_on_path=$false;
-        anonymous_download=$true; chinese_space_path=$true; skill_count=$skills.Count; bootstrap=$bootstrap;
+        anonymous_download=$true; default_main_download=$true; chinese_space_path=$true; skill_count=$skills.Count; bootstrap=$bootstrap;
         repeat_preserves_source_and_user_file=$true; doubao_windows_gui='NOT_TESTED'; baidu_windows_client='NOT_TESTED'}
     $output = Join-Path $root 'dist\acceptance\windows-public-install.json'
     New-Item -ItemType Directory -Force -Path (Split-Path -Parent $output) | Out-Null

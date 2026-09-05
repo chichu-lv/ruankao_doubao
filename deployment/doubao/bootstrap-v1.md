@@ -72,6 +72,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 - 只有专项测试通过、九个哈希齐全且没有未解析占位符时才继续。
 - 非 Windows 路径若既没有 Python 3.11+ 也没有 `uv`，明确报告一个通过官方来源安装 Python 3.12 或 `uv` 的用户动作；不得修改系统 Python，不得伪造 ZIP 或 PASS。
 - `phase2_healthcheck.py` 的 `PARTIAL` 表示本地 OCR/ASR 能力不完整但官方界面人工页码/时间点兜底仍可用，不得把该状态改写为 PASS。
+- 后续步骤中的 `python3 scripts/...` 是脚本调用示例，不要求系统 Python：Windows 始终在实际根目录用 `.runtime\python\python.exe -X utf8 scripts\...`，Mac 用 `.venv/bin/python3 scripts/...`。不要因为系统找不到 python3 再引导用户安装一套全局环境。
 
 ### 4. CREATE_PRIVATE_PROJECT
 
