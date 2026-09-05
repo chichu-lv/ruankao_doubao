@@ -11,6 +11,7 @@ test_restore_requires_current_backup_confirmation_and_preserves_idempotency (tes
 test_healthcheck_classifier_ignores_partial_word_inside_descriptions (test_bootstrap_and_offline.BootstrapContractTests.test_healthcheck_classifier_ignores_partial_word_inside_descriptions) ... ok
 test_new_user_bootstrap_requires_verified_idempotent_live_writes (test_bootstrap_and_offline.BootstrapContractTests.test_new_user_bootstrap_requires_verified_idempotent_live_writes) ... ok
 test_readme_uses_the_python39_compatible_bootstrap_entry (test_bootstrap_and_offline.BootstrapContractTests.test_readme_uses_the_python39_compatible_bootstrap_entry) ... ok
+test_windows_download_contract_pins_the_complete_wheelhouse (test_bootstrap_and_offline.BootstrapContractTests.test_windows_download_contract_pins_the_complete_wheelhouse) ... ok
 test_windows_vendored_dependencies_are_relocatable_and_repeatable (test_bootstrap_and_offline.BootstrapContractTests.test_windows_vendored_dependencies_are_relocatable_and_repeatable) ... ok
 test_complete_label_is_refused_when_declared_files_are_missing (test_bootstrap_and_offline.OfflineBundleTests.test_complete_label_is_refused_when_declared_files_are_missing) ... ok
 test_credential_like_file_is_rejected (test_bootstrap_and_offline.OfflineBundleTests.test_credential_like_file_is_rejected) ... ok
@@ -97,11 +98,11 @@ test_viewing_alone_cannot_raise_mastery_above_one (test_state_service.StateServi
 ERROR: test_relocated_package_indexes_searches_and_replays_without_duplicates (test_bootstrap_and_offline.OfflineFirstUseTests.test_relocated_package_indexes_searches_and_replays_without_duplicates)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "D:\a\ruankao_doubao\ruankao_doubao\tests\unit\test_bootstrap_and_offline.py", line 142, in test_relocated_package_indexes_searches_and_replays_without_duplicates
+  File "D:\a\ruankao_doubao\ruankao_doubao\tests\unit\test_bootstrap_and_offline.py", line 149, in test_relocated_package_indexes_searches_and_replays_without_duplicates
     from tests.unit.test_materials import write_minimal_pdf, MARKER
 ModuleNotFoundError: No module named 'tests'
 
 ----------------------------------------------------------------------
-Ran 94 tests in 0.951s
+Ran 95 tests in 0.990s
 
 FAILED (errors=1, skipped=3)
