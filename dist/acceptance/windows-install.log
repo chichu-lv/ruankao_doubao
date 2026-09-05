@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "python": "D:\\a\\ruankao_doubao\\ruankao_doubao\\.runtime\\python\\python.exe",
+  "python_version": "3.12.10",
+  "runtime_source": "existing_project_venv",
+  "installer": "bundled_windows_wheels"
+}
