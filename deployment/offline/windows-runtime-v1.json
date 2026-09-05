@@ -1,0 +1,15 @@
+{
+  "platform": "windows-amd64",
+  "python_version": "3.12.10",
+  "python_url": "https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-amd64.zip",
+  "wheels": [
+    {"package": "pdfplumber", "version": "0.11.9", "filename": "pdfplumber-0.11.9-py3-none-any.whl"},
+    {"package": "pdfminer.six", "version": "20251230", "filename": "pdfminer_six-20251230-py3-none-any.whl"},
+    {"package": "charset-normalizer", "version": "3.5.1", "filename": "charset_normalizer-3.5.1-cp312-cp312-win_amd64.whl"},
+    {"package": "cryptography", "version": "50.0.1", "filename": "cryptography-50.0.1-cp311-abi3-win_amd64.whl"},
+    {"package": "cffi", "version": "2.1.1", "filename": "cffi-2.1.1-cp312-cp312-win_amd64.whl"},
+    {"package": "pillow", "version": "12.3.0", "filename": "pillow-12.3.0-cp312-cp312-win_amd64.whl"},
+    {"package": "pycparser", "version": "3.0", "filename": "pycparser-3.0-py3-none-any.whl"},
+    {"package": "pypdfium2", "version": "5.13.0", "filename": "pypdfium2-5.13.0-py3-none-win_amd64.whl"}
+  ]
+}

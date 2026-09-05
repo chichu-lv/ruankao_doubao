@@ -56,10 +56,11 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 
 ### 3. BUILD
 
-- 在仓库根目录运行 `python3 scripts/bootstrap_local.py`。此入口保持兼容系统 Python 3.9，并自动发现 Python 3.11+；没有兼容解释器但已有 `uv` 时，只在仓库私有 `.runtime/` 和 `.venv/` 中配置 Python 3.12 与依赖。
+- Windows 10/11 x64：在仓库根目录先运行 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/download_windows_runtime.ps1`，从 Python 官方与 PyPI 获取项目私有运行环境，再运行 `scripts\start_windows.cmd`；无需先安装系统 Python、pip 或 uv。需要能访问上述官方源；已有完整离线包时跳过下载。PowerShell 参数只用于这一次脚本进程，不修改系统执行策略。
+- Mac/Linux：在仓库根目录运行 `python3 scripts/bootstrap_local.py`。此入口保持兼容系统 Python 3.9，并自动发现 Python 3.11+；没有兼容解释器但已有 `uv` 时，只在仓库私有 `.runtime/` 和 `.venv/` 中配置 Python 3.12 与依赖。
 - 该命令必须生成 `dist/bootstrap/local-bootstrap-result.json`、`dist/doubao-skills/build-manifest.json` 和九个同名目录结构的 ZIP。
 - 只有专项测试通过、九个哈希齐全且没有未解析占位符时才继续。
-- 若既没有 Python 3.11+ 也没有 `uv`，明确报告一个通过官方来源安装 Python 3.12 或 `uv` 的用户动作；不得修改系统 Python，不得伪造 ZIP 或 PASS。
+- 非 Windows 路径若既没有 Python 3.11+ 也没有 `uv`，明确报告一个通过官方来源安装 Python 3.12 或 `uv` 的用户动作；不得修改系统 Python，不得伪造 ZIP 或 PASS。
 - `phase2_healthcheck.py` 的 `PARTIAL` 表示本地 OCR/ASR 能力不完整但官方界面人工页码/时间点兜底仍可用，不得把该状态改写为 PASS。
 
 ### 4. CREATE_PRIVATE_PROJECT

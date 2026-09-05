@@ -25,7 +25,7 @@ https://github.com/chichu-lv/ruankao_doubao.git
 正式安装会：
 
 1. 校验 `main`、`VERSION`、必需文件和敏感信息边界；
-2. 运行 `python3 scripts/bootstrap_local.py`，自动发现或创建 Python 3.11+ 私有环境、安装依赖并构建九个私有豆包技能包；
+2. Windows 先运行 `scripts/download_windows_runtime.ps1` 获取项目私有环境，再运行 `scripts\start_windows.cmd`；Mac/Linux 运行 `python3 scripts/bootstrap_local.py`。安装依赖并构建九个私有豆包技能包；完整离线包不需要下载运行环境；
 3. 新建私有项目 `架构上岸教练`，不复用或修改已有项目；
 4. 绑定 `deployment/doubao/system-instructions-v1.md`；
 5. 按 `schemas/feishu-bitable-v1.json` 连接或初始化私有 `ArchitectPass State v1`；

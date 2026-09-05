@@ -92,6 +92,13 @@ class OfflineBundleTests(unittest.TestCase):
 
 
 class BootstrapContractTests(unittest.TestCase):
+    def test_windows_download_contract_pins_the_complete_wheelhouse(self):
+        manifest = json.loads((ROOT / "deployment/offline/windows-runtime-v1.json").read_text(encoding="utf-8"))
+        self.assertEqual(8, len(manifest["wheels"]))
+        self.assertEqual(8, len({item["filename"] for item in manifest["wheels"]}))
+        self.assertTrue(manifest["python_url"].startswith("https://www.python.org/"))
+        self.assertTrue(all(item["filename"].endswith(("win_amd64.whl", "none-any.whl")) for item in manifest["wheels"]))
+
     def test_new_user_bootstrap_requires_verified_idempotent_live_writes(self):
         protocol = (ROOT / "deployment/feishu/write-protocol-v1.md").read_text(encoding="utf-8")
         self.assertIn("data.fields", protocol)
