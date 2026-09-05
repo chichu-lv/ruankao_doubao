@@ -2,6 +2,10 @@
   "schema_version": 1,
   "visibility": "private_only",
   "package_format": "zip_with_named_skill_directory",
+  "preferred_installation": "official_workspace_user_skills_folders",
+  "folder_install_protocol": "deployment/doubao/folder-skills-v1.md",
+  "folder_installer": "scripts/install_doubao_folder_skills.py",
+  "discovery_requires_live_verification": true,
   "release_contract": {
     "minimum_verified_client": "Doubao macOS 2.27.11",
     "revalidate_current_ui": true,

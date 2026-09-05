@@ -57,6 +57,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 - 非 Windows 也可从官方 `https://github.com/chichu-lv/ruankao_doubao/archive/refs/heads/main.zip` 下载解压，无需 Git；记录来源 URL、main、实际版本和获取时间，提交 ID 未取得则保持未知。Mac/Linux 环境准备仍按 BUILD，未宣称具备本次 Windows 的无 Python 下载器。
 - 把实际解压项目根目录作为代码 allowlist。源码 ZIP 没有 `.git` 是正常状态，不运行 git status/branch 等检查。若用户明确选择既有 Git 克隆，再只读检查 main 和改动，发现脏工作树不覆盖。
 - GitHub 无法访问时报告网络问题并提供完整离线包入口，不把公开仓库下载失败误诊为“需要 GitHub 登录”。
+- 请求失败先逐字比较工具实际使用的 URL 与用户原始链接，不能把自己拼错仓库名归因给用户。Mac 源码 ZIP 优先用 Python 标准库 `zipfile` 解压到新目录，避免系统 unzip 的中文文件名问题；不要先删除旧目录再尝试，使用新目录重试并保留失败证据。
 
 ### 2. VERIFY
 
@@ -78,14 +79,18 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 
 ### 4. CREATE_PRIVATE_PROJECT
 
+- 先读 `folder-skills-v1.md`。核心持久入口是本次私有本机工作区及技能中的安装绑定，侧边栏项目与原生工作伙伴必须分别记状态，不混称。自身 UI 不可操作时可以继续文件夹安装和状态连接，不必阻塞在创建侧边栏容器；只有后续无路径新会话恢复实测通过，才可将其记为等价持久入口。
 - 首次创建新的、仅用户本人可见的豆包项目，名称取 `deployment/doubao/project-v1.json` 的 `target_project`。恢复时先核对用户确认属于本次部署的已创建项目，不重复创建。
 - 不复用、不删除、不重命名无关既有项目；特别保护清单中的 `preserve_projects`。
 - 当前账号没有独立私有工作伙伴入口时，以该私有 Project 作为等价持久容器并如实记录。
 - 已实测入口为桌面新工作任务页的「项目 → 创建新项目」。当前豆包无法操作自身菜单时，报告 `NEEDS_USER_UI`，请用户完成这一个动作并核对结果。禁止改用豆包网页或虚拟桌面创建项目、登录或启动第二个豆包会话；不使用客户端内部存储伪造项目。入口变化时请用户提供当前界面。
+- 需要用户创建侧边栏项目时只让其填名称并用「添加本地文件夹」选择本次实际根目录。当前 Mac 窗口没有可见性/指令/单独上下文上传字段，不能要求用户找这些不存在的选项。未创建侧边栏项目时明确标注，不能声称原生项目创建成功。
 
 ### 5. INSTALL_SKILLS
 
-- 从 `dist/doubao-skills/` 安装 `skills-v1.json` 列出的九个 ZIP，保持私有。
+- **优先执行 `folder-skills-v1.md` 的官方文件夹方式**：读取当前豆包「创建技能」指南，解析活跃的 `workspace/.user_skills`，由豆包运行 `scripts/install_doubao_folder_skills.py` 一次安装九个精确技能目录及本机绑定。不是修改客户端数据库，也不把文件就位误称为账号云端安装。
+- 安装器输出 `FILES_READY_DISCOVERY_UNVERIFIED` 时继续实际发现与调用验证，不能直接报告 READY。新本地任务不提供路径而能加载主控绑定、读取系统指令及真实状态后才算跨会话入口通过。
+- 只有当前官方文件夹机制不可用时，才从 `dist/doubao-skills/` 导入 `skills-v1.json` 列出的九个 ZIP，保持私有。实际手工入口是「技能 · 连接器 → 新建 → 上传技能 → 选择文件」，逐个导入属于用户辅助路径而非初始提示词＋授权通过。
 - 每个技能必须显示 READY/启用，名称和版本与清单一致；安全检测未完成的技能不能算 PASS。
 - 自身技能界面不可操作时，请用户在桌面个人技能中导入已生成的本机 ZIP，再回读；不转到虚拟桌面或另一个豆包。中断恢复时同内容且已启用的技能可复用，不重复安装。
 - 不覆盖同名旧版本。升级时并行安装新版本、验证、切换；回滚时禁用新版本并重新启用旧版本。
@@ -93,6 +98,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 
 ### 6. ATTACH_BASELINE
 
+- 文件夹安装方式由每个技能的 `references/installation.json` 绑定真实项目根目录，技能先读该目录的系统指令与当前状态绑定；不需要用户另找项目指令字段。回读文件绑定并在新会话实际验证；不能仅靠当前聊天记忆。
 - 将 `system-instructions-v1.md` 作为项目控制基线。
 - 有持久项目指令字段时写入并回读；没有时仅在真实支持附加私有项目文件的入口绑定。若两者都没有，把系统指令和当前 Base 配置保存在本机，并交付带项目路径的恢复提示词；不得把首条聊天说明称为项目级持久绑定。
 - 新会话必须实际读取上述文件并回读在线检查点。桌面选择「本地电脑」无法由豆包自身操作时，说明最短补充动作「桌面新工作任务 → 本地电脑 → 选择项目 → 粘贴恢复提示词」，记录为用户辅助路径，不宣称完全无人操作。

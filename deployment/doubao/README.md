@@ -2,6 +2,8 @@
 
 This directory is the production install source. Its skill package contract is a ZIP containing one same-name top-level skill directory, with `SKILL.md` inside that directory. The current Doubao UI must still be checked before installation.
 
+Prefer the current official folder workflow in `folder-skills-v1.md`: resolve the active `workspace/.user_skills` from Doubao's own skill-creator instructions, then run `scripts/install_doubao_folder_skills.py` for the nine named folders and per-skill local binding. ZIP upload below is a fallback, not a mandatory nine-step user task. Files on disk do not prove account installation or discovery; verify in a fresh local task. A native sidebar project is separate from this persistent local workspace and must not be claimed created when absent.
+
 Read `execution-context-v1.md` first. The current Doubao is the installer, not an external Codex developer. Confirm a real local-computer target before installation. Never open a second Doubao session or log into Doubao in a virtual desktop as a fallback. If self-UI control is unavailable, request the exact user click and verify it; preserve completed deployment steps on recovery. This is not a verified zero-assistance installation promise.
 
 The delivery path is a public repository link plus the root-README prompt. Prefer an anonymous main source ZIP, not Git installation. On Windows, `scripts/install_public_windows.ps1 -FetchOnly` retrieves the source without Git, Python, SSH or a GitHub account; read the baselines, then resume the same entry without FetchOnly to provision the local runtime. Doubao must follow `bootstrap-v1.md`. No prior project, skill or development artifact is a prerequisite.
@@ -16,13 +18,15 @@ If GitHub or Baidu Netdisk may be unavailable later, build the private local arc
 
 ## Safe install
 
+The following is the manual fallback only. Current Mac project dialogs expose name and local-folder attachment, not a privacy selector, instruction field or separate project-context upload. Folder-installed skills load system instructions through their installation binding. Do not ask users to locate nonexistent settings.
+
 1. Open Doubao `技能 · 连接器 · 伙伴` → personal skills → import local skill.
 2. Select one versioned ZIP. The archive member must be `<skill-name>/SKILL.md`; keep visibility private and do not publish.
 3. Verify the imported name ends in `-v1`, remains enabled and does not replace any earlier skill.
 4. Invoke an inert validation prompt that asks only for the skill name, version and safety boundary. Do not use real course, Cheko or company data in install validation.
 5. Repeat for all nine packages and record visible evidence.
 6. Bind the skills to the isolated private project `架构上岸教练`. Do not modify or reuse the older `系统架构设计师 AI Tutor` project or its `pass_ai` workspace.
-7. Install the rendered system instructions. If the project surface has no persistent instruction field, attach the file as private project context and record the limitation truthfully.
+7. Bind system instructions through the per-skill local installation binding. Use native instruction/file fields only if actually present; otherwise do not invent them or present a chat attachment as persistent project configuration.
 
 Resolve the project root from the actual source ZIP directory (or existing main checkout). Source ZIPs have no .git and must not be subjected to Git working-tree checks. Verify the exact child folder before binding; never select a parent. If project-level file binding is unavailable, use the local configuration and directory-based recovery prompt, not a claim that chat history is persistent project configuration.
 
@@ -39,4 +43,4 @@ Daily and weekly prompt templates are read-only. Saturday 20:00 Asia/Shanghai is
 
 ## Platform fallback
 
-If the current account has no private custom-partner entry, use a new isolated private Doubao Project named `架构上岸教练`. If it has no persistent project-instruction field, attach `system-instructions-v1.md` as private project context and explicitly adopt it in the initialization message. Report either limitation truthfully.
+If native partner/project controls are unavailable, retain the isolated local workspace and folder-skill binding. Verify actual new-task recovery before accepting it as an equivalent persistent entry. Report native objects as absent; never replace missing project fields with a false claim about chat persistence.
