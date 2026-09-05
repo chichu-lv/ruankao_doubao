@@ -76,7 +76,11 @@ def main() -> int:
         run([system_root + r"\System32\cmd.exe", "/c", str(project / "scripts/start_windows.cmd"), "--prepare-only"])
         run([interpreter, "-X", "utf8", "scripts/prepare_offline_materials.py"])
         final = json.loads(run([interpreter, "-X", "utf8", "scripts/prepare_offline_materials.py", "--search", MARKER]).stdout)
-        assert str(relocated) in final["results"][0]["open_target"]
+        restored_source = Path(final["results"][0]["open_target"].rsplit("#page=", 1)[0])
+        # Windows temp roots may use an 8.3 alias (RUNNER~1) while index anchors
+        # contain the canonical long path. Compare resolved paths, not strings.
+        assert restored_source.resolve().is_relative_to(relocated.resolve())
+        assert restored_source.is_file()
         result = {"status": "PASS", "platform": sys.platform, "python": sys.version,
                   "bootstrap": report, "checks": ["no_git", "no_python_on_path", "offline_bundled_dependencies",
                   "chinese_and_space_paths", "six_healthchecks", "pdf_index_and_search", "repeat_install", "relocated_restart"]}
