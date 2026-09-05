@@ -45,11 +45,13 @@ def main() -> int:
             records.append({"path": relative, "size_bytes": pdf.stat().st_size,
                             "sha256": hashlib.sha256(pdf.read_bytes()).hexdigest()})
         (bundle / "offline-manifest.json").write_text(json.dumps({"materials": records, "authorized_roots": roots}), encoding="utf-8")
+        # os.environ is case-insensitive on Windows; the plain subprocess dict is not.
+        system_root = os.environ["SystemRoot"]
         environment = {**os.environ, "PYTHONUTF8": "1", "PIP_NO_INDEX": "1",
                        "HTTP_PROXY": "http://127.0.0.1:1", "HTTPS_PROXY": "http://127.0.0.1:1"}
         # Keep only Windows built-ins: no preinstalled Python, Git, uv, or PDF tools.
-        environment["PATH"] = os.pathsep.join([os.environ["SystemRoot"], os.environ["SystemRoot"] + r"\System32",
-                                              os.environ["SystemRoot"] + r"\System32\WindowsPowerShell\v1.0"])
+        environment["PATH"] = os.pathsep.join([system_root, system_root + r"\System32",
+                                              system_root + r"\System32\WindowsPowerShell\v1.0"])
 
         def run(command):
             result = subprocess.run(command, cwd=project, env=environment, text=True, encoding="utf-8", capture_output=True)
@@ -59,7 +61,7 @@ def main() -> int:
                 raise RuntimeError(f"command failed ({result.returncode}): {command}")
             return result
 
-        run([environment["SystemRoot"] + r"\System32\cmd.exe", "/c", str(project / "scripts/start_windows.cmd")])
+        run([system_root + r"\System32\cmd.exe", "/c", str(project / "scripts/start_windows.cmd")])
         report = json.loads((project / "dist/bootstrap/local-bootstrap-result.json").read_text(encoding="utf-8"))
         assert report["status"] in {"PASS", "PARTIAL"} and report["installer"] == "bundled_windows_wheels"
         interpreter = str(project / ".runtime/python/python.exe")
@@ -71,7 +73,7 @@ def main() -> int:
         shutil.move(str(bundle), relocated)
         project = relocated / "project"
         interpreter = str(project / ".runtime/python/python.exe")
-        run([environment["SystemRoot"] + r"\System32\cmd.exe", "/c", str(project / "scripts/start_windows.cmd"), "--prepare-only"])
+        run([system_root + r"\System32\cmd.exe", "/c", str(project / "scripts/start_windows.cmd"), "--prepare-only"])
         run([interpreter, "-X", "utf8", "scripts/prepare_offline_materials.py"])
         final = json.loads(run([interpreter, "-X", "utf8", "scripts/prepare_offline_materials.py", "--search", MARKER]).stdout)
         assert str(relocated) in final["results"][0]["open_target"]
