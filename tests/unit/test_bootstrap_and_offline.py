@@ -92,6 +92,14 @@ class OfflineBundleTests(unittest.TestCase):
 
 
 class BootstrapContractTests(unittest.TestCase):
+    def test_new_user_bootstrap_requires_verified_idempotent_live_writes(self):
+        protocol = (ROOT / "deployment/feishu/write-protocol-v1.md").read_text(encoding="utf-8")
+        self.assertIn("data.fields", protocol)
+        self.assertIn("data.data", protocol)
+        self.assertIn("需新增 0 行", protocol)
+        for name in ("deployment/offline/bootstrap-v1.md", "deployment/doubao/bootstrap-v1.md"):
+            self.assertIn("write-protocol-v1.md", (ROOT / name).read_text(encoding="utf-8"))
+
     def test_windows_vendored_dependencies_are_relocatable_and_repeatable(self):
         spec = importlib.util.spec_from_file_location("bootstrap_local", ROOT / "scripts/bootstrap_local.py")
         module = importlib.util.module_from_spec(spec)

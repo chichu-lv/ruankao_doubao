@@ -7,6 +7,8 @@ description: 架构上岸教练部署与恢复健康检查。首次启动、每�
 
 ## 检查顺序
 
+首先读取当前项目 `dist/deployment/project-state.json`，采用其 `state_base` 与本地资料路径。下述 Base 名只是默认值；不得离开当前测试/正式项目的绑定。压缩包模式无需检查 GitHub 或百度网盘，直接检查已解压资料。
+
 1. 九个 `*-v1` 私有技能是否可见并启用。
 2. 私人飞书 Base `ArchitectPass State v1` 是否可读；仅回读无敏感 canary，不写入。
 3. 本地材料清单/索引是否可读，引用是否含页码或原视频时间戳。

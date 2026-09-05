@@ -22,7 +22,7 @@ def ensure_project_python() -> None:
 
 def main() -> int:
     rendered = subprocess.run(
-        [sys.executable, str(ROOT / "scripts/render_phase6_initialization.py")],
+        [sys.executable, "-X", "utf8", str(ROOT / "scripts/render_phase6_initialization.py")],
         cwd=ROOT,
         check=False,
     )
@@ -45,7 +45,7 @@ def main() -> int:
         ),
     }
     private_result = subprocess.run(
-        [sys.executable, str(ROOT / "scripts/build_phase6_private_segments.py")],
+        [sys.executable, "-X", "utf8", str(ROOT / "scripts/build_phase6_private_segments.py")],
         cwd=ROOT,
         check=False,
     )
@@ -53,7 +53,7 @@ def main() -> int:
     environment = dict(os.environ)
     environment["PYTHONPATH"] = str(ROOT / "backend")
     tests = subprocess.run(
-        [sys.executable, "-m", "unittest", "tests.unit.test_initialization", "-v"],
+        [sys.executable, "-X", "utf8", "-m", "unittest", "tests.unit.test_initialization", "-v"],
         cwd=ROOT,
         env=environment,
         check=False,

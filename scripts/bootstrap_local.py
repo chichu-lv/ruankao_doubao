@@ -222,7 +222,7 @@ def run_healthchecks(interpreter: Path) -> Tuple[str, List[Dict[str, object]]]:
     results: List[Dict[str, object]] = []
     for name in HEALTHCHECKS:
         result = subprocess.run(
-            [str(interpreter), str(ROOT / "scripts" / name)],
+            [str(interpreter), "-X", "utf8", str(ROOT / "scripts" / name)],
             cwd=ROOT,
             capture_output=True,
             text=True,

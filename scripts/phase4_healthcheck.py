@@ -55,7 +55,7 @@ def main() -> int:
     environment = dict(os.environ)
     environment["PYTHONPATH"] = str(ROOT / "backend")
     tests = subprocess.run(
-        [sys.executable, "-m", "unittest", "tests.unit.test_controller", "tests.unit.test_state_service", "-v"],
+        [sys.executable, "-X", "utf8", "-m", "unittest", "tests.unit.test_controller", "tests.unit.test_state_service", "-v"],
         cwd=ROOT,
         env=environment,
         check=False,

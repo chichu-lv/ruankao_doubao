@@ -9,6 +9,8 @@ description: 芝士架构安全练习技能。用户要求创建选择题/真题
 
 输入必须包含 `subject/mode/target/question_count/time_limit_minutes/completion_standard/capture_confidence/navigation_route`。验证允许的可见路由后进入 `AWAITING_HUMAN`；导航失败时给出精确人工路径。
 
+2026-09-05 实测豆包浏览器自动化可能触发 `/anti-hack`「检测到调试窗口」。出现该页面即停止自动读取，不能通过反检测或私有接口绕过；请用户在普通官方界面完成练习，提交后用截图或简表导入。本地 PDF 训练继续，不让此项阻塞项目安装、状态保存或复习。
+
 ## 用户边界
 
 用户本人选答案并提交。在收到明确完成信号与可见已提交结果之前：

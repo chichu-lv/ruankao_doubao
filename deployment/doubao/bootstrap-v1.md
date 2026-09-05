@@ -97,7 +97,7 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 
 - 解析 `deployment/feishu/production-v1.json`，只在用户已授权的飞书账号中按精确名称和 15 表 schema 定位私有 `ArchitectPass State v1`。发布分支不保存 Base URL、对象 ID 或表 ID。
 - 先只读核对 `schemas/feishu-bitable-v1.json` 规定的 15 张表。零匹配时，在用户确认私有目标后按 schema/migration 创建；多匹配时必须让用户选择，禁止按内部 ID 猜测。缺失字段只按迁移链修复，不得盲目覆盖已有数据。
-- 所有写操作必须有 `request_id`、`audit_id` 和写后回读。连接失败时保留待同步事件，不能声称已保存。
+- 先阅读 `deployment/feishu/write-protocol-v1.md`。保存当前项目实际 Base 绑定到 `dist/deployment/project-state.json` 并附入项目上下文；所有写操作必须有稳定 `request_id`、`audit_id` 和写后回读。列表解析失败不是空表，不得盲目重试新增。连接失败时保留待同步事件，不能声称已保存。
 - 运行 `python3 scripts/phase6_healthcheck.py`，读取生成的 `deployment/phase6/initialization-write-plan-v1.json`，按 `request_id` 查重后执行初始化记录；已有用户档案保持原值，不用模板覆盖。新账号学习事件、观看进度、掌握度和复习队列从空开始；历史考试经历与成绩不得作为前置条件。
 - 若本机已有 Phase 2 私有索引，`scripts/build_phase6_private_segments.py` 会在忽略提交的 `dist/phase6-initialization/` 生成页码/时间戳写入计划。其片段只能进入用户私人状态库，不得提交 Git、公开或复制到其他项目。
 - 初始化后以纯只读方式重放全部 request ID；只有业务主键、载荷、哈希、audit ID 全部一致且计数不增长，才算幂等通过。

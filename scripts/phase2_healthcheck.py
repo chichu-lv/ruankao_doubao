@@ -80,7 +80,7 @@ def main() -> int:
         optional.append(False)
     else:
         tests = subprocess.run(
-            [sys.executable, "-m", "unittest", "tests.unit.test_materials", "-v"],
+            [sys.executable, "-X", "utf8", "-m", "unittest", "tests.unit.test_materials", "-v"],
             cwd=ROOT,
             env=environment,
             check=False,

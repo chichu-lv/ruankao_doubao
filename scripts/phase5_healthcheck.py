@@ -31,7 +31,7 @@ def check(condition: bool, label: str) -> bool:
 def main() -> int:
     passed = []
     for script in ("render_doubao_system_instructions.py", "build_doubao_skills.py"):
-        result = subprocess.run([sys.executable, str(ROOT / "scripts" / script)], cwd=ROOT, check=False)
+        result = subprocess.run([sys.executable, "-X", "utf8", str(ROOT / "scripts" / script)], cwd=ROOT, check=False)
         passed.append(check(result.returncode == 0, script))
 
     manifest = json.loads((ROOT / "deployment" / "doubao" / "skills-v1.json").read_text(encoding="utf-8"))
@@ -49,7 +49,7 @@ def main() -> int:
     environment = dict(os.environ)
     environment["PYTHONPATH"] = str(ROOT / "backend")
     tests = subprocess.run(
-        [sys.executable, "-m", "unittest", "tests.unit.test_doubao_skills", "-v"],
+        [sys.executable, "-X", "utf8", "-m", "unittest", "tests.unit.test_doubao_skills", "-v"],
         cwd=ROOT,
         env=environment,
         check=False,

@@ -11,6 +11,8 @@ description: 架构上岸教练主控。用户说“启动今日软考训练”�
 
 ## 固定流程
 
+先读取当前项目 `dist/deployment/project-state.json`，使用其 `state_base` 绑定。下面的 `ArchitectPass State v1` 是默认名称，不覆盖当前项目的已绑定名称；测试 Base 绝不能切换为正式 Base。读取 `deployment/feishu/write-protocol-v1.md` 后再操作状态。
+
 严格执行 `OBSERVE → DIAGNOSE → PLAN → EXECUTE → TEST → UPDATE → SCHEDULE → CHECKPOINT`。
 
 1. OBSERVE：先从私人飞书 Base `ArchitectPass State v1` 读取画像、考试日期、最近 checkpoint、到期复习、7/14/30 日证据、三科比例、模拟成绩、资料进度和未完成任务。读失败则返回 `STATE_READ_FAILED`，只给明确的只读降级路径。
@@ -28,6 +30,8 @@ description: 架构上岸教练主控。用户说“启动今日软考训练”�
 ## 写入协议
 
 每次写入生成唯一 `request_id` 与 `audit_id`；先按 request_id 查询，存在则返回原记录，不重复写。只有回读主键与内容摘要一致才能报告成功。
+
+同一次写入的重试沿用原 ID，并同时按业务主键核对。未识别 CLI 列表结构或解析失败不是零记录；可能需要用 `data.fields` 解析 `data.data` 投影行。先正确回读，再仅补缺失行；批量请求部分成功不能重发整批。
 
 ## 安全边界
 

@@ -49,6 +49,7 @@ def main() -> int:
     process = subprocess.run(
         [
             sys.executable,
+            "-X", "utf8",
             "-m",
             "unittest",
             "tests.unit.test_state_service",
@@ -60,6 +61,7 @@ def main() -> int:
         env={**__import__("os").environ, "PYTHONPATH": str(ROOT / "backend")},
         capture_output=True,
         text=True,
+        encoding="utf-8",
         check=False,
     )
     checks.append(("unit_tests", process.returncode == 0, process.stderr.strip().splitlines()[-1] if process.stderr.strip() else "no output"))

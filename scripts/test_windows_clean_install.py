@@ -5,6 +5,7 @@ Uses tiny generated PDF fixtures; private learning materials never enter CI.
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import shutil
 import subprocess
@@ -41,7 +42,8 @@ def main() -> int:
             pdf = bundle / "private-materials" / relative
             pdf.parent.mkdir(parents=True)
             write_minimal_pdf(pdf)
-            records.append({"path": relative, "size_bytes": pdf.stat().st_size})
+            records.append({"path": relative, "size_bytes": pdf.stat().st_size,
+                            "sha256": hashlib.sha256(pdf.read_bytes()).hexdigest()})
         (bundle / "offline-manifest.json").write_text(json.dumps({"materials": records, "authorized_roots": roots}), encoding="utf-8")
         environment = {**os.environ, "PYTHONUTF8": "1", "PIP_NO_INDEX": "1",
                        "HTTP_PROXY": "http://127.0.0.1:1", "HTTPS_PROXY": "http://127.0.0.1:1"}

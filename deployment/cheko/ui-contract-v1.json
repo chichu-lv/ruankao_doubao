@@ -4,6 +4,7 @@
   "observed_at": "2026-09-04T18:41:27+08:00",
   "privacy": "private_session_metadata_only",
   "selector_type": "accessible_semantics",
+  "blocked_pages": [{"route": "/anti-hack", "marker": "检测到调试窗口", "observed_at": "2026-09-05", "action": "stop_automation_and_use_official_ui_screenshot_or_manual_summary"}],
   "targets": {
     "practice_log": {
       "route": "/test_log?subject=0",

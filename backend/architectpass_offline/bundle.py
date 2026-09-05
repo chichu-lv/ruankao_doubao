@@ -195,10 +195,11 @@ class OfflineBundleBuilder:
 
     def _build_skills(self) -> None:
         result = subprocess.run(
-            [os.fspath(Path(sys.executable)), str(self.root / "scripts/build_doubao_skills.py")],
+            [os.fspath(Path(sys.executable)), "-X", "utf8", str(self.root / "scripts/build_doubao_skills.py")],
             cwd=self.root,
             capture_output=True,
             text=True,
+            encoding="utf-8",
             check=False,
         )
         if result.returncode != 0:
