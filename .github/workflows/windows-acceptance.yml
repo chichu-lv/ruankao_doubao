@@ -4,7 +4,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   windows:
     runs-on: windows-latest
@@ -38,7 +38,7 @@ jobs:
         run: |
           & .runtime/python/python.exe -X utf8 scripts/test_windows_clean_install.py 2>&1 | Tee-Object dist/acceptance/windows-clean.log
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Record acceptance results on test branch
+      - name: Record acceptance outcomes for artifact
         if: always()
         shell: pwsh
         env:
@@ -48,20 +48,9 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force dist/acceptance | Out-Null
           @{source_commit=$env:GITHUB_SHA; run_id=$env:GITHUB_RUN_ID; install=$env:INSTALL_OUTCOME; unit=$env:UNIT_OUTCOME; clean=$env:CLEAN_OUTCOME} | ConvertTo-Json | Set-Content -Encoding utf8 dist/acceptance/windows-outcome.json
-          git config user.name 'ArchitectPass acceptance'
-          git config user.email 'acceptance@users.noreply.github.com'
-          git fetch origin codex/windows-acceptance 2>$null
-          $hasParent = $LASTEXITCODE -eq 0
-          $parent = if ($hasParent) { git rev-parse FETCH_HEAD } else { '' }
-          $env:GIT_INDEX_FILE = Join-Path $env:RUNNER_TEMP 'acceptance-index'
-          git add -f -- dist/acceptance
-          $tree = git write-tree
-          $commit = if ($hasParent) { git commit-tree $tree -p $parent -m "Windows acceptance $env:GITHUB_SHA" } else { git commit-tree $tree -m "Windows acceptance $env:GITHUB_SHA" }
-          git push origin "${commit}:refs/heads/codex/windows-acceptance"
-          exit $LASTEXITCODE
       - name: Test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: windows-acceptance
-          path: dist/acceptance/windows-*.json
+          path: dist/acceptance/windows-*
