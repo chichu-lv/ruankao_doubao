@@ -68,6 +68,7 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 - 创建新的、仅用户本人可见的豆包项目，名称取 `deployment/doubao/project-v1.json` 的 `target_project`。
 - 不复用、不删除、不重命名任何既有项目；特别保护清单中的 `preserve_projects`。
 - 当前账号没有独立私有工作伙伴入口时，以该私有 Project 作为等价持久容器并如实记录。
+- 已实测入口为新工作任务页的「项目 → 创建新项目」。桌面辅助功能仅显示菜单栏时，可通过同账号豆包官方网页创建，并在桌面侧边栏回读验证同步；不使用客户端内部存储伪造项目。网页默认云电脑不等于本地电脑，读取本机仓库和资料前必须在桌面任务确认选择「本地电脑」。
 
 ### 5. INSTALL_SKILLS
 

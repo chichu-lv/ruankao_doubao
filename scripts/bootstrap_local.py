@@ -177,7 +177,7 @@ def install_windows_wheels(runtime: Path, wheelhouse: Path) -> None:
         marker.write_text(json.dumps(names), encoding="utf-8")
     # Relative paths remain valid after moving the complete unpacked directory.
     (runtime / "python312._pth").write_text(
-        "python312.zip\n.\nLib/site-packages\n../../backend\n../..\nimport site\n", encoding="utf-8"
+        "python312.zip\n.\nLib/site-packages\n../../backend\n../../\nimport site\n", encoding="utf-8"
     )
 
 

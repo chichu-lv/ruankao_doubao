@@ -122,6 +122,8 @@ class BootstrapContractTests(unittest.TestCase):
             self.assertEqual("VALUE = 42\n", (runtime / "Lib/site-packages/fixture/__init__.py").read_text())
             paths = (runtime / "python312._pth").read_text()
             self.assertIn("../../backend", paths)
+            self.assertIn("../../", paths.splitlines())
+            self.assertNotIn("../..", paths.splitlines())
             self.assertNotIn(directory, paths)
 
     def test_readme_uses_the_python39_compatible_bootstrap_entry(self) -> None:
