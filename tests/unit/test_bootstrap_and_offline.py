@@ -5,6 +5,8 @@ import unittest
 import zipfile
 import shutil
 import hashlib
+from unittest import mock
+from types import SimpleNamespace
 from pathlib import Path
 
 from architectpass_offline import BundleError, OfflineBundleBuilder
@@ -92,6 +94,21 @@ class OfflineBundleTests(unittest.TestCase):
 
 
 class BootstrapContractTests(unittest.TestCase):
+    def test_private_pip_is_seeded_offline_only_when_missing(self):
+        spec = importlib.util.spec_from_file_location("bootstrap_local_pip", ROOT / "scripts/bootstrap_local.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        interpreter = ROOT / ".venv/bin/python3"
+        with mock.patch.object(module.subprocess, "run", return_value=SimpleNamespace(returncode=0)) as run:
+            module.ensure_private_pip(interpreter)
+            self.assertEqual(1, run.call_count)
+        with mock.patch.object(module.subprocess, "run", side_effect=[SimpleNamespace(returncode=1), SimpleNamespace(returncode=0)]) as run:
+            module.ensure_private_pip(interpreter)
+            self.assertEqual([str(interpreter), "-m", "ensurepip", "--upgrade"], run.call_args_list[1].args[0])
+        with mock.patch.object(module.subprocess, "run", return_value=SimpleNamespace(returncode=1)):
+            with self.assertRaisesRegex(module.BootstrapError, "no system Python was modified"):
+                module.ensure_private_pip(interpreter)
+
     def test_public_windows_source_entry_needs_no_git_or_python(self):
         launcher = (ROOT / "scripts/install_public_windows.ps1").read_text(encoding="utf-8")
         self.assertIn("https://codeload.github.com/chichu-lv/ruankao_doubao/zip/refs/heads/main", launcher)

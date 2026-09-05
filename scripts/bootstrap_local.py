@@ -181,6 +181,16 @@ def install_windows_wheels(runtime: Path, wheelhouse: Path) -> None:
     )
 
 
+def ensure_private_pip(interpreter: Path) -> None:
+    """uv-created virtual environments may not include pip; seed it locally."""
+    probe = subprocess.run([str(interpreter), "-c", "import pip"], cwd=ROOT, capture_output=True, check=False)
+    if probe.returncode == 0:
+        return
+    seeded = subprocess.run([str(interpreter), "-m", "ensurepip", "--upgrade"], cwd=ROOT, check=False)
+    if seeded.returncode != 0:
+        raise BootstrapError("pip is absent and ensurepip could not seed it in the private .venv; no system Python was modified")
+
+
 def install_project(interpreter: Path, offline: bool) -> str:
     if os.name == "nt" and interpreter == RUNTIME_ROOT / "python/python.exe":
         install_windows_wheels(interpreter.parent, ROOT / "vendor/wheels-windows")
@@ -190,6 +200,7 @@ def install_project(interpreter: Path, offline: bool) -> str:
     if offline:
         if not wheelhouse.is_dir():
             raise BootstrapError("offline dependency wheelhouse is absent from this package")
+        ensure_private_pip(interpreter)
         base = [str(interpreter), "-m", "pip", "install", "--no-index", "--find-links", str(wheelhouse)]
         for command in (base + ["setuptools", "wheel"], base + ["--no-build-isolation", "--editable", str(ROOT)]):
             result = subprocess.run(command, cwd=ROOT, check=False)
