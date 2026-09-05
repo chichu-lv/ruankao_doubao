@@ -73,3 +73,11 @@ class FolderSkillInstallTests(unittest.TestCase):
         self.assertIn("FILES_READY_DISCOVERY_UNVERIFIED", guide)
         self.assertIn("界面消失不等于文件夹源已消失", guide)
         self.assertIn("没有可见性选项", guide)
+
+    def test_first_install_never_searches_home_for_developer_history(self):
+        readme = (ROOT / "README.md").read_text()
+        self.assertIn("未明确要求恢复时，按首次安装", readme)
+        self.assertIn("不要扫描主目录", readme)
+        context = (ROOT / "deployment/doubao/execution-context-v1.md").read_text()
+        self.assertIn("首次安装不等于全盘找旧项目", context)
+        self.assertIn("不存在恢复授权不能被解释", context)

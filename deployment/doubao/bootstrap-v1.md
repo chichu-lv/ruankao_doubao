@@ -45,6 +45,7 @@ FETCH → VERIFY → BUILD → CREATE_PRIVATE_PROJECT → INSTALL_SKILLS
 ### 1. FETCH
 
 - 仅获取用户给出的这个仓库，不搜索或修改其他项目。
+- 用户未明确要求恢复时视为首次安装：直接下载到独立的新安装目录，不查找历史 Codex 仓库或旧交付包。已有状态核对仅限本次目标目录里的回执/绑定及官方九技能的安装绑定；不能先全盘/主目录搜索“架构上岸”或“ArchitectPass”再读取结果。用户给了恢复路径时也只核对该精确路径。
 - Windows 由豆包执行以下 PowerShell，先匿名获取启动脚本，再下载 main 源码 ZIP；不要要求用户手输命令、安装 Git、配置 SSH 或注册 GitHub。用户另选目录时为最后一行附加 `-Destination "实际独立目录"`；默认 `%LOCALAPPDATA%\ArchitectPass`。如果该目录已有未知文件，保留原目录，使用新的带后缀目录，不覆盖、不要求用户先清空。
 
 ```powershell
