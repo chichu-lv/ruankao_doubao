@@ -57,3 +57,9 @@ class DownloadedMaterialsTests(unittest.TestCase):
         bootstrap = (ROOT / "deployment/doubao/bootstrap-v1.md").read_text()
         self.assertIn("prepare_downloaded_materials.py", bootstrap)
         self.assertIn("不以这次人工创建为前置条件", bootstrap)
+
+    def test_local_course_bootstrap_does_not_depend_on_netdisk_tool_discovery(self):
+        for filename in ("deployment/doubao/bootstrap-v1.md", "skills/doubao/ruankao-materials-v1/SKILL.md", "skills/doubao/ruankao-healthcheck-v1/SKILL.md"):
+            text = (ROOT / filename).read_text()
+            self.assertIn("DEFERRED_NOT_REQUIRED_FOR_LOCAL_STUDY", text)
+        self.assertIn("不要检索或调用百度网盘连接器", (ROOT / "README.md").read_text())

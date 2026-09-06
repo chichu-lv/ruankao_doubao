@@ -5,6 +5,10 @@ description: 私有软考资料检索与进度技能。用户要求查 PDF 页�
 
 # Ruankao Materials v1
 
+## 本地优先
+
+本次授权本地课程已可读时，直接从真实索引读取或增量处理学习文件，不检索/调用百度网盘连接器，不为证明远端登录重复建立工具会话。远端状态为 `DEFERRED_NOT_REQUIRED_FOR_LOCAL_STUDY`，不是 PASS；只在缺少当前具体学习文件时处理网盘下载。资料和状态层的独立步骤继续，不因远端待核验阻塞本地训练。
+
 同一连接器工具最多检索两次；取得 schema 不等于执行读取。仍不能调用时报告 CONNECTOR_NOT_CALLABLE，停止循环，使用本次绑定的本地资料。已下载的两个授权课程可用项目脚本 `scripts/prepare_downloaded_materials.py` 建立/查询 `materials/index/downloaded-catalog.json`，不能扫描其它下载内容或继承旧学习状态。
 
 ## 授权范围

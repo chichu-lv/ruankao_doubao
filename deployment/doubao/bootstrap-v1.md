@@ -108,6 +108,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 
 ### 7. CONNECT_PRIVATE_MATERIALS
 
+- **本地可用资料优先，且不依赖网盘连接器。** BUILD 完成后先检查两个精确本地授权目录并建立新索引；两个目录可读时跳过全部网盘工具检索/调用，直接继续 CONNECT_STATE，将远端记为 `DEFERRED_NOT_REQUIRED_FOR_LOCAL_STUDY`。这不是远端 PASS，也不需要用户再次授权才能继续其它安装步骤。后续学习确实缺文件时才处理具体文件下载，不能为了补齐远端健康项让初次安装陷入工具发现循环。
+
 - 遵守 `execution-context-v1.md` 的有限重试规则：同一网盘能力最多检索两次，仍无法真正调用即记录 `CONNECTOR_NOT_CALLABLE`，继续本地资料与状态层，不能反复取回 schema 冒充目录读取。
 - 先只读核对本次 `materials/inbox/`，以及当前用户 Downloads 下**以下两个精确命名的子目录**（不列举 Downloads 根、不搜索历史安装）。若两个已下载目录存在，由豆包运行 `<项目私有 Python> scripts/prepare_downloaded_materials.py --source-parent "<当前用户 Downloads>"`；或使用用户明确指定的资料父目录。该入口只遍历两个授权子目录，复用原始课程、在新项目里建立首批页级索引，不复制用户旧索引/学习状态，也不将本地可读记作网盘远端已验证。
 - 用 `scripts/prepare_downloaded_materials.py --search "系统架构"` 验证新索引返回具体文件和页码。已有本地资料时，远端连接暂不可用不得阻止本地训练；缺资料则继续后述官方客户端/浏览器获取，不伪造内容。
