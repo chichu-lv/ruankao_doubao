@@ -141,6 +141,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File $apLauncher -FetchOnly
 ### 10. HEALTHCHECK
 
 - 在新项目中显式调用 `ruankao-healthcheck-v1`。
+- 先运行只读 `scripts/runtime_health_snapshot.py`，用真实计数区分已登记/已索引/待 OCR/未验证转写；复核口头结论与新索引一致。任一授权课程已出现在新索引来源中，就不能继续报告该课程“本地未下载”。未打开的登录页只能记待核验，不能猜为未登录。
 - 只读核对九技能、Feishu 状态、两个授权百度网盘目录、资料索引、浏览器/Baidu 精确兜底、Cheko 登录/允许路由和定时任务。
 - 不打开练习题、不读取题目/答案、不提交答案，不以聊天记忆替代状态。
 - 输出每项 `PASS/PARTIAL/FAIL`、证据、限制和精确降级路径；重新计算汇总，不能直接复制不一致的计数。

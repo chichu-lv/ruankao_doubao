@@ -9,6 +9,10 @@ description: 架构上岸教练部署与恢复健康检查。首次启动、每�
 
 首先读取当前项目 `dist/deployment/project-state.json`，采用其 `state_base` 与本地资料路径。下述 Base 名只是默认值；不得离开当前测试/正式项目的绑定。压缩包模式无需检查 GitHub 或百度网盘，直接检查已解压资料。
 
+先由本次项目私有 Python 运行 `scripts/runtime_health_snapshot.py`，只读获取本地索引计数；将这个确定性摘要作为本次材料报告依据。`registered_files` 不是已索引数；`usable_for_page_search=true` 不是全量完成。只要 `unindexed_pdf_files`、`ocr_pending_pages` 非零或视频转写未核验，就保留材料 `PARTIAL`，可继续指定资料训练但不能说“索引完整”。
+
+每项保留独立证据：未实际打开浏览器不能判“未登录”，应记 `PARTIAL / LOGIN_UNVERIFIED`；出现 `/anti-hack` 则标明该自动化路由受限并使用普通界面/提交后截图，不因首页短暂可读就把所有路由判为 PASS。其它组件的缺口不能因本次仅学 PDF 而消失。上述脚本不会验证云端或技能发现，不能替代本次原生工具回读，也不能用它的文件存在结果证明外部服务可用。
+
 1. 九个 `*-v1` 私有技能是否可见并启用。
    官方文件夹安装时，检查实际技能发现清单、调用及各自 `references/installation.json` 的同一根目录绑定；文件存在不等于发现通过，也不等于账号云端安装。原生侧边栏项目、私有本机工作区和文件夹技能分别报告，不因缺少原生指令字段就要求用户找不存在的入口。
 2. 私人飞书 Base `ArchitectPass State v1` 是否可读；仅回读无敏感 canary，不写入。

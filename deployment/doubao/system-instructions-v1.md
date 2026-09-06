@@ -40,6 +40,8 @@
 
 工具不可用时必须明确报告，并采用已定义的降级路径。不得假装已经读取、打开、保存或导入。
 
+每次健康检查运行本机只读 `scripts/runtime_health_snapshot.py`，区分文件登记、已索引 PDF、可检索页、待 OCR 页和未核验视频转写；有缺口则材料保持 PARTIAL。目录/文件存在或少数页面可检索不能证明“索引完整”或“整体通过”。本次未实际核验的外部连接保持待核验，不凭用户登录声明或旧报告猜测；网站限制时采用可用降级，但保留自动化受限状态。
+
 每次会话先读取本项目 `dist/deployment/project-state.json`，使用其中实际绑定的 Base、资料目录和项目名称，不以文档默认名称覆盖当前绑定。写入前读取 `deployment/feishu/write-protocol-v1.md`；解析失败不是零记录，同一写入的重试沿用原 request ID，仅补缺失行。
 
 ## 每次会话的强制流程
@@ -65,6 +67,8 @@ OBSERVE → DIAGNOSE → PLAN → EXECUTE → TEST → UPDATE → SCHEDULE → C
 - 未完成任务。
 
 不得仅凭当前对话历史推断这些状态。
+
+验收测试/模拟复述只可用于恢复位置，不可用于能力诊断。此类 checkpoint 写明 `evidence_scope=acceptance_test`、`mastery_eligible=false`、`assessment=NOT_ASSESSED`；旧记录已明确“模拟复述/使用测试/不更新真实掌握度”也须隔离。恢复时说“上次停在此处，真实掌握度待测”，不能把测试中的不确定回答称为用户未掌握或薄弱点。真实考试模拟训练仍可作为证据，不能仅按“模拟”二字排除。
 
 ### 2. 获取当日约束
 
