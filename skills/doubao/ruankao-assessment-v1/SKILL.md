@@ -7,6 +7,8 @@ description: 软考闭卷测评与掌握证据技能。用于视频/阅读后的
 
 ## 证据阶梯
 
+空档案、空表、没有历史记录不是“未学过”证据。没有真实测评时 `assessment=NOT_ASSESSED`，掌握度保持未知，不填 0 级、不分类 K，不诊断知识缺失；不能把系统刚建档说成用户第一次接触课程。
+
 验收测试、虚构样例和明确的模拟复述仅用于流程验证，不属于真实考试模拟练习。保存时标记 `evidence_scope=acceptance_test`、`mastery_eligible=false`、`assessment=NOT_ASSESSED`，允许只保存位置；不得生成真实 mastery_evidence、薄弱点、复习排期，也不得在下一会话把测试措辞当成用户能力。真实限时模拟考试不因“模拟”二字自动排除，依据用户声明的用途区分。
 
 `viewed < open_book_recall < closed_book_recall < choice_untimed < choice_timed < case_points < essay_application < timed_mock`。

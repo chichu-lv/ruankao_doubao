@@ -1,6 +1,7 @@
 import importlib.util
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -49,3 +50,27 @@ class RuntimeHealthSnapshotTests(unittest.TestCase):
             self.assertIn("mastery_eligible=false", text)
             self.assertIn("NOT_ASSESSED", text)
         self.assertIn("runtime_health_snapshot.py", (ROOT / "skills/doubao/ruankao-healthcheck-v1/SKILL.md").read_text())
+
+    def test_checked_at_is_current_clock_with_explicit_timezone(self):
+        before = datetime.now(timezone.utc).replace(microsecond=0)
+        with tempfile.TemporaryDirectory() as directory:
+            result = module.snapshot(Path(directory))
+        checked = datetime.fromisoformat(result["checked_at"])
+        self.assertIsNotNone(checked.utcoffset())
+        self.assertGreaterEqual(checked, before)
+        self.assertLessEqual(checked, datetime.now(timezone.utc))
+        health = (ROOT / "skills/doubao/ruankao-healthcheck-v1/SKILL.md").read_text()
+        self.assertIn("checked_at", health)
+        self.assertIn("不得手写", health)
+
+    def test_empty_profile_is_unassessed_not_knowledge_deficit(self):
+        for filename in ("deployment/doubao/system-instructions-v1.md", "skills/doubao/ruankao-controller-v1/SKILL.md", "skills/doubao/ruankao-assessment-v1/SKILL.md"):
+            rules = (ROOT / filename).read_text()
+            self.assertIn("空档案", rules)
+            self.assertIn("不填 0 级", rules)
+            self.assertIn("NOT_ASSESSED", rules)
+
+    def test_material_filename_is_not_segment_content_evidence(self):
+        rules = (ROOT / "skills/doubao/ruankao-materials-v1/SKILL.md").read_text()
+        self.assertIn("视频文件名和总时长不能证明", rules)
+        self.assertIn("不写已观看进度", rules)

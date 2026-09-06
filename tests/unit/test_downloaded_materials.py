@@ -63,3 +63,9 @@ class DownloadedMaterialsTests(unittest.TestCase):
             text = (ROOT / filename).read_text()
             self.assertIn("DEFERRED_NOT_REQUIRED_FOR_LOCAL_STUDY", text)
         self.assertIn("不要检索或调用百度网盘连接器", (ROOT / "README.md").read_text())
+
+    def test_initial_prompt_defers_course_lookup_until_source_and_build(self):
+        readme = (ROOT / "README.md").read_text()
+        self.assertIn("下载源码和 BUILD 完成前不检查课程或 Downloads", readme)
+        self.assertIn("不运行针对 Downloads 根的 ls/find", readme)
+        self.assertIn("deployment/doubao/project-v1.json", readme)

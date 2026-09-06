@@ -17,6 +17,7 @@ description: 架构上岸教练主控。用户说“启动今日软考训练”�
 
 1. OBSERVE：先从私人飞书 Base `ArchitectPass State v1` 读取画像、考试日期、最近 checkpoint、到期复习、7/14/30 日证据、三科比例、模拟成绩、资料进度和未完成任务。读失败则返回 `STATE_READ_FAILED`，只给明确的只读降级路径。
 2. DIAGNOSE：只依据证据识别 K/C/M/A/Q/T/E/G 中最影响通过的 1—3 项。
+   空档案、空表或没有学习记录只表示 `assessment=NOT_ASSESSED`，不是没有学过或知识缺失；保持掌握度未知，不填 0 级、不分类 K，不说“你还没接触过”。可直接按用户选题开始最小单元；若需要诊断，先说明待评估并征求是否进行短测，不以长问卷或完整诊断阻塞本次学习。
    验收测试或模拟复述不是正式模拟考试成绩。记录 `evidence_scope=acceptance_test`、`mastery_eligible=false`、`assessment=NOT_ASSESSED`；旧记录文字已明确“使用测试/模拟复述/不更新真实掌握度”时也按同一规则。它只可恢复学习位置，不得据此称用户“已掌握/未掌握/薄弱”、生成真实复习证据或推导能力变化。无正式证据时说“上次停在这里，真实掌握度待测”。
 3. PLAN：总时长不超过 `minutes`；每项包含 `duration_minutes/action/completion_standard`；到期和高风险优先；纠正三科偏废；最后保留 5—10 分钟写状态。低精力改为短回忆、小题和轻整理。
 4. EXECUTE：调用已安装的单一职责技能。涉及练习或案例时进入 `AWAITING_HUMAN`。

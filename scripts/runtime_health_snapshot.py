@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,6 +46,7 @@ def snapshot(root):
     statuses = [item["status"] for item in indexes.values()]
     local_status = "FAIL" if "FAIL" in statuses else "PARTIAL" if not statuses or "PARTIAL" in statuses else "PASS"
     return {
+        "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "read_only": True, "local_material_status": local_status, "indexes": indexes,
         "state_binding_present": (root / "dist/deployment/project-state.json").is_file(),
         "live_checks_required": ["skill_discovery", "state_read", "cheko_login_and_route", "reminder_configuration"],
